@@ -6,6 +6,7 @@ INSTALLED_ADDONS = [
     'aldryn-django',
     'aldryn-sso',
     'aldryn-devsync',
+    'aldryn-wagtail',
     # </INSTALLED_ADDONS>
 ]
 
