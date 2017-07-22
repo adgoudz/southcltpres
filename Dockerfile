@@ -8,12 +8,6 @@
 FROM aldryn/base-project:py3-3.23
 # </DOCKER_FROM>
 
-# <NPM>
-# </NPM>
-
-# <BOWER>
-# </BOWER>
-
 # <PYTHON>
 ENV PIP_INDEX_URL=${PIP_INDEX_URL:-https://wheels.aldryn.net/v1/aldryn-extras+pypi/${WHEELS_PLATFORM:-aldryn-baseproject-py3}/+simple/} \
     WHEELSPROXY_URL=${WHEELSPROXY_URL:-https://wheels.aldryn.net/v1/aldryn-extras+pypi/${WHEELS_PLATFORM:-aldryn-baseproject-py3}/}
@@ -29,10 +23,7 @@ RUN pip-reqs compile && \
 # <SOURCE>
 COPY . /app
 # </SOURCE>
-
-# <GULP>
-# </GULP>
-
+ª
 # <STATIC>
 RUN DJANGO_MODE=build python manage.py collectstatic --noinput
 # </STATIC>
