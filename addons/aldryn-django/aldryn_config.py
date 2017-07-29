@@ -355,7 +355,7 @@ class Form(forms.BaseForm):
                     'stream': sys.stdout,
                 },
                 'null': {
-                    'class': 'logging.NullHandler',
+                    'class': 'django.utils.log.NullHandler',
                 },
             },
             'loggers': {
