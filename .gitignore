@@ -24,3 +24,5 @@ Thumbs.db
 # </DEFAULT>
 
 .idea
+requirements.txt
+requirements.urls
