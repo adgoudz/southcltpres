@@ -23,7 +23,7 @@ RUN pip-reqs compile && \
 # <SOURCE>
 COPY . /app
 # </SOURCE>
-ª
+
 # <STATIC>
 RUN DJANGO_MODE=build python manage.py collectstatic --noinput
 # </STATIC>
