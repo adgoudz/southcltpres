@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
+import aldryn_addons.settings
 
 INSTALLED_ADDONS = [
-    # <INSTALLED_ADDONS>  # Warning: this is auto-generated. Manual changes will be overwritten.
+    # <INSTALLED_ADDONS>  # Warning: text inside the INSTALLED_ADDONS tags is auto-generated. Manual changes will be overwritten.
     'aldryn-addons',
     'aldryn-django',
-    # </INSTALLED_ADDONS>'
+    'aldryn-sso',
+    'aldryn-devsync',
+    'aldryn-wagtail',
+    # </INSTALLED_ADDONS>
 ]
 
-import aldryn_addons.settings
 aldryn_addons.settings.load(locals())
 
-
-# all django settings can be altered here
-
 INSTALLED_APPS.extend([
-    # add your project specific apps here
+    'scpc',
 ])
 
 MIDDLEWARE_CLASSES.extend([
-    # add your own middlewares here
+
 ])
+
+DEBUG = True  # TODO
+USE_TZ = True
