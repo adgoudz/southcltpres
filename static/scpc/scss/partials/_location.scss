@@ -1,0 +1,80 @@
+
+.location {
+
+  &#{&} {
+    @include section();
+    @include cover();
+
+    @include media-breakpoint-up(xl) {
+      height: 100%;
+    }
+  }
+
+  &__header {
+    @include media-breakpoint-up(xl) {
+      display: block;
+    }
+
+    display: none;
+    height: calc(6em + 0.5rem); // Based off of landing-header__base
+    background-color: $color-hl-light;
+  }
+
+  &__map {
+    @include media-breakpoint-up(xl) {
+      height: calc((100% - 6em - 0.5rem) / 2); // Based off of landing-header__base
+    }
+
+    height: 50vmax;
+    min-height: 300px;
+    background-color: $color-hl-light;
+  }
+
+  &__body {
+    @include media-breakpoint-up(md) {
+      height: 50vmax;
+      padding: 4rem;
+    }
+    @include media-breakpoint-up(xl) {
+      height: calc((100% - 6em - 0.5rem) / 2); // Based off of landing-header__base
+    }
+
+    padding: 3rem;
+  }
+
+  &__content {
+    @include media-breakpoint-up(md) {
+      text-align: left;
+    }
+    @include media-breakpoint-up(xl) {
+      width: 70%;
+    }
+
+    height: 100%;
+    margin: 0 auto;
+    font-family: Raleway, $font-family-sans-serif;
+    text-align: center;
+  }
+
+  &__title {
+    font-family: "PT Sans", $font-family-sans-serif;
+  }
+}
+
+.address {
+
+  &#{&} {
+    @include media-breakpoint-up(md) {
+      text-align: left;
+    }
+
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__name {
+    font-family: "PT Sans", $font-family-sans-serif;
+    font-weight: 800;
+  }
+}

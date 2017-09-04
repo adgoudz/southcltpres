@@ -2,6 +2,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -11,3 +12,7 @@ class HomePage(Page):
 
     class Meta:
         verbose_name = 'homepage'
+
+
+class LandingPage(Page):
+    pass

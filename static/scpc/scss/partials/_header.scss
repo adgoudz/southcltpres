@@ -1,0 +1,83 @@
+
+.landing-header {
+
+  @mixin landing-title() {
+    @include media-breakpoint-up(xl) {
+      margin-bottom: 1.5rem;
+    }
+
+    padding: 0.185em 1em 0.25em 1em;
+    margin-bottom: 0.75rem;
+    font-family: BourtonHandLineBold, $font-family-sans-serif;
+    text-align: right;
+  }
+
+  &#{&} {
+    @include cover($force: true);
+    @include section();
+    min-height: 360px;
+    font-size: 1rem;
+    color: $white;
+  }
+
+  &__overlay {
+    @include cover($force: true);
+    @include section();
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.4;
+    background: url("../images/heros/landing-light.png") no-repeat right;
+    background-size: cover;
+  }
+
+  &__body {
+    @include media-breakpoint-up(xl) {
+      height: calc(100% - 4em - 0.5rem); // See landing-header__base
+    }
+
+    height: calc(100vmax - 4em - 0.5rem); // See landing-header__base
+    z-index: 10;
+  }
+
+  &__logo {
+    @include media-breakpoint-up(xl) {
+      height: 25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+    }
+
+    height: 75%;
+    position: relative;
+    top: 95%;
+    transform: translateY(-100%);
+    opacity: 0.65;
+  }
+
+  &__title {
+    @include landing-title();
+    @include fluid-type(20em, 75em, 1.5em, 3em, $units: vmin);
+    line-height: 1.2;
+    font-weight: 500;
+    background-color: rgba($color-hl-dark, 0.75);
+  }
+
+  &__subtitle {
+    @include landing-title();
+    @include fluid-type(20em, 75em, 1em, 2em, $units: vmin);
+    font-weight: 500;
+    background-color: rgba($color-bg-dark, 0.75);
+  }
+
+  &__subtitle--inverse {
+    background-color: rgba($color-bg-light, 0.75);
+    color: $color-bg-dark;
+  }
+
+  &__base {
+    z-index: 5;
+    height: calc(4em + 0.5rem); // Use ems to match Font Awesome's units
+    background-color: rgba($color-hl-light, 0.15);
+  }
+}

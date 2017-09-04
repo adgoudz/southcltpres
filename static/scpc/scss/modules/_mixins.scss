@@ -1,0 +1,36 @@
+
+/* Functions */
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+/* Mixins */
+
+@mixin cover($force: false) {
+  @include media-breakpoint-up(xl) {
+    height: 100%;
+  }
+  @if $force {
+    height: 100vmax;
+  }
+  @else {
+    height: auto;
+  }
+}
+
+@mixin section() {
+  width: 100%;
+}
+
+@mixin fluid-type($min-units, $max-units, $min-font-size, $max-font-size, $units: vw) {
+  & {
+    font-size: $min-font-size;
+    @media screen and (min-width: $min-units) {
+      font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-units}) / #{strip-unit($max-units - $min-units)}));
+    }
+    @media screen and (min-width: $max-units) {
+      font-size: $max-font-size;
+    }
+  }
+}
