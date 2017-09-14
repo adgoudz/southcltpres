@@ -9,6 +9,7 @@
     padding: 0.185em 1em 0.25em 1em;
     margin-bottom: 0.75rem;
     font-family: BourtonHandLineBold, $font-family-sans-serif;
+    font-weight: 500;
     text-align: right;
   }
 
@@ -26,8 +27,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    opacity: 0.4;
-    background: url("../images/heros/landing-light.png") no-repeat right;
+    opacity: 0.3;
+    background: url("../images/heros/landing.png") no-repeat right;
     background-size: cover;
   }
 
@@ -45,33 +46,30 @@
       height: 25rem;
       top: 50%;
       transform: translateY(-50%);
-      opacity: 0.5;
     }
 
     height: 75%;
     position: relative;
     top: 95%;
     transform: translateY(-100%);
-    opacity: 0.65;
+    opacity: 0.75;
   }
 
   &__title {
     @include landing-title();
     @include fluid-type(20em, 75em, 1.5em, 3em, $units: vmin);
     line-height: 1.2;
-    font-weight: 500;
     background-color: rgba($color-hl-dark, 0.75);
   }
 
   &__subtitle {
     @include landing-title();
     @include fluid-type(20em, 75em, 1em, 2em, $units: vmin);
-    font-weight: 500;
     background-color: rgba($color-bg-dark, 0.75);
   }
 
   &__subtitle--inverse {
-    background-color: rgba($color-bg-light, 0.75);
+    background-color: rgba($color-bg-med, 0.75);
     color: $color-bg-dark;
   }
 
