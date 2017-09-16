@@ -1,8 +1,0 @@
-/*
-* This file is intentionally empty. In production we rely on
-* extract-text-webpack-plugin to create this file by consolidating
-* all CSS modules inline'd by a style-loader. However in development
-* this empty file is used as a fallback so that Django templates
-* can include the file without failing. See the usage of copy-
-* webpack-plugin in webpack.config.js.
-*/

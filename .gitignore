@@ -31,3 +31,4 @@ requirements.urls
 *.log
 .idea
 stats.json
+static/bundles
