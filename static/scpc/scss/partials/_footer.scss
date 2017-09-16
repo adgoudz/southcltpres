@@ -3,14 +3,19 @@
 
   &#{&} {
     width: 100%;
-    padding: 1rem 1rem 0.75rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
     text-align: center;
     background-color: $color-bg-med;
     color: $white;
-    font-weight: 200;
+    font-weight: $font-weight-light;
+    font-size: $font-size-sm;
   }
 
-  p {
-    margin: 0 0 0.25rem;
+  &__social-icons {
+    margin: 0 0 0.75rem;
+  }
+
+  &__contact-info {
+    margin: 0;
   }
 }

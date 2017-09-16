@@ -1,6 +1,9 @@
+/**
+ * The following override and/or supplement variables defined by Bootstrap.
+ * See bootstrap/scss/_variables.scss.
+ */
 
-// Increase the number of size options for Bootstrap utility classes
-
+// Increase the number of size options
 $sizes: (
   0: 0,
   10: 10%,
@@ -16,3 +19,22 @@ $sizes: (
   90: 90%,
   100: 100%
 );
+
+// Font families
+$font-family-logo: BourtonHandLineBold;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+// Font weights
+$font-weight-light: 300;
+$font-weight-regular: normal;
+$font-weight-bold: bold;
+
+// Base font
+$font-family-base: Raleway, $font-family-sans-serif;
+$font-weight-base: $font-weight-regular;
+$font-size-base: 1rem; // Requires rems
+$line-height-base: 1.5;
+
+// Title font
+$font-family-title: "PT Sans", $font-family-sans-serif;
+$font-weight-title: $font-weight-bold;

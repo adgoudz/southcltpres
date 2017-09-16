@@ -5,9 +5,7 @@
     @include section();
     @include cover();
 
-    @include media-breakpoint-up(xl) {
-      height: 100%;
-    }
+    min-height: 678px;
   }
 
   &__header {
@@ -22,7 +20,7 @@
 
   &__map {
     @include media-breakpoint-up(xl) {
-      height: calc((100% - 6em - 0.5rem) / 2); // Based off of landing-header__base
+      height: calc((100% - 6em - 0.5rem) / 2); // Based off of &__header
     }
 
     height: 50vmax;
@@ -33,10 +31,9 @@
   &__body {
     @include media-breakpoint-up(md) {
       height: 50vmax;
-      padding: 4rem;
     }
     @include media-breakpoint-up(xl) {
-      height: calc((100% - 6em - 0.5rem) / 2); // Based off of landing-header__base
+      height: calc((100% - 6em - 0.5rem) / 2); // Based off of &__header
     }
 
     padding: 3rem;
@@ -47,17 +44,21 @@
       text-align: left;
     }
     @include media-breakpoint-up(xl) {
-      width: 70%;
+      width: 90%;
     }
 
     height: 100%;
     margin: 0 auto;
-    font-family: Raleway, $font-family-sans-serif;
     text-align: center;
   }
 
   &__title {
-    font-family: "PT Sans", $font-family-sans-serif;
+    font-family: $font-family-title;
+  }
+
+  &__address {
+    @extend .address;
+    @include align-vertically(50%);
   }
 }
 
@@ -71,10 +72,15 @@
     display: inline-block;
     margin: 0 auto;
     text-align: center;
+    line-height: 1.4;
+    font-size: $font-size-lg;
+  }
+
+  &__name, &__street, &__city {
+    font-family: $font-family-title;
   }
 
   &__name {
-    font-family: "PT Sans", $font-family-sans-serif;
-    font-weight: 800;
+    font-weight: $font-weight-bold;
   }
 }
