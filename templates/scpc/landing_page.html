@@ -3,8 +3,6 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}{% endblock %}
-
 {% block content %}
     <header class="landing-header">
         <div class="landing-header__overlay"></div>
@@ -69,22 +67,17 @@
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-12 col-lg-9">
                         <div class="location__title">
-                            <h2>"...that my joy may be in you, and that your joy may be full."</h2>
-                            <p class="lead">John 15:11</p>
+                            <h2>{{ page.location_title }}</h2>
+                            <p class="lead">{{ page.location_subtitle }}</p>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                            ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                            consequat massa quis enim.
-                        </p>
+                        <p>{{ page.location_content|richtext }}</p>
                     </div>
                     <div class="col-12 col-lg-3 pt-3 px-3 text-center">
                         <p class="location__address">
-                            <span class="address__name">Ballantyne Elementary</span><br/>
-                            <span class="address__street">15425 Scholastic Dr.</span><br/>
-                            <span class="address__city">Charlotte, NC 28277</span><br/>
-                            <a href="https://www.google.com/maps/dir//Ballantyne+Elementary,+15425+Scholastic+Dr,+Charlotte,+NC+28277/@35.0373114,-80.8582537,17z/data=!4m15!1m6!3m5!1s0x88568329b46fb9cd:0xf5826d5695f16361!2sBallantyne+Elementary!8m2!3d35.037307!4d-80.856065!4m7!1m0!1m5!1m1!1s0x88568329b46fb9cd:0xf5826d5695f16361!2m2!1d-80.856065!2d35.037307"
+                            <span class="address__name">{{ page.address_name }}</span><br/>
+                            <span class="address__street">{{ page.address_street }}</span><br/>
+                            <span class="address__city">{{ page.address_city }}</span><br/>
+                            <a href="{{ page.directions_url }}"
                                class="external-link external-link--footer">Get Directions</a>
                         </p>
                     </div>
@@ -94,9 +87,15 @@
     </section>
     <footer class="footer">
         <p class="footer__social-icons">
+            <a href="{{ page.facebook_url }}" class="icon-link">
               <i class="fa fa-facebook fa-2x d-inline-block mx-2"></i>
+            </a>
+            <a href="{{ page.twitter_url }}" class="icon-link">
               <i class="fa fa-twitter fa-2x d-inline-block mx-2"></i>
+            </a>
+            <a href="{{ page.instagram_url }}" class="icon-link">
               <i class="fa fa-instagram fa-2x d-inline-block mx-2"></i>
+            </a>
         </p>
         <p class="footer__contact-info">
             PO Box 49324, Charlotte NC 28277<br/>
