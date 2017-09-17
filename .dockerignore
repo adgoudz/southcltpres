@@ -1,5 +1,6 @@
 *.pyc
 *.pyo
+*.sql
 /.env
 /data
 /static/bundles

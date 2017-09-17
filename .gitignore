@@ -29,6 +29,7 @@ requirements.urls
 
 # local
 *.log
+*.sql
 .idea
 stats.json
 static/bundles
