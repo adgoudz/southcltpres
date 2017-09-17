@@ -23,6 +23,14 @@ Thumbs.db
 /node_modules
 # </DEFAULT>
 
-.idea
+# pip-reqs
 requirements.txt
 requirements.urls
+
+# local
+*.log
+*.sql
+.idea
+stats.json
+static/bundles
+scpc/migrations

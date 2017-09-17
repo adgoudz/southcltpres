@@ -20,10 +20,24 @@ RUN pip-reqs compile && \
         --requirement requirements.urls
 # </PYTHON>
 
-# <SOURCE>
-COPY . /app
-# </SOURCE>
+COPY bin /app/bin/
 
-# <STATIC>
+# Install build tools
+ENV NODE_VERSION=8.5.0 \
+    NODE_ENV=production
+ENV NODE_PATH=$NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules \
+    PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+RUN bin/install-node.sh
+RUN bin/install-yarn.sh
+
+COPY . /app
+
+# Install and run webpack
+RUN yarn install --pure-lockfile --production=false
+RUN yarn build
+
+# Consolidate all static files
 RUN DJANGO_MODE=build python manage.py collectstatic --noinput
-# </STATIC>
+
+CMD start web
+

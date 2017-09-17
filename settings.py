@@ -21,5 +21,8 @@ MIDDLEWARE_CLASSES.extend([
 
 ])
 
-DEBUG = True  # TODO
+# Wagtail settings
+WAGTAIL_ENABLE_UPDATE_CHECK = True
+
+# Django settings
 USE_TZ = True
