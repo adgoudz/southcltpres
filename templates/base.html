@@ -10,6 +10,7 @@
 
     <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
 
+    <link rel="icon" type="image/png" href="{% static "favicon.png" %}"/>
     <link rel="stylesheet" href="{% static 'bundles/main.css' %}"/>
     {% block extra_css %}{% endblock %}
 </head>
