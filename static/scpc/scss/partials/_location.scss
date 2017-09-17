@@ -1,11 +1,30 @@
 
+.address {
+
+  &#{&} {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.4;
+    font-size: $font-size-lg;
+  }
+
+  &__name, &__street, &__city {
+    //font-family: $font-family-title;
+  }
+
+  &__name {
+    font-weight: $font-weight-bold;
+  }
+}
+
 .location {
 
   &#{&} {
     @include section();
     @include cover();
 
-    min-height: 678px;
+    min-height: calc(6.5rem + 300px + 285px + 10.5rem);
   }
 
   &__header {
@@ -29,9 +48,6 @@
   }
 
   &__body {
-    @include media-breakpoint-up(md) {
-      height: 50vmax;
-    }
     @include media-breakpoint-up(xl) {
       height: calc((100% - 6em - 0.5rem) / 2); // Based off of &__header
     }
@@ -58,29 +74,9 @@
 
   &__address {
     @extend .address;
-    @include align-vertically(50%);
-  }
-}
 
-.address {
-
-  &#{&} {
     @include media-breakpoint-up(md) {
       text-align: left;
     }
-
-    display: inline-block;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 1.4;
-    font-size: $font-size-lg;
-  }
-
-  &__name, &__street, &__city {
-    font-family: $font-family-title;
-  }
-
-  &__name {
-    font-weight: $font-weight-bold;
   }
 }
