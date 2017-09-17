@@ -1,0 +1,17 @@
+
+/* Links */
+
+.external-link {
+  text-transform: uppercase;
+  color: $color-hl-dark;
+
+  &:hover {
+    color: $color-hl-dark;
+  }
+}
+
+.external-link--footer {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: $font-size-base;
+}

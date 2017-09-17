@@ -1,0 +1,50 @@
+
+// Functions
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Mixins
+
+@mixin section() {
+  width: 100%;
+}
+
+@mixin cover($fluid: false, $vmax: false) {
+  @include media-breakpoint-up(xl) {
+    @if $fluid {
+      height: auto;
+      min-height: 100%;
+      position: relative; // So children can use relative heights
+    }
+    @else {
+      height: 100%;
+    }
+  }
+
+  @if $vmax {
+    height: 100vmax;
+  }
+  @else {
+    height: auto;
+  }
+}
+
+@mixin fluid-type($min-units, $max-units, $min-font-size, $max-font-size, $units: vw) {
+  & {
+    font-size: $min-font-size;
+    @media screen and (min-width: $min-units) {
+      font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-units}) / #{strip-unit($max-units - $min-units)}));
+    }
+    @media screen and (min-width: $max-units) {
+      font-size: $max-font-size;
+    }
+  }
+}
+
+@mixin align-vertically($top: 50%, $y: -50%) {
+  position: relative;
+  top: $top;
+  transform: translateY($y);
+}

@@ -1,0 +1,21 @@
+
+.footer {
+
+  &#{&} {
+    width: 100%;
+    padding: 1rem 1rem 1rem 1rem;
+    text-align: center;
+    background-color: $color-bg-med;
+    color: $white;
+    font-weight: $font-weight-light;
+    font-size: $font-size-sm;
+  }
+
+  &__social-icons {
+    margin: 0 0 0.75rem;
+  }
+
+  &__contact-info {
+    margin: 0;
+  }
+}
