@@ -1,8 +1,8 @@
 {
   "name": "southcltpres",
-  "version": "0.1.0",
+  "version": "",
   "description": "South Charlotte Presbyterian Church",
-  "main": "static/scpc/js/index.js",
+  "main": "static/scpc/js/main.js",
   "repository": "adgoudz@bitbucket.org/adgoudz/southcltpres.git",
   "author": "Andrew Goudzwaard <adgoudz@gmail.com>",
   "license": "UNLICENSED",
