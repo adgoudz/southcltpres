@@ -33,3 +33,4 @@ requirements.urls
 .idea
 stats.json
 static/bundles
+scpc/migrations
