@@ -23,7 +23,8 @@ RUN pip-reqs compile && \
 COPY bin /app/bin/
 
 # Install build tools
-ENV NODE_VERSION=8.5.0
+ENV NODE_VERSION=8.5.0 \
+    NODE_ENV=production
 ENV NODE_PATH=$NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules \
     PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN bin/install-node.sh
