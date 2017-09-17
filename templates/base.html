@@ -1,5 +1,5 @@
-{% load wagtailuserbar %}
 {% load static %}
+{% load wagtailuserbar %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'bundles/main.css' %}"/>
     {% block extra_css %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body>
 
 {% wagtailuserbar %}
 
