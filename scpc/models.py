@@ -22,7 +22,7 @@ class LandingPage(Page):
 
     location_title = models.CharField(verbose_name='Title', max_length=65, blank=True)
     location_subtitle = models.CharField(verbose_name='Subtitle', max_length=100, blank=True)
-    location_content = RichTextField(verbose_name='Content', max_length=500, blank=True)
+    location_content = RichTextField(verbose_name='Content', max_length=750, blank=True)
 
     address_name = models.CharField(verbose_name='Name', max_length=22, blank=True)
     address_street = models.CharField(verbose_name='Street', max_length=22, blank=True)

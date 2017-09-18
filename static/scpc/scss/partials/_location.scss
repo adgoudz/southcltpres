@@ -56,7 +56,7 @@
   }
 
   &__content {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       text-align: left;
     }
     @include media-breakpoint-up(xl) {
@@ -64,7 +64,7 @@
     }
 
     height: 100%;
-    margin: 0 auto;
+    margin: 0 auto -1rem;
     text-align: center;
   }
 
@@ -75,7 +75,7 @@
   &__address {
     @extend .address;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       text-align: left;
     }
   }

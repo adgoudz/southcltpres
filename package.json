@@ -1,6 +1,6 @@
 {
   "name": "southcltpres",
-  "version": "",
+  "version": "1.0",
   "description": "South Charlotte Presbyterian Church",
   "main": "static/scpc/js/main.js",
   "repository": "adgoudz@bitbucket.org/adgoudz/southcltpres.git",
