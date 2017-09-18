@@ -1,13 +1,23 @@
 
 /* Links */
 
-.external-link {
-  text-transform: uppercase;
+@mixin inline-link {
   color: $color-hl-dark;
 
   &:hover {
     color: $color-hl-dark;
   }
+}
+
+.rich-text a {
+  @include inline-link;
+}
+
+
+.external-link {
+  @include inline-link;
+
+  text-transform: uppercase;
 }
 
 .external-link--footer {
