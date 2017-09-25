@@ -20,6 +20,12 @@ $sizes: (
   100: 100%
 );
 
+// Device widths
+$phone-widths: 320 360 375 412 480;
+$tablet-widths: 768 1024;
+$desktop-widths: 1366 1440 1920;
+$device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
+
 // Font families
 $font-family-logo: BourtonHandLineBold;
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
