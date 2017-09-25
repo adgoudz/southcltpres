@@ -82,3 +82,36 @@
     background-color: rgba($color-hl-light, 0.15);
   }
 }
+
+.front-header {
+
+  &#{&} {
+    @include section();
+
+    @include media-breakpoint-up(md) {
+      height: 768px;
+
+      @include focus-background-y(50, 911, 768);
+    }
+
+    position: relative;
+    height: 400px;
+    font-size: 1rem; // Set font size for child em units
+    color: $white;
+    background: url("../images/heros/front.jpg") no-repeat;
+    background-size: cover;
+
+    @include focus-background-x(59, 1366, $device-widths);
+    @include focus-background-y(60, 911, 400);
+  }
+
+  &__overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.2;
+  }
+}

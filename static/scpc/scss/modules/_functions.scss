@@ -1,0 +1,13 @@
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@function focus-background($bg-position, $bg-length, $container-length, $default-position: 50) {
+  @if ($bg-length < $container-length) {
+    @return #{$default-position}#{'%'};
+  }
+
+  $ratio: $bg-length / $container-length;
+  @return (($bg-position - 50) * ($ratio / ($ratio - 1)) + 50) * 1%;
+}

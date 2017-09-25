@@ -1,9 +1,21 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% load wagtailcore_tags %} 
-
-{% block body_class %}template-homepage{% endblock %}
+{% load static %}
+{% load wagtailcore_tags %}
 
 {% block content %}
-{{ page.body | richtext }}
+    <header class="front-header" id="header" data-focus-x="59" data-focus-y="50">
+        <div class="front-header__overlay"></div>
+        <nav class="nav">
+
+        </nav>
+    </header>
 {% endblock %}
+
+{% block extra_css %}
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway" rel="stylesheet">
+{% endblock %}
+{#{% block extra_js %}#}
+{#    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"#}
+{#            async defer></script>#}
+{#{% endblock %}#}
