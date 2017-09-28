@@ -1,17 +1,55 @@
-from turtledemo.chaos import h
-
 from django.db import models
+from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailcore.models import Page, Orderable
+
+
+# Stream Blocks
+
+
+class SectionBlock(blocks.StructBlock):
+    """The primary container for generic page content."""
+    name = blocks.CharBlock(max_length=32, required=False)
+    content = blocks.RichTextBlock()
+
+    class Meta:
+        icon = 'form'
+        template = 'scpc/blocks/section.html'
 
 
 # Root Pages
 
 
-class HomePage(Page):
-    """The root page for the site."""
+class SectionedPage(Page):
+    """Abstract base class for pages containing :class:`SectionBlock`."""
+    sections = StreamField(
+        [
+            ('section', SectionBlock())
+        ],
+        blank=True
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('sections')
+    ]
+
+    class Meta:
+        abstract = True
+
+
+class HomePage(SectionedPage):
+    """The permanent home page for the site."""
+
+    parent_page_types = []
+    subpage_types = [
+        'scpc.MinistriesPage',
+        'scpc.AboutUsPage',
+        'scpc.GospelPage',
+        'scpc.GivingPage',
+    ]
 
     class Meta:
         verbose_name = 'homepage'
@@ -69,7 +107,7 @@ class LandingPage(Page):
 # Subpages
 
 
-class Subpage(Page):
+class Subpage(SectionedPage):
 
     parent_page_types = ['scpc.HomePage']
     subpage_types = []
@@ -91,8 +129,4 @@ class GospelPage(Subpage):
 
 
 class GivingPage(Subpage):
-    pass
-
-
-class ContactUsPage(Subpage):
     pass

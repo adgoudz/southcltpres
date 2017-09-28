@@ -1,0 +1,80 @@
+
+.section {
+
+  $root: &;
+  
+  // Spacing
+  $content-px: 2rem;
+  $content-px-lg: 4rem;
+  $content-px-default: $grid-gutter-width / 2; // Bootstrap default
+
+  &#{&} {
+    @include media-breakpoint-up(lg) {
+      padding: 0 $section-py-lg $section-py-lg;
+    }
+
+    padding: 0 $section-py $section-py;
+    font-size: $font-size-lg;
+    background-color: white;
+  }
+
+  &__content {
+    width: 66%;
+    margin: auto;
+  }
+
+  &__name {
+    @include media-breakpoint-up(lg) {
+      padding-right: $content-px-lg;
+    }
+
+    padding-left: $content-px-default;
+    padding-right: $content-px;
+    border-right: 1px solid $color-border;
+    text-align: right;
+    font-family: $font-family-title;
+    font-weight: $font-weight-bold;
+    color: $color-hl-2;
+    text-transform: uppercase;
+  }
+
+  &__subcontent {
+    @include media-breakpoint-up(lg) {
+      padding-left: $content-px-lg;
+    }
+
+    padding-right: $content-px-default;
+    padding-left: $content-px;
+  }
+
+  &__subcontent--no-gutters {
+    padding: $content-px-default;
+  }
+
+  &--right {
+    .row {
+      flex-direction: row-reverse;
+    }
+
+    #{$root}__name {
+      @include media-breakpoint-up(lg) {
+        padding-left: $content-px-lg;
+      }
+
+      padding-left: $content-px;
+      padding-right: $content-px-default;
+      border-right: none;
+      border-left: 1px solid $color-border;
+      text-align: left;
+    }
+
+    #{$root}__subcontent {
+      @include media-breakpoint-up(lg) {
+        padding-right: $content-px-lg;
+      }
+
+      padding-left: $content-px-default;
+      text-align: right;
+    }
+  }
+}

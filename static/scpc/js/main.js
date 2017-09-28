@@ -7,10 +7,10 @@ import 'modules/location';
 
 import focusBackground from 'utils/focus';
 
-
 const defaultBackgroundWidth = 1366;
 const defaultBackgroundHeight = 911;
 
-$(window).resize(() => focusBackground($('#header'), defaultBackgroundWidth, defaultBackgroundHeight));
+
+$(window).resize(() => focusBackground($('#hero'), defaultBackgroundWidth, defaultBackgroundHeight));
 
 

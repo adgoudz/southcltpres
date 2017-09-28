@@ -34,7 +34,7 @@
 
     display: none;
     height: calc(6em + 0.5rem); // Based off of landing-header__base
-    background-color: $color-hl-light;
+    background-color: $color-hl-1;
   }
 
   &__map {
@@ -44,7 +44,7 @@
 
     height: 50vmax;
     min-height: 300px;
-    background-color: $color-hl-light;
+    background-color: $color-hl-1;
   }
 
   &__body {

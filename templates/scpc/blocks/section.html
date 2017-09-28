@@ -1,0 +1,21 @@
+
+{% load wagtailcore_tags %}
+
+<section class="section{% if align|default:'left'|lower == 'right' %} section--right{% endif %}">
+    <div class="section__content">
+        <div class="row justify-content-center">
+            {% if value.name %}
+                <div class="col-auto section__name">
+                    <span>{{ value.name }}</span>
+                </div>
+                <div class="col section__subcontent">
+                    {{ value.content }}
+                </div>
+            {% else %}
+                <div class="col section__subcontent section__subcontent--no-gutters">
+                    {{ value.content }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

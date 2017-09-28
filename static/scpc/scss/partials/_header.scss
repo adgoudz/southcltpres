@@ -1,16 +1,116 @@
 
+@mixin header() {
+
+  @include media-breakpoint-up(lg) {
+    margin-bottom: ($section-py-lg / 2);
+  }
+
+  margin-bottom: ($section-py / 2);
+}
+
+
+.front-header {
+
+  @mixin title() {
+    @include media-breakpoint-up(md) {
+      padding-top: 0.3rem;
+      padding-bottom: 0.5rem;
+    }
+    @include media-breakpoint-up(lg) {
+      padding-top: 0.15rem;
+      padding-bottom: 0.6rem;
+    }
+
+    display: inline;
+    box-decoration-break: clone;
+    padding: 0.4rem 1.5rem 0.4rem 1.5rem;
+    line-height: 1.375;
+    font-family: $font-family-logo;
+  }
+
+  &#{&} {
+    @include header();
+  }
+
+  &__body {
+    background-color: $color-bg-1;
+  }
+
+  &__content {
+    @include media-breakpoint-up(md) {
+      width: 75%;
+    }
+    @include media-breakpoint-up(lg) {
+      padding: ($section-py-lg / 2) $section-px-lg;
+    }
+
+    margin: auto;
+    padding: ($section-py / 2) $section-px;
+    text-align: left;
+  }
+
+  &__title {
+    @include title();
+    @include fluid-type(20em, 100em, 1.5em, 4.0em, $units: vmin);
+
+    background-color: $color-hl-2;
+    color: white;
+  }
+
+  &__subtitle {
+    @include title();
+    @include fluid-type(20em, 100em, 1em, 3.5em, $units: vmin);
+
+    background-color: $color-bg-4;
+    color: white;
+  }
+}
+
+
+.front-hero {
+
+  &#{&} {
+    @include section();
+
+    @include media-breakpoint-up(md) {
+      height: 768px;
+
+      @include focus-background-y(50, 1900, 768);
+    }
+
+    position: relative;
+    height: 400px;
+    font-size: 1rem; // set font size for child em units
+    color: $white;
+    background: url("../images/heros/front.jpg") no-repeat;
+    background-size: cover;
+
+    @include focus-background-x(59, 1900, $device-widths);
+    @include focus-background-y(60, 911, 400);
+  }
+
+  &__overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.2;
+  }
+}
+
+
 .landing-header {
 
-  @mixin landing-title() {
+  @mixin title() {
     @include media-breakpoint-up(xl) {
       margin-bottom: 1.5rem;
     }
 
-    padding: 0.185em 1em 0.25em 1em;
+    padding: 0.185em 1em 0.325em 1em;
     margin-bottom: 0.75rem;
     font-family: $font-family-logo;
-
-    text-align: right;
   }
 
   &#{&} {
@@ -18,7 +118,7 @@
     @include section();
 
     min-height: 360px;
-    font-size: 1rem; // Set font size for child em units
+    font-size: 1rem; // set font size for child em units
     color: $white;
   }
 
@@ -36,10 +136,10 @@
 
   &__body {
     @include media-breakpoint-up(xl) {
-      height: calc(100% - 4em - 0.5rem); // See landing-header__base
+      height: calc(100% - 4em - 0.5rem); // see landing-header__base
     }
 
-    height: calc(100vmax - 4em - 0.5rem); // See landing-header__base
+    height: calc(100vmax - 4em - 0.5rem); // see landing-header__base
     z-index: 10;
   }
 
@@ -56,62 +156,31 @@
   }
 
   &__title {
-    @include landing-title();
+    @include title();
     @include fluid-type(20em, 75em, 1.5em, 3em, $units: vmin);
 
     line-height: 1.3;
-    background-color: rgba($color-hl-dark, 0.75);
+    text-align: right;
+    background-color: rgba($color-hl-3, 0.75);
   }
 
   &__subtitle {
-    @include landing-title();
+    @include title();
     @include fluid-type(20em, 75em, 1em, 2em, $units: vmin);
 
-    background-color: rgba($color-bg-dark, 0.75);
+    text-align: right;
+    background-color: rgba($color-bg-4, 0.75);
   }
 
   &__subtitle--inverse {
     font-weight: $font-weight-bold;
-    background-color: rgba($color-bg-med, 0.75);
-    color: $color-bg-dark;
+    background-color: rgba($color-bg-3, 0.75);
+    color: $color-bg-4;
   }
 
   &__base {
     z-index: 5;
-    height: calc(4em + 0.5rem); // Use ems to match Font Awesome's units
-    background-color: rgba($color-hl-light, 0.15);
-  }
-}
-
-.front-header {
-
-  &#{&} {
-    @include section();
-
-    @include media-breakpoint-up(md) {
-      height: 768px;
-
-      @include focus-background-y(50, 911, 768);
-    }
-
-    position: relative;
-    height: 400px;
-    font-size: 1rem; // Set font size for child em units
-    color: $white;
-    background: url("../images/heros/front.jpg") no-repeat;
-    background-size: cover;
-
-    @include focus-background-x(59, 1366, $device-widths);
-    @include focus-background-y(60, 911, 400);
-  }
-
-  &__overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: black;
-    opacity: 0.2;
+    height: calc(4em + 0.5rem); // use ems to match Font Awesome's units
+    background-color: rgba($color-hl-1, 0.15);
   }
 }
