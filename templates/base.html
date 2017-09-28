@@ -1,5 +1,8 @@
-{% load static %}
+
+{% load wagtailcore_tags %}
 {% load wagtailuserbar %}
+{% load static %}
+{% load scpc %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +16,23 @@
 
     <link rel="icon" type="image/png" href="{% static "favicon.png" %}"/>
     <link rel="stylesheet" href="{% static 'bundles/main.css' %}"/>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway:300|Lato:300|Hind:300" rel="stylesheet">
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
 {% wagtailuserbar %}
+
+<div class="masthead">
+    <nav class="nav justify-content-center">
+        <a href="{% slugurl 'home' %}" class="masthead__brand">
+            <img src="{% static "scpc/images/logos/1.png" %}" height="36px"/>
+        </a>
+        {% nav_items current_page=page %}
+    </nav>
+</div>
 
 {% block content %}{% endblock %}
 

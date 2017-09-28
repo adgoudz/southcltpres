@@ -1,0 +1,7 @@
+
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% for menu_page in menu_pages %}
+    <a href="{% pageurl menu_page %}" class="nav-item nav-link">{{ menu_page.title }}</a>
+{% endfor %}

@@ -36,14 +36,19 @@
 // Type
 
 @mixin fluid-type($min-x, $max-x, $min-font-size, $max-font-size, $units: vw) {
-  & {
-    font-size: $min-font-size;
-    @media (min-width: $min-x) {
-      font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-x}) / #{strip-unit($max-x - $min-x)}));
+  @if (unit($min-x) == unit($max-x) && unit($min-x) == unit($min-font-size) && unit($min-x) == unit($max-font-size)) {
+    & {
+      font-size: $min-font-size;
+      @media (min-width: $min-x) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-x}) / #{strip-unit($max-x - $min-x)}));
+      }
+      @media (min-width: $max-x) {
+        font-size: $max-font-size;
+      }
     }
-    @media (min-width: $max-x) {
-      font-size: $max-font-size;
-    }
+  }
+  @else {
+    @error "All arguments to fluid-type must be specified with the same units";
   }
 }
 

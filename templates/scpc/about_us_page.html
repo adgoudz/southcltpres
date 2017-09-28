@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <header class="front-header">
+        <div class="front-hero" id="hero" data-focus-x="59" data-focus-y="50">
+            <div class="front-hero__overlay"></div>
+        </div>
+    </header>
+
+{% for block in page.sections %}
+    {% cycle 'left' 'right' as align silent %}
+    {% include_block block %}
+{% endfor %}
+
+{% endblock %}

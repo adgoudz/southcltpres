@@ -15,6 +15,7 @@ aldryn_addons.settings.load(locals())
 
 INSTALLED_APPS.extend([
     'scpc',
+    'wagtail.contrib.wagtailstyleguide',
 ])
 
 MIDDLEWARE_CLASSES.extend([
