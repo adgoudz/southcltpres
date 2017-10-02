@@ -2,11 +2,14 @@
 
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="front-header">
-        <div class="front-hero" id="hero" data-focus-x="59" data-focus-y="50">
-            <div class="front-hero__overlay"></div>
+    <header class="gospel-header">
+        <div class="gospel-hero">
+            <div class="gospel-hero__overlay"></div>
+            <h1 class="gospel-hero__title">{{ page.title }}</h1>
+            {% image page.hero_image min-1900x768 %}
         </div>
     </header>
 

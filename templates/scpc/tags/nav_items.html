@@ -3,5 +3,7 @@
 {% load wagtailcore_tags %}
 
 {% for menu_page in menu_pages %}
-    <a href="{% pageurl menu_page %}" class="nav-item nav-link">{{ menu_page.title }}</a>
+    <a href="{% pageurl menu_page %}" class="nav-item nav-link">
+        {% if menu_page.specific.menu_title %}{{ menu_page.specific.menu_title }}{% else %}{{ menu_page.title }}{% endif %}
+    </a>
 {% endfor %}
