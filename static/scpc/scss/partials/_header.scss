@@ -1,4 +1,9 @@
 
+
+$homepage-hero-sizes: (xs: 400px, md: 768px);
+$subpage-hero-sizes: (xs: 400px, md: 600px);
+
+
 @mixin header() {
 
   @include media-breakpoint-up(lg) {
@@ -9,7 +14,68 @@
 }
 
 
-.front-header {
+@mixin hero($selector, $heights, $alignment: ()) {
+
+  @at-root #{$selector}#{$selector} {
+    @include section();
+
+    @include media-breakpoint-up(md) {
+      height: map-get($heights, md);
+    }
+
+    position: relative;
+    overflow: hidden;
+    height: map-get($heights, xs);
+    font-size: 1rem; // set font size for child em units
+    color: $white;
+  }
+
+  #{$selector}__overlay {
+    @include overlay();
+  }
+
+  img {
+    position: absolute;
+    z-index: $zindex-hero-image;
+    max-width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-60%);
+  }
+}
+
+
+@mixin overlay() {
+  position: absolute;
+  z-index: $zindex-hero-overlay;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 0.2;
+}
+
+
+@mixin title() {
+    position: absolute;
+    z-index: $zindex-hero-title;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: $font-family-title;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+
+    @include fluid-type(20em, 100em, 1.5em, 4em, $units: vmin);
+}
+
+
+// Homepage
+
+
+.home-header {
 
   @mixin title() {
     @include media-breakpoint-up(md) {
@@ -51,7 +117,7 @@
 
   &__title {
     @include title();
-    @include fluid-type(20em, 100em, 1.5em, 4.0em, $units: vmin);
+    @include fluid-type(20em, 100em, 1.5em, 4em, $units: vmin);
 
     background-color: $color-hl-2;
     color: white;
@@ -67,38 +133,104 @@
 }
 
 
-.front-hero {
+.home-hero {
+  @include hero(&, $homepage-hero-sizes);
 
   &#{&} {
-    @include section();
-
     @include media-breakpoint-up(md) {
-      height: 768px;
-
       @include focus-background-y(50, 1900, 768);
     }
 
-    position: relative;
-    height: 400px;
-    font-size: 1rem; // set font size for child em units
-    color: $white;
-    background: url("../images/heros/front.jpg") no-repeat;
+    background: url("../images/heros/home.jpg") no-repeat;
     background-size: cover;
 
     @include focus-background-x(59, 1900, $device-widths);
     @include focus-background-y(60, 911, 400);
   }
+}
 
-  &__overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: black;
-    opacity: 0.2;
+
+// Ministries
+
+
+.ministries-header {
+
+  &#{&} {
+    @include header();
   }
 }
+
+
+.ministries-hero {
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// About us
+
+
+.about-us-header {
+
+  &#{&} {
+    @include header();
+  }
+}
+
+
+.about-us-hero {
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Gospel
+
+
+.gospel-header {
+
+  &#{&} {
+    @include header();
+  }
+}
+
+
+.gospel-hero {
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Giving
+
+
+.giving-header {
+
+  &#{&} {
+    @include header();
+  }
+}
+
+
+.giving-hero {
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Landing
 
 
 .landing-header {

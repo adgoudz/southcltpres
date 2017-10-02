@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy
 from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
@@ -8,6 +9,7 @@ from wagtail.wagtailcore.models import Page, Orderable
 
 
 # Stream Blocks
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class SectionBlock(blocks.StructBlock):
@@ -26,9 +28,7 @@ class SectionBlock(blocks.StructBlock):
 class SectionedPage(Page):
     """Abstract base class for pages containing :class:`SectionBlock`."""
     sections = StreamField(
-        [
-            ('section', SectionBlock())
-        ],
+        [('section', SectionBlock())],
         blank=True
     )
 
@@ -111,6 +111,31 @@ class Subpage(SectionedPage):
 
     parent_page_types = ['scpc.HomePage']
     subpage_types = []
+
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+    menu_title = models.CharField(
+        max_length=12,
+        null=True,
+        blank=True,
+        help_text="An alternate page title to be used in automatically generated menus"
+    )
+
+    content_panels = [
+        ImageChooserPanel('hero_image')
+    ] + SectionedPage.content_panels
+
+    promote_panels = MultiFieldPanel([
+        FieldPanel('slug'),
+        FieldPanel('seo_title'),
+        FieldPanel('show_in_menus'),
+        FieldPanel('menu_title'),
+        FieldPanel('search_description'),
+    ], ugettext_lazy('Common page configuration')),
 
     class Meta:
         abstract = True
