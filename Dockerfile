@@ -33,7 +33,7 @@ RUN bin/install-yarn.sh
 COPY . /app
 
 # Install and run webpack
-RUN yarn install --pure-lockfile --production=false
+RUN NODE_ENV=development yarn install --pure-lockfile
 RUN yarn build
 
 # Consolidate all static files
