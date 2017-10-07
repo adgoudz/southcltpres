@@ -4,6 +4,8 @@
 {% load static %}
 {% load scpc %}
 
+{% load render_bundle from webpack_loader %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +17,7 @@
     <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
 
     <link rel="icon" type="image/png" href="{% static "favicon.png" %}"/>
-    <link rel="stylesheet" href="{% static 'bundles/main.css' %}"/>
+    {% render_bundle 'main' 'css' %}
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway:300|Lato:300|Hind:300" rel="stylesheet">
 
@@ -41,8 +43,10 @@
 
 {% block content %}{% endblock %}
 
-<script src="{% static 'bundles/vendor.bundle.js' %}"></script>
-<script src="{% static 'bundles/main.bundle.js' %}"></script>
+{% render_bundle 'runtime' 'js' %}
+{% render_bundle 'vendor' 'js' %}
+{% render_bundle 'main' 'js' %}
+
 {% block extra_js %}{% endblock %}
 
 </body>

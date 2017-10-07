@@ -3,6 +3,8 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
+{% load render_bundle from webpack_loader %}
+
 {% block content %}
     <header class="home-header">
         <div class="home-hero" id="hero" data-focus-x="59" data-focus-y="50">
@@ -28,10 +30,8 @@
     {% cycle 'left' 'right' as align silent %}
     {% include_block block %}
 {% endfor %}
-
 {% endblock %}
 
-{#{% block extra_js %}#}
-{#    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"#}
-{#            async defer></script>#}
-{#{% endblock %}#}
+{% block extra_js %}
+{#<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>#}
+{% endblock %}
