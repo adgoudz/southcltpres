@@ -52,9 +52,10 @@ $font-weight-bold: bold;
 $font-weight-title: $font-weight-bold;
 $font-weight-base: $font-weight-regular;
 
-// Font sizes
+// Font sizes (requires rems)
 
-$font-size-base: 1rem; // Requires rems
+$font-size-base: 1rem;
+$font-size-lg: 1.2rem;
 $line-height-base: 1.4;
 
 // Z Index

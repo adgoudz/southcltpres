@@ -14,7 +14,19 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-@mixin hero($selector, $heights, $alignment: ()) {
+@mixin overlay() {
+  position: absolute;
+  z-index: $zindex-hero-overlay;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 0.2;
+}
+
+
+@mixin hero($selector, $heights, $overlay: true) {
 
   @at-root #{$selector}#{$selector} {
     @include section();
@@ -30,8 +42,10 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     color: $white;
   }
 
-  #{$selector}__overlay {
-    @include overlay();
+  @if $overlay {
+    #{$selector}__overlay {
+      @include overlay();
+    }
   }
 
   img {
@@ -42,18 +56,6 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     top: 50%;
     transform: translateY(-60%);
   }
-}
-
-
-@mixin overlay() {
-  position: absolute;
-  z-index: $zindex-hero-overlay;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background-color: black;
-  opacity: 0.2;
 }
 
 
@@ -99,7 +101,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   }
 
   &__body {
-    background-color: $color-bg-1;
+    //background-color: $color-bg-1;
   }
 
   &__content {
@@ -134,7 +136,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 
 .home-hero {
-  @include hero(&, $homepage-hero-sizes);
+  @include hero(&, $homepage-hero-sizes, $overlay: false);
 
   &#{&} {
     @include media-breakpoint-up(md) {
