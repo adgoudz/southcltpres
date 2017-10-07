@@ -12,5 +12,3 @@ const defaultBackgroundHeight = 911;
 
 
 $(window).resize(() => focusBackground($('#hero'), defaultBackgroundWidth, defaultBackgroundHeight));
-
-
