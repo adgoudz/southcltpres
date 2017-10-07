@@ -3,7 +3,7 @@
 
   &#{&} {
     position: relative;
-    height: 4rem;
+    height: 6rem;
     color: $color-bg-4;
   }
 
@@ -11,7 +11,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 1.25rem;
+    left: 48px;
     z-index: 10;
   }
 }
@@ -23,16 +23,16 @@
     width: 75%;
     height: 100%;
     margin: auto;
-    padding: 0.35rem;
-    line-height: 2.1;
+    line-height: calc(6rem - (#{$nav-link-padding-y} * 2);
     font-family: $font-family-title;
     font-weight: $font-weight-title;
     text-transform: uppercase;
   }
 
   .nav-link {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    // Override Bootstrap's $nav-link-padding-y
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
 
     &:hover {
       color: $color-hl-2;
