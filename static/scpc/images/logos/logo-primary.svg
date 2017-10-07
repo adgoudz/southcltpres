@@ -2,18 +2,6 @@
 
 <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 185.26607 48" enable-background="new 0 0 185.26607 48" xml:space="preserve">
-<defs>
-    <style type="text/css">
-        @font-face {
-          font-family: BourtonHandLineBold;
-          src: url('../../fonts/BourtonHandLineBold.eot');
-          src: url('../../fonts/BourtonHandLineBold.eot?#iefix') format('embedded-opentype'),
-               url('../../fonts/BourtonHandLineBold.woff2') format('woff2'),
-               url('../../fonts/BourtonHandLineBold.woff') format('woff'),
-               url('../../fonts/BourtonHandLineBold.ttf') format('truetype');
-        }
-    </style>
-</defs>
 <g>
 	<g>
 		<path fill="#008275" d="M24.9784,22.35454c-1.33747-0.06239-0.51384,1.31314-0.6996,5.22008
