@@ -10,49 +10,69 @@
 
   &#{&} {
     @include media-breakpoint-up(lg) {
-      padding: 0 $section-py-lg $section-py-lg;
+      padding: ($section-py-lg / 2) $section-px-lg;
     }
 
-    padding: 0 $section-py $section-py;
-    font-size: $font-size-lg;
-    background-color: white;
+    padding: ($section-py / 2) $section-px;
   }
 
   &__content {
-    width: 66%;
+    flex-direction: column;
+    width: 75%;
     margin: auto;
+    font-size: $font-size-base;
   }
 
   &__name {
-    @include media-breakpoint-up(lg) {
-      padding-right: $content-px-lg;
-    }
+    margin-bottom: 2rem;
 
-    padding-left: $content-px-default;
-    padding-right: $content-px;
-    border-right: 1px solid $color-border;
-    text-align: right;
     font-family: $font-family-title;
+    font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: $color-hl-2;
-    text-transform: uppercase;
+    //text-transform: uppercase;
   }
 
   &__subcontent {
-    @include media-breakpoint-up(lg) {
-      padding-left: $content-px-lg;
-    }
 
-    padding-right: $content-px-default;
-    padding-left: $content-px;
   }
 
-  &__subcontent--no-gutters {
-    padding: $content-px-default;
+  &--left, &--right {
+
+    #{$root}__content {
+      flex-direction: row;
+    }
+
+    #{$root}__name {
+      width: 315px;
+      margin-bottom: 0;
+    }
+  }
+
+  &--left {
+
+    #{$root}__name {
+      @include media-breakpoint-up(lg) {
+        padding-right: $content-px-lg;
+      }
+
+      padding-right: $content-px;
+      text-align: right;
+    }
+
+    #{$root}__subcontent {
+      @include media-breakpoint-up(lg) {
+        padding-left: $content-px-lg;
+      }
+
+      padding-left: $content-px;
+      border-left: 1px solid $color-border;
+      text-align: left;
+    }
   }
 
   &--right {
-    .row {
+    .media {
       flex-direction: row-reverse;
     }
 
@@ -62,9 +82,6 @@
       }
 
       padding-left: $content-px;
-      padding-right: $content-px-default;
-      border-right: none;
-      border-left: 1px solid $color-border;
       text-align: left;
     }
 
@@ -73,7 +90,8 @@
         padding-right: $content-px-lg;
       }
 
-      padding-left: $content-px-default;
+      padding-right: $content-px;
+      border-right: 1px solid $color-border;
       text-align: right;
     }
   }

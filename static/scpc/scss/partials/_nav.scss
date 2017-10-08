@@ -1,11 +1,13 @@
 
+// Sizes
+$nav-width: 75%;
+$nav-height: 6rem;
+
 .masthead {
 
-  &#{&} {
-    position: relative;
-    height: 6rem;
-    color: $color-bg-4;
-  }
+  position: relative;
+  height: $nav-height;
+  color: $color-bg-4;
 
   &__brand{
     position: absolute;
@@ -20,12 +22,12 @@
 
   &#{&} {
     position: relative;
-    width: 75%;
+    width: $nav-width;
     height: 100%;
     margin: auto;
-    line-height: calc(6rem - (#{$nav-link-padding-y} * 2);
+    line-height: $nav-height - $nav-link-padding-y * 2;
     font-family: $font-family-title;
-    font-weight: $font-weight-title;
+    font-size: $font-size-sm;
     text-transform: uppercase;
   }
 

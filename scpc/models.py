@@ -31,9 +31,10 @@ class SectionedPage(Page):
         [('section', SectionBlock())],
         blank=True
     )
+    sections_panel = StreamFieldPanel('sections')
 
     content_panels = Page.content_panels + [
-        StreamFieldPanel('sections')
+        sections_panel
     ]
 
     class Meta:
@@ -49,6 +50,21 @@ class HomePage(SectionedPage):
         'scpc.AboutUsPage',
         'scpc.GospelPage',
         'scpc.GivingPage',
+    ]
+
+    subtitle = models.CharField(max_length=35, null=True)
+    introduction = RichTextField(max_length=750, null=True)
+
+    content_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('title', classname='title'),
+                FieldPanel('subtitle', classname='title'),
+                FieldPanel('introduction', classname='full'),
+            ],
+            heading='Header'
+        ),
+        SectionedPage.sections_panel,
     ]
 
     class Meta:

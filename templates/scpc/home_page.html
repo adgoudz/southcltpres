@@ -12,23 +12,21 @@
         </div>
         <div class="home-header__body">
             <div class="home-header__content">
-                <div class="pb-3">
-                    <h1 class="home-header__title">
-                        South Charlotte Presbyterian Church
-                    </h1>
-                </div>
-                <div class="pb-3">
-                    <h2 class="home-header__subtitle">
-                        A new congregation of the PCA
-                    </h2>
+                <h1 class="home-header__title">
+                    {{ page.title }}
+                </h1>
+                <h2 class="home-header__subtitle">
+                    {{ page.subtitle }}
+                </h2>
+                <div class="home-header__intro">
+                    {{ page.introduction|richtext }}
                 </div>
             </div>
         </div>
     </header>
 
 {% for block in page.sections %}
-    {% cycle 'left' 'right' as align silent %}
-    {% include_block block %}
+    {% include_block block%}
 {% endfor %}
 {% endblock %}
 

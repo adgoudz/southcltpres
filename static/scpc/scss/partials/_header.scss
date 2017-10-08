@@ -5,12 +5,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 
 @mixin header() {
-
-  @include media-breakpoint-up(lg) {
-    margin-bottom: ($section-py-lg / 2);
-  }
-
-  margin-bottom: ($section-py / 2);
+  font-size: 1rem; // set font size for child em units
 }
 
 
@@ -38,14 +33,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     position: relative;
     overflow: hidden;
     height: map-get($heights, xs);
-    font-size: 1rem; // set font size for child em units
     color: $white;
-  }
-
-  @if $overlay {
-    #{$selector}__overlay {
-      @include overlay();
-    }
   }
 
   img {
@@ -55,6 +43,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     height: auto;
     top: 50%;
     transform: translateY(-60%);
+  }
+
+  @if $overlay {
+    #{$selector}__overlay {
+      @include overlay();
+    }
   }
 }
 
@@ -80,6 +74,9 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 .home-header {
 
   @mixin title() {
+    // Note: We don't use ems here because it would be based
+    //       on a fluid font size.
+
     @include media-breakpoint-up(md) {
       padding-top: 0.3rem;
       padding-bottom: 0.5rem;
@@ -92,7 +89,8 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     display: inline;
     box-decoration-break: clone;
     padding: 0.4rem 1.5rem 0.4rem 1.5rem;
-    line-height: 1.375;
+    margin-bottom: 1rem;
+    line-height: 1.4;  // Bootstrap override
     font-family: $font-family-logo;
   }
 
@@ -101,19 +99,19 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   }
 
   &__body {
-    //background-color: $color-bg-1;
+    @include media-breakpoint-up(lg) {
+      padding: $section-py-lg $section-px-lg ($section-py-lg / 2);
+    }
+
+    padding: $section-py $section-px ($section-py / 2);
   }
 
   &__content {
     @include media-breakpoint-up(md) {
       width: 75%;
     }
-    @include media-breakpoint-up(lg) {
-      padding: ($section-py-lg / 2) $section-px-lg;
-    }
 
     margin: auto;
-    padding: ($section-py / 2) $section-px;
     text-align: left;
   }
 
@@ -131,6 +129,13 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
     background-color: $color-bg-4;
     color: white;
+  }
+
+  &__intro {
+    width: 66%;
+    margin-top: 3rem;
+    font-size: $font-size-base;
+    //font-weight: $font-weight-bold;
   }
 }
 
