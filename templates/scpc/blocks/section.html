@@ -1,15 +1,21 @@
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% with align=align|default:''|lower %}
 
 <section class="section{% if align == 'right' %} section--right{% elif align == 'left'%} section--left{% endif %}">
-    <div class="media justify-content-center section__content">
-        {% if value.name %}
-        <h3 class="section__name">{{ value.name }}</h3>
+    <div class="section__body">
+        {% if value.image %}
+        {% image value.image width-400 class='section__image' %}
         {% endif %}
-        <div class="media-body section__subcontent">
-            {{ value.content }}
+        <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
+            {% if value.name %}
+            <h3 class="section__name">{{ value.name }}</h3>
+            {% endif %}
+            <div class="section__subcontent">
+                {{ value.content|richtext }}
+            </div>
         </div>
     </div>
 </section>

@@ -2,97 +2,132 @@
 .section {
 
   $root: &;
-  
-  // Spacing
-  $content-px: 2rem;
-  $content-px-lg: 4rem;
-  $content-px-default: $grid-gutter-width / 2; // Bootstrap default
 
-  &#{&} {
+  @include media-breakpoint-up(lg) {
+    padding: ($section-py-lg / 2) $section-px-lg;
+  }
+
+  padding: ($section-py / 2) $section-px;
+
+  &__body {
+    display: flex;
+    align-items: start;
+    width: $content-width;
+    margin: auto;
+    font-size: $font-size-base;
+  }
+
+  &__image {
     @include media-breakpoint-up(lg) {
-      padding: ($section-py-lg / 2) $section-px-lg;
+      margin-right: $content-px-lg;
     }
 
-    padding: ($section-py / 2) $section-px;
+    max-width: 100%;
+    height: auto;
+    margin-right: $content-px;
   }
 
   &__content {
+    display: flex;
     flex-direction: column;
-    width: 75%;
-    margin: auto;
-    font-size: $font-size-base;
+    flex: 1;
   }
 
   &__name {
     margin-bottom: 2rem;
 
     font-family: $font-family-title;
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-bold;
     color: $color-hl-2;
-    //text-transform: uppercase;
-  }
-
-  &__subcontent {
-
+    text-transform: uppercase;
   }
 
   &--left, &--right {
 
-    #{$root}__content {
+    #{$root}__content--flatten {
       flex-direction: row;
-    }
 
-    #{$root}__name {
-      width: 315px;
-      margin-bottom: 0;
+      #{$root}__name {
+        margin-bottom: 0;
+      }
+
+      #{$root}__subcontent {
+        flex: 1;
+
+        p {
+          margin-bottom: 0;  // Bootstrap override
+        }
+      }
     }
   }
 
   &--left {
 
-    #{$root}__name {
-      @include media-breakpoint-up(lg) {
-        padding-right: $content-px-lg;
+    #{$root}__content--flatten {
+
+      #{$root}__name {
+        @include media-breakpoint-up(lg) {
+          padding-right: $content-px-lg;
+        }
+
+        padding-right: $content-px;
+        text-align: right;
       }
 
-      padding-right: $content-px;
-      text-align: right;
-    }
+      #{$root}__subcontent {
+        @include media-breakpoint-up(lg) {
+          padding-left: $content-px-lg;
+        }
 
-    #{$root}__subcontent {
-      @include media-breakpoint-up(lg) {
-        padding-left: $content-px-lg;
+        padding-left: $content-px;
+        border-left: 1px solid $color-border;
+        text-align: left;
       }
-
-      padding-left: $content-px;
-      border-left: 1px solid $color-border;
-      text-align: left;
     }
   }
 
   &--right {
-    .media {
+
+    #{$root}__body {
       flex-direction: row-reverse;
     }
 
-    #{$root}__name {
+    #{$root}__image {
       @include media-breakpoint-up(lg) {
-        padding-left: $content-px-lg;
+        margin-left: $content-px-lg;
       }
 
-      padding-left: $content-px;
-      text-align: left;
+      margin-left: $content-px;
+      margin-right: 0;
     }
 
-    #{$root}__subcontent {
-      @include media-breakpoint-up(lg) {
-        padding-right: $content-px-lg;
+    #{$root}__content {
+      text-align: right;
+    }
+
+    #{$root}__content--flatten {
+      flex-direction: row-reverse;
+      padding-right: 0;
+
+      #{$root}__name {
+        @include media-breakpoint-up(lg) {
+          padding-left: $content-px-lg;
+        }
+
+        padding-left: $content-px;
+        text-align: left;
       }
 
-      padding-right: $content-px;
-      border-right: 1px solid $color-border;
-      text-align: right;
+      #{$root}__subcontent {
+        @include media-breakpoint-up(lg) {
+          padding-right: $content-px-lg;
+        }
+
+        padding-right: $content-px;
+        border-right: 1px solid $color-border;
+        text-align: right;
+      }
     }
   }
 }

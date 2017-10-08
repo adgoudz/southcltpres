@@ -1,19 +1,20 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy
-from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 # Stream Blocks
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class SectionBlock(blocks.StructBlock):
     """The primary container for generic page content."""
+    image = ImageChooserBlock(required=False)
     name = blocks.CharBlock(max_length=32, required=False)
     content = blocks.RichTextBlock()
 

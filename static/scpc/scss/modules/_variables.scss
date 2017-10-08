@@ -27,12 +27,26 @@ $tablet-widths: 768 1024;
 $desktop-widths: 1366 1440 1920;
 $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
+// Sizes
+
+$base-width: 75%;
+
+$nav-height: 6rem;
+$nav-width: $base-width;
+
+$content-width: $base-width;
+
 // Padding and margins
 
 $section-py: 3rem;
-$section-py-lg: 10rem;
+$section-py-lg: 9rem;
 $section-px: 1.5rem;
 $section-px-lg: 3rem;
+
+$content-px: 2rem;
+$content-px-lg: 4rem;
+
+// Sizing
 
 // Font families
 
