@@ -1,5 +1,5 @@
 
-/* Links */
+// Links
 
 @mixin inline-link {
   color: $color-hl-4;
@@ -27,9 +27,24 @@
 }
 
 .icon-link {
+  display: inline-block;
+  margin: 0 1rem;
   text-transform: none;
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+// Inline
+
+.spacer {
+  display: inline-block;
+  content: '|';
+  margin: 0 1rem;
+  color: $color-border;
+
+  &--inverse {
+    color: $white;
   }
 }

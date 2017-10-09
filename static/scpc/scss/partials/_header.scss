@@ -134,6 +134,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   &__intro {
     width: 66%;
     margin-top: 3rem;
+    margin-bottom: 0;
     font-size: $font-size-base;
     //font-weight: $font-weight-bold;
   }

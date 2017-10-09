@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy
 from django.utils.safestring import mark_safe
@@ -10,6 +11,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
+from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
 
@@ -107,7 +109,6 @@ class LandingPage(Page):
     address_city = models.CharField(verbose_name='City, State, Zip', max_length=22, blank=True)
     directions_url = models.URLField(default='http://www.google.com/maps', max_length=350)
 
-    # TODO Move these to a snippet or a footer model
     facebook_url = models.URLField(verbose_name='Facebook', default='http://www.facebook.com')
     twitter_url = models.URLField(verbose_name='Twitter', default='http://www.twitter.com')
     instagram_url = models.URLField(verbose_name='Instagram', default='http://www.instagram.com')
@@ -214,3 +215,81 @@ class VerseSnippet(models.Model):
     def __str__(self):
         return self.verse
 
+
+@register_snippet
+class AddressBookSnippet(models.Model):
+
+    facebook_url = models.URLField(verbose_name='Facebook')
+    twitter_url = models.URLField(verbose_name='Twitter')
+    instagram_url = models.URLField(verbose_name='Instagram')
+
+    location_name = models.CharField(verbose_name='Name', max_length=22)
+    location_street = models.CharField(verbose_name='Street', max_length=22)
+    location_city = models.CharField(verbose_name='City, State, Zip', max_length=22)
+    directions_url = models.URLField(verbose_name='Google Maps', max_length=350)
+
+    mailing_name = models.CharField(verbose_name='Name', max_length=22, null=True, blank=True)
+    mailing_street = models.CharField(null=True, verbose_name='Street', max_length=22)
+    mailing_city = models.CharField(null=True, verbose_name='City, State, Zip', max_length=22)
+
+    email = models.EmailField(null=True)
+
+    phone_regex = RegexValidator(regex=r'^(\+1 )?[()0-9-. ]{9,20}$',
+                                 message="Phone numbers should contain only digits and optional delimiters.")
+    phone_number = models.CharField(verbose_name='Phone', validators=[phone_regex], max_length=23, null=True, blank=True)
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('location_name'),
+                FieldPanel('location_street'),
+                FieldPanel('location_city'),
+                FieldPanel('directions_url'),
+            ],
+            heading='Service Address'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('mailing_name'),
+                FieldPanel('mailing_street'),
+                FieldPanel('mailing_city'),
+            ],
+            heading='Mailing Address'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('facebook_url'),
+                FieldPanel('twitter_url'),
+                FieldPanel('instagram_url'),
+            ],
+            heading='Social Media'
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('email'),
+                FieldPanel('phone_number'),
+            ],
+            heading='Other'
+        )
+    ]
+
+    def __str__(self):
+        return 'Default'
+
+
+@register_snippet
+class FooterSnippet(models.Model):
+
+    contact_info = models.ForeignKey(
+        'scpc.AddressBookSnippet',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        SnippetChooserPanel('contact_info')
+    ]
+
+    def __str__(self):
+        return 'Default'

@@ -150,6 +150,11 @@
     color: $color-hl-4;
     background-color: $color-hl-1;
 
+    &:first-of-type {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
     #{$root}__body {
       font-style: italic;
       //font-size: $font-size-lg;

@@ -1,6 +1,8 @@
 
 from django import template
 
+from scpc.models import FooterSnippet
+
 register = template.Library()
 
 
@@ -21,6 +23,16 @@ def nav_items(context, current_page, root_page=None):
     return {
         'current_page': current_page,
         'menu_pages': menu_pages,
+        'request': context['request'],  # propagate
+    }
+
+
+@register.inclusion_tag('scpc/tags/footer.html', takes_context=True)
+def footer(context):
+    footer = FooterSnippet.objects.first()
+
+    return {
+        'contact_info': footer.contact_info if footer else None,
         'request': context['request'],  # propagate
     }
 
