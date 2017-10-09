@@ -5,7 +5,7 @@
 
   position: relative;
   height: $nav-height;
-  color: $color-bg-4;
+  color: $color-bg-3;
 
   &__brand{
     position: absolute;
@@ -35,7 +35,7 @@
     padding-right: 2.5rem;
 
     &:hover {
-      color: $color-hl-2;
+      color: $color-hl-3;
     }
   }
 }

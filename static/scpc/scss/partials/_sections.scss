@@ -37,11 +37,20 @@
     margin-bottom: 2rem;
 
     font-family: $font-family-title;
-    font-size: $font-size-lg;
+    font-size: $font-size-xl;
     font-weight: $font-weight-bold;
-    color: $color-hl-2;
+    color: $color-hl-3;
     text-transform: uppercase;
   }
+
+  &__subcontent {
+
+    p:last-child {
+      margin-bottom: 0;  // Bootstrap override
+    }
+  }
+
+  // Alignment
 
   &--left, &--right {
 
@@ -54,10 +63,6 @@
 
       #{$root}__subcontent {
         flex: 1;
-
-        p {
-          margin-bottom: 0;  // Bootstrap override
-        }
       }
     }
   }
@@ -128,6 +133,35 @@
         border-right: 1px solid $color-border;
         text-align: right;
       }
+    }
+  }
+
+  // Verse Section
+
+  &--verse {
+  
+    @include media-breakpoint-up(lg) {
+      margin: ($section-py-lg / 2) 0;
+    }
+  
+    margin: ($section-py / 2) 0;
+    //color: $color-bg-3;
+    //background-color: $color-bg-1;
+    color: $color-hl-4;
+    background-color: $color-hl-1;
+
+    #{$root}__body {
+      font-style: italic;
+      //font-size: $font-size-lg;
+      letter-spacing: 0.125em;
+    }
+
+    #{$root}__subcontent {
+      text-align: center;
+    }
+
+    #{$root}__verse {
+      margin-top: 1rem;
     }
   }
 }

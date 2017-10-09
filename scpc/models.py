@@ -9,11 +9,14 @@ from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
+from wagtail.wagtailsnippets.models import register_snippet
 
 
 # Functions
 
-def static_label(label):
+
+def _static_label(label):
     return mark_safe('<label style="width: 14%">{label}:</label> '
                      '<p style="font-size: 1.1em; padding-top: 1.2em; padding-bottom: 0.8em;">'
                      'This section cannot be configured.</p>'.format(label=label))
@@ -67,13 +70,14 @@ class HomePage(Page):
     sections = StreamField(
         [
             ('section', SectionBlock()),
-            ('map', StaticBlock(icon='site', template='scpc/blocks/map.html', admin_text=static_label('Map')))
+            ('map', StaticBlock(icon='site', template='scpc/blocks/map.html', admin_text=_static_label('Map'))),
+            ('verse', SnippetChooserBlock(template='scpc/blocks/verse.html', target_model='scpc.VerseSnippet'))
         ],
         blank=True
     )
 
-    subtitle = models.CharField(max_length=35, null=True)
-    introduction = RichTextField(max_length=750, null=True)
+    subtitle = models.CharField(max_length=35)
+    introduction = RichTextField(max_length=750)
 
     content_panels = [
         MultiFieldPanel(
@@ -151,8 +155,8 @@ class Subpage(SectionedPage):
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
-        blank=True,
         on_delete=models.SET_NULL,
+        related_name='+',
     )
     menu_title = models.CharField(
         max_length=12,
@@ -191,3 +195,22 @@ class GospelPage(Subpage):
 
 class GivingPage(Subpage):
     pass
+
+
+# Snippets
+
+
+@register_snippet
+class VerseSnippet(models.Model):
+
+    passage = models.TextField(max_length=750)
+    verse = models.CharField(max_length=25)
+
+    panels = [
+        FieldPanel('passage'),
+        FieldPanel('verse'),
+    ]
+
+    def __str__(self):
+        return self.verse
+
