@@ -20,12 +20,11 @@
 
 .location {
 
-  &#{&} {
-    @include section();
-    @include cover();
-
-    min-height: calc(6.5rem + 300px + 285px + 10.5rem);
+  @include media-breakpoint-up(lg) {
+    margin: ($section-py-lg / 2) 0;
   }
+
+  margin: ($section-py / 2) 0;
 
   &__header {
     @include media-breakpoint-up(xl) {
@@ -38,8 +37,8 @@
   }
 
   &__map {
-    @include media-breakpoint-up(xl) {
-      height: calc((100% - 6em - 0.5rem) / 2); // Based off of &__header
+    @include media-breakpoint-up(lg) {
+      height: 50vh;
     }
 
     height: 50vmax;

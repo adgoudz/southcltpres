@@ -1,12 +1,22 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy
+from django.utils.safestring import mark_safe
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
+from wagtail.wagtailcore.blocks import StaticBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+
+# Functions
+
+def static_label(label):
+    return mark_safe('<label style="width: 14%">{label}:</label> '
+                     '<p style="font-size: 1.1em; padding-top: 1.2em; padding-bottom: 0.8em;">'
+                     'This section cannot be configured.</p>'.format(label=label))
 
 
 # Stream Blocks
@@ -42,7 +52,7 @@ class SectionedPage(Page):
         abstract = True
 
 
-class HomePage(SectionedPage):
+class HomePage(Page):
     """The permanent home page for the site."""
 
     parent_page_types = []
@@ -52,6 +62,15 @@ class HomePage(SectionedPage):
         'scpc.GospelPage',
         'scpc.GivingPage',
     ]
+
+    # Extend `SectionedPage` stream field
+    sections = StreamField(
+        [
+            ('section', SectionBlock()),
+            ('map', StaticBlock(icon='site', template='scpc/blocks/map.html', admin_text=static_label('Map')))
+        ],
+        blank=True
+    )
 
     subtitle = models.CharField(max_length=35, null=True)
     introduction = RichTextField(max_length=750, null=True)
@@ -65,7 +84,7 @@ class HomePage(SectionedPage):
             ],
             heading='Header'
         ),
-        SectionedPage.sections_panel,
+        StreamFieldPanel('sections'),
     ]
 
     class Meta:
