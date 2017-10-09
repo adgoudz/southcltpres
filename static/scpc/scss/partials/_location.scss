@@ -26,6 +26,10 @@
 
   margin: ($section-py / 2) 0;
 
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
   &__header {
     @include media-breakpoint-up(xl) {
       display: block;
