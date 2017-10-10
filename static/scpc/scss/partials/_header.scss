@@ -54,17 +54,17 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 
 @mixin title() {
-    position: absolute;
-    z-index: $zindex-hero-title;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: $font-family-title;
-    text-align: center;
-    text-transform: uppercase;
-    color: $white;
+  position: absolute;
+  z-index: $zindex-hero-title;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: $font-family-title;
+  text-align: center;
+  text-transform: uppercase;
+  color: $white;
 
-    @include fluid-type(20em, 100em, 1.5em, 4em, $units: vmin);
+  @include fluid-type(20em, 100em, 1.5em, 4em, $units: vmin);
 }
 
 
@@ -90,17 +90,15 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     box-decoration-break: clone;
     padding: 0.4rem 1.5rem 0.4rem 1.5rem;
     margin-bottom: 1rem;
-    line-height: 1.4;  // Bootstrap override
+    line-height: 1.6;
     font-family: $font-family-logo;
   }
 
-  &#{&} {
-    @include header();
-  }
+  @include header();
 
   &__body {
     @include media-breakpoint-up(lg) {
-      padding: 9rem $section-px-lg ($section-py-lg / 2);
+      padding: ($section-py-lg / 2) $section-px-lg;
     }
 
     padding: 3rem $section-px ($section-py / 2);
@@ -134,14 +132,18 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   &__intro {
     width: 66%;
     margin-top: 3rem;
-    margin-bottom: 0;
     font-size: $font-size-base;
     //font-weight: $font-weight-bold;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 }
 
 
 .home-hero {
+
   @include hero(&, $homepage-hero-sizes, $overlay: false);
 
   &#{&} {
@@ -163,13 +165,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 .ministries-header {
 
-  &#{&} {
-    @include header();
-  }
+  @include header();
 }
 
 
 .ministries-hero {
+
   @include hero(&, $subpage-hero-sizes);
 
   &__title {
@@ -183,13 +184,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 .about-us-header {
 
-  &#{&} {
-    @include header();
-  }
+  @include header();
 }
 
 
 .about-us-hero {
+
   @include hero(&, $subpage-hero-sizes);
 
   &__title {
@@ -203,13 +203,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 .gospel-header {
 
-  &#{&} {
-    @include header();
-  }
+  @include header();
 }
 
 
 .gospel-hero {
+
   @include hero(&, $subpage-hero-sizes);
 
   &__title {
@@ -223,13 +222,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 .giving-header {
 
-  &#{&} {
-    @include header();
-  }
+  @include header();
 }
 
 
 .giving-hero {
+
   @include hero(&, $subpage-hero-sizes);
 
   &__title {
@@ -253,14 +251,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     font-family: $font-family-logo;
   }
 
-  &#{&} {
-    @include cover($vmax: true);
-    @include section();
+  @include cover($vmax: true);
+  @include section();
 
-    min-height: 360px;
-    font-size: 1rem; // set font size for child em units
-    color: $white;
-  }
+  min-height: 360px;
+  font-size: 1rem; // set font size for child em units
+  color: $white;
 
   &__overlay {
     @include cover($vmax: true);

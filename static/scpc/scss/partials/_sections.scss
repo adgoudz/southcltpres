@@ -1,19 +1,55 @@
 
+
+@mixin section-outer() {
+  display: flex;
+  flex: auto;                   // reset
+  flex-direction: row;          // reset
+  align-items: start;
+  width: $content-width;
+  min-height: $section-py / 2;
+  margin: auto;
+}
+
+@mixin section-inner() {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .section {
 
   $root: &;
 
   @include media-breakpoint-up(lg) {
     padding: ($section-py-lg / 2) $section-px-lg;
+    min-height: $section-py-lg * 1.5;
   }
 
   padding: ($section-py / 2) $section-px;
 
+  &:first-of-type {
+    @include media-breakpoint-up(lg) {
+      padding-top: $section-py-lg;
+    }
+
+    padding-top: $section-py;
+  }
+
+  &:last-of-type {
+    @include media-breakpoint-up(lg) {
+      padding-bottom: $section-py-lg;
+    }
+
+    padding-bottom: $section-py;
+  }
+
   &__body {
-    display: flex;
-    align-items: start;
-    width: $content-width;
-    margin: auto;
+    @include media-breakpoint-up(lg) {
+      min-height: $section-py-lg / 2;
+    }
+
+    @include section-outer();
+
     font-size: $font-size-base;
   }
 
@@ -28,9 +64,7 @@
   }
 
   &__content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    @include section-inner();
   }
 
   &__name {
@@ -136,6 +170,82 @@
     }
   }
 
+  // Location Section
+
+  &--location {
+
+    @include media-breakpoint-up(lg) {
+      margin: ($section-py-lg / 2) 0;
+      padding: 0;
+    }
+
+    margin: ($section-py / 2) 0;
+    padding: 0;
+
+    &:first-of-type {
+      margin-top: 0;
+      padding: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding: 0;
+    }
+
+    #{$root}__body {
+      @include media-breakpoint-up(lg) {
+        padding: ($section-py-lg / 4) $section-px-lg 0;
+      }
+
+      width: 100%;
+      padding: ($section-py / 2) $section-px 0;
+
+      // Resets
+      display: block;
+      min-height: 0;
+      margin: 0;
+    }
+
+    #{$root}__content {
+      display: block;
+      width: $content-width;
+      min-height: $section-py / 2;
+      margin: auto;
+
+      // Resets
+      flex: auto;
+      flex-direction: row;
+    }
+
+    #{$root}__subcontent {
+      text-align: center;
+    }
+
+    .map {
+      @include media-breakpoint-up(lg) {
+        height: 50vh;
+      }
+
+      height: 50vmax;
+      min-height: 300px;
+      background-color: $color-hl-2;
+    }
+
+    .address {
+      @include media-breakpoint-up(lg) {
+        margin-bottom: $section-py-lg / 4;
+      }
+
+      margin: 0 auto ($section-py / 2);
+      font-size: $font-size-lg;
+      text-align: center;
+
+      &__name {
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
   // Verse Section
 
   &--verse {
@@ -143,19 +253,25 @@
     @include media-breakpoint-up(lg) {
       margin: ($section-py-lg / 2) 0;
     }
-  
+
     margin: ($section-py / 2) 0;
-    //color: $color-bg-3;
-    //background-color: $color-bg-1;
     color: $color-hl-4;
     background-color: $color-hl-1;
 
     &:first-of-type {
       margin-top: 0;
+      padding-top: $section-py-lg / 2;
+      padding-bottom: $section-py-lg / 2;
+    }
+
+    &:last-of-type {
       margin-bottom: 0;
+      padding-top: $section-py-lg / 2;
+      padding-bottom: $section-py-lg / 2;
     }
 
     #{$root}__body {
+      align-items: center;
       font-style: italic;
       //font-size: $font-size-lg;
       letter-spacing: 0.125em;

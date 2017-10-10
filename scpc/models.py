@@ -1,8 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import ugettext_lazy
-from django.utils.safestring import mark_safe
-
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.blocks import StaticBlock
@@ -14,20 +12,13 @@ from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
-
-# Functions
-
-
-def _static_label(label):
-    return mark_safe('<label style="width: 14%">{label}:</label> '
-                     '<p style="font-size: 1.1em; padding-top: 1.2em; padding-bottom: 0.8em;">'
-                     'This section cannot be configured.</p>'.format(label=label))
+from scpc.utils.blocks import static_label
 
 
 # Stream Blocks
 
 
-class SectionBlock(blocks.StructBlock):
+class TextBlock(blocks.StructBlock):
     """The primary container for generic page content."""
     image = ImageChooserBlock(required=False)
     name = blocks.CharBlock(max_length=32, required=False)
@@ -38,13 +29,23 @@ class SectionBlock(blocks.StructBlock):
         template = 'scpc/blocks/section.html'
 
 
+class LocationBlock(blocks.StructBlock):
+    """A container similar to :class`TextBlock` which also includes maps, addresses, etc."""
+    content = blocks.RichTextBlock()
+    contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
+
+    class Meta:
+        icon = 'site'
+        template = 'scpc/blocks/location.html'
+
+
 # Root Pages
 
 
 class SectionedPage(Page):
     """Abstract base class for pages containing :class:`SectionBlock`."""
     sections = StreamField(
-        [('section', SectionBlock())],
+        [('text', TextBlock())],
         blank=True
     )
     sections_panel = StreamFieldPanel('sections')
@@ -71,8 +72,8 @@ class HomePage(Page):
     # Extend `SectionedPage` stream field
     sections = StreamField(
         [
-            ('section', SectionBlock()),
-            ('map', StaticBlock(icon='site', template='scpc/blocks/map.html', admin_text=_static_label('Map'))),
+            ('text', TextBlock()),
+            ('location', LocationBlock()),
             ('verse', SnippetChooserBlock(template='scpc/blocks/verse.html', target_model='scpc.VerseSnippet'))
         ],
         blank=True

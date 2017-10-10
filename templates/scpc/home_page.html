@@ -26,7 +26,9 @@
     </header>
 
 {% for block in page.sections %}
-    {% cycle 'left' 'right' as align silent %}
+    {% if block.block_type == 'text' %}
+        {% cycle 'left' 'right' as align silent %}
+    {% endif %}
     {% include_block block %}
 {% endfor %}
 {% endblock %}

@@ -1,0 +1,22 @@
+
+{% load wagtailcore_tags %}
+
+<section class="section section--location">
+    <div class="map" id="map"></div>
+    <div class="section__body">
+        <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
+            <div class="address">
+                {% with contact_info=value.contact_info %}
+                <span class="address__name">{{ contact_info.location_name }}</span><br/>
+                <span class="address__street">{{ contact_info.location_street }}</span><br/>
+                <span class="address__city">{{ contact_info.location_city }}</span><br/>
+                <a href="{{ contact_info.directions_url }}"
+                   class="external-link external-link--footer">Get Directions</a>
+                {% endwith %}
+            </div>
+            <div class="section__subcontent">
+                {{ value.content|richtext }}
+            </div>
+        </div>
+    </div>
+</section>
