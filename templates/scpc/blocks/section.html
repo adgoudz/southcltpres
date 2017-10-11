@@ -7,7 +7,7 @@
 <section class="section{% if align == 'right' %} section--right{% elif align == 'left'%} section--left{% endif %}">
     <div class="section__body">
         {% if value.image %}
-        {% image value.image width-400 class='section__image' %}
+        {% image value.image max-400x400 class='section__image' %}
         {% endif %}
         <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
             {% if value.name %}

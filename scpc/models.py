@@ -31,8 +31,9 @@ class TextBlock(blocks.StructBlock):
 
 class LocationBlock(blocks.StructBlock):
     """A container similar to :class`TextBlock` which also includes maps, addresses, etc."""
-    content = blocks.RichTextBlock()
     contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
+    time = blocks.CharBlock(required=True, max_length=25)
+    content = blocks.RichTextBlock(required=True)
 
     class Meta:
         icon = 'site'

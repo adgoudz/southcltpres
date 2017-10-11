@@ -194,7 +194,7 @@
 
     #{$root}__body {
       @include media-breakpoint-up(lg) {
-        padding: ($section-py-lg / 4) $section-px-lg 0;
+        padding: ($section-py-lg / 3) $section-px-lg 0;
       }
 
       width: 100%;
@@ -232,11 +232,7 @@
     }
 
     .address {
-      @include media-breakpoint-up(lg) {
-        margin-bottom: $section-py-lg / 4;
-      }
-
-      margin: 0 auto ($section-py / 2);
+      margin: 0 auto;
       font-size: $font-size-lg;
       text-align: center;
 
