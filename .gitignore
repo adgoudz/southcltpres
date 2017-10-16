@@ -35,4 +35,5 @@ requirements.urls
 .idea
 stats.json
 static/bundles
+static/webpack-stats.json
 scpc/migrations

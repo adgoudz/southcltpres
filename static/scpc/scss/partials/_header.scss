@@ -1,34 +1,329 @@
 
+
+$homepage-hero-sizes: (xs: 400px, md: 768px);
+$subpage-hero-sizes: (xs: 400px, md: 600px);
+
+
+@mixin header() {
+  font-size: 1rem; // set font size for child em units
+}
+
+
+@mixin overlay() {
+  position: absolute;
+  z-index: $zindex-hero-overlay;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: black;
+  opacity: 0.2;
+}
+
+
+@mixin hero($selector, $heights, $overlay: true) {
+
+  @at-root #{$selector} {
+    @include media-breakpoint-up(md) {
+      height: map-get($heights, md);
+    }
+
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: map-get($heights, xs);
+    color: $white;
+  }
+
+  img {
+    position: absolute;
+    z-index: $zindex-hero-image;
+    max-width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-60%);
+  }
+
+  @if $overlay {
+    #{$selector}__overlay {
+      @include overlay();
+    }
+  }
+}
+
+
+// Homepage
+
+
+.notice {
+
+  position: relative;
+  padding: 1rem 3rem;
+
+  &__body {
+    @include media-breakpoint-up(md) {
+      width: $content-width;
+    }
+
+    margin: auto;
+    text-align: center;
+  }
+
+  &__content {
+    animation: fadein 0.75s ease-in;
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  }
+
+  &__close {
+    @include align-vertically();
+
+    position: absolute;
+    right: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    opacity: .5;
+  }
+}
+
+
+.home-header {
+
+  @mixin title() {
+    display: inline;
+    box-decoration-break: clone;
+    padding: 0.075em .75em 0.2em;  // logo font needs more bottom padding
+    line-height: 1.8;
+    font-family: $font-family-logo;
+  }
+
+  @include header();
+
+  &__notice {
+    color: $white;
+    background-color: $color-hl-3;
+
+    .notice__close {
+      color: $white;
+    }
+  }
+
+  &__body {
+    @include media-breakpoint-up(md) {
+      padding: ($section-py-lg / 2) $section-px-lg;
+    }
+
+    padding: ($section-py / 2) $section-px;
+  }
+
+  &__content {
+    @include media-breakpoint-up(md) {
+      width: $title-width;
+    }
+    @include media-breakpoint-up(xl) {
+      text-align: left;
+    }
+
+    width: auto;
+    margin: auto;
+    text-align: center;
+  }
+
+  &__title {
+
+    h1 {
+      @include title();
+      @include fluid-type(25em, 100em, 1.25em, 3.5em);
+
+      background-color: $color-hl-3;
+      color: white;
+    }
+
+    &--wide {
+      @include media-breakpoint-up(xl) {
+        display: block;
+      }
+
+      display: none;
+    }
+
+    &--narrow {
+      @include media-breakpoint-up(xl) {
+        display: none;
+      }
+
+      display: block;
+    }
+  }
+
+  &__subtitle {
+
+    span {
+      @include title();
+      @include fluid-type(25em, 100em, 1em, 3em);
+
+      background-color: $color-bg-3;
+      color: white;
+    }
+  }
+
+  &__intro {
+    @include media-breakpoint-up(md) {
+      margin: 0;
+      font-size: $font-size-md;
+    }
+
+    margin: 0 auto;
+    padding-top: 3rem;
+    font-size: $font-size-base;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+@mixin title() {
+  @include align-vertically();
+
+  position: absolute;
+  z-index: $zindex-hero-title;
+  width: 100%;
+  font-family: $font-family-title;
+  text-align: center;
+  text-transform: uppercase;
+  color: $white;
+
+  @include fluid-type(25em, 100em, 1.5em, 4em, $units: vmin);
+}
+
+
+.home-hero {
+
+  @include hero(&, $homepage-hero-sizes, $overlay: false);
+
+  @include media-breakpoint-up(md) {
+    @include focus-background-y(50, 1900, 768);
+  }
+
+  background: url("../images/heros/home.jpg") no-repeat;
+  background-size: cover;
+
+  @include focus-background-x(59, 1900, $device-widths);
+  @include focus-background-y(60, 911, 400);
+}
+
+
+// Ministries
+
+
+.ministries-header {
+
+  @include header();
+}
+
+
+.ministries-hero {
+
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// About us
+
+
+.about-us-header {
+
+  @include header();
+}
+
+
+.about-us-hero {
+
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Gospel
+
+
+.gospel-header {
+
+  @include header();
+}
+
+
+.gospel-hero {
+
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Giving
+
+
+.giving-header {
+
+  @include header();
+}
+
+
+.giving-hero {
+
+  @include hero(&, $subpage-hero-sizes);
+
+  &__title {
+    @include title();
+  }
+}
+
+
+// Landing
+
+
 .landing-header {
 
-  @mixin landing-title() {
+  @mixin title() {
     @include media-breakpoint-up(xl) {
       margin-bottom: 1.5rem;
     }
 
-    padding: 0.185em 1em 0.25em 1em;
+    padding: 0.185em 1em 0.325em 1em;
     margin-bottom: 0.75rem;
     font-family: $font-family-logo;
-
-    text-align: right;
   }
 
-  &#{&} {
-    @include cover($vmax: true);
-    @include section();
+  @include cover($vmax: true);
 
-    min-height: 360px;
-    font-size: 1rem; // Set font size for child em units
-    color: $white;
-  }
+  width: 100%;
+  min-height: 360px;
+  font-size: 1rem; // set font size for child em units
+  color: $white;
 
   &__overlay {
     @include cover($vmax: true);
-    @include section();
 
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;
     opacity: 0.3;
     background: url("../images/heros/landing.jpg") no-repeat right;
     background-size: cover;
@@ -36,10 +331,10 @@
 
   &__body {
     @include media-breakpoint-up(xl) {
-      height: calc(100% - 4em - 0.5rem); // See landing-header__base
+      height: calc(100% - 4em - 0.5rem); // see landing-header__base
     }
 
-    height: calc(100vmax - 4em - 0.5rem); // See landing-header__base
+    height: calc(100vmax - 4em - 0.5rem); // see landing-header__base
     z-index: 10;
   }
 
@@ -56,29 +351,31 @@
   }
 
   &__title {
-    @include landing-title();
-    @include fluid-type(20em, 75em, 1.5em, 3em, $units: vmin);
+    @include title();
+    @include fluid-type(25em, 75em, 1.5em, 3em, $units: vmin);
 
     line-height: 1.3;
-    background-color: rgba($color-hl-dark, 0.75);
+    text-align: right;
+    background-color: rgba($color-hl-4, 0.75);
   }
 
   &__subtitle {
-    @include landing-title();
-    @include fluid-type(20em, 75em, 1em, 2em, $units: vmin);
+    @include title();
+    @include fluid-type(25em, 75em, 1em, 2em, $units: vmin);
 
-    background-color: rgba($color-bg-dark, 0.75);
+    text-align: right;
+    background-color: rgba($color-bg-3, 0.75);
   }
 
   &__subtitle--inverse {
     font-weight: $font-weight-bold;
-    background-color: rgba($color-bg-med, 0.75);
-    color: $color-bg-dark;
+    background-color: rgba($color-bg-3, 0.75);
+    color: $color-bg-3;
   }
 
   &__base {
     z-index: 5;
-    height: calc(4em + 0.5rem); // Use ems to match Font Awesome's units
-    background-color: rgba($color-hl-light, 0.15);
+    height: calc(4em + 0.5rem); // use ems to match Font Awesome's units
+    background-color: rgba($color-hl-2, 0.15);
   }
 }

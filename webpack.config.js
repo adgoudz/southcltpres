@@ -6,6 +6,7 @@ const util = require('util');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const BundleTrackerPlugin = require('webpack-bundle-tracker');
 
 const __merge_rules__ = {
     'module.rules.use': 'replace'
@@ -16,20 +17,20 @@ let common = {
     context: __dirname,
 
     entry: {
-        vendor: ['jquery', 'popper.js', 'bootstrap'],
-        main: './static/scpc/js/main.js'
+        main: './static/scpc/js/main.js',
+        vendor: ['jquery', 'popper.js', 'bootstrap']
     },
 
     output: {
         path: path.resolve(__dirname, 'static/bundles'),
         publicPath: '/static/bundles/',
-        filename: '[name].bundle.js'
+        filename: '[name].[chunkhash].js'
     },
 
     resolve: {
         modules: [
-            path.resolve(__dirname, "static/scpc/js"),
-            "node_modules"
+            path.resolve(__dirname, 'static/scpc/js'),
+            'node_modules'
         ]
     },
 
@@ -65,7 +66,7 @@ let common = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[ext]',
+                            name: '[name].[ext]'
                         }
                     }
                 ]
@@ -76,7 +77,7 @@ let common = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '[name].[ext]',
+                            name: '[name].[ext]'
                         }
                     }
                 ]
@@ -89,14 +90,26 @@ let common = {
         // See ~webpack/examples/common-chunk-and-vendor-chunk for an
         // explanation of how this works.
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['lib', 'vendor'],  // Order is important
-            minChunks: 2
+            name: ['common', 'vendor'],  // Order is important
+            minChunks: 2,
+        }),
+
+        // Extract the Webpack runtime into it's own chunk. This can
+        // use any name that isn't also the name of an entry chunk.
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['runtime'],
         }),
 
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             Popper: ['popper.js', 'default']
+        }),
+
+        new BundleTrackerPlugin({
+            path: __dirname,
+            filename: 'static/webpack-stats.json',
+            indent: 4
         }),
 
         // Required for backwards-compatibility with v1 loaders
@@ -110,7 +123,8 @@ let common = {
 if (process.env.NODE_ENV === 'development') {
     module.exports = merge.smartStrategy(__merge_rules__)(common, {
         output: {
-            publicPath: 'http://localhost:8080/bundles/'
+            publicPath: 'http://localhost:8080/bundles/',
+            filename: '[name].js'  // hashing isn't allowed with HMR
         },
 
         plugins: [
@@ -134,16 +148,18 @@ if (process.env.NODE_ENV === 'development') {
             publicPath: 'http://localhost:8080/bundles/',
             contentBase: [
                 path.resolve(__dirname, 'static'),
-                path.resolve(__dirname, 'static_collected'),
+                path.resolve(__dirname, 'static_collected'), // Wagtail assets
             ],
             watchOptions: {
                 ignored: /node_modules/
             },
             proxy: {
-                // Files served from ${contentBase} are always served from /,
-                // regardless of ${publicPath} (see webpack-dev-server issue
-                // #954). A workaround is to also serve bundles from / (via
-                // ${publicPath}) and proxy/rewrite client /static requests to /.
+                // Files served from ${contentBase} are always served from
+                // "/", regardless of ${publicPath} (see
+                // https://github.com/webpack/webpack-dev-server/issues/954)
+                // A workaround is to also serve bundles from "/" (via
+                // ${publicPath}) and proxy/rewrite client "/static" requests
+                // to "/".
                 '/static': {
                     target: 'http://localhost:8080/',
                     pathRewrite: { '^/static': '' }
@@ -178,6 +194,28 @@ if (process.env.NODE_ENV === 'production' || !process.env.NODE_ENV) {
                         ],
                         fallback: 'style-loader'
                     })
+                },
+                {
+                    test: /\.(png|jpg|gif)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[hash].[ext]'
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(eot|otf|ttf|woff|woff2|svg)(\?.*$|$)/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[hash].[ext]'
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -185,7 +223,11 @@ if (process.env.NODE_ENV === 'production' || !process.env.NODE_ENV) {
         plugins: [
             new CleanPlugin(['static/bundles']),
 
-            new ExtractTextPlugin('main.css'),
+            // See https://github.com/webpack/webpack/issues/1315
+            new webpack.NamedModulesPlugin(),
+            new webpack.NamedChunksPlugin(),
+
+            new ExtractTextPlugin('main.[contenthash].css'),
 
             new webpack.optimize.UglifyJsPlugin({
                 mange: {

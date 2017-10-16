@@ -1,50 +1,73 @@
 
-// Functions
+// Dimensions
 
-@function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
-}
-
-// Mixins
-
-@mixin section() {
-  width: 100%;
-}
-
-@mixin cover($fluid: false, $vmax: false) {
+@mixin cover($height: 100, $fluid: false, $vmax: false) {
   @include media-breakpoint-up(xl) {
     @if $fluid {
       height: auto;
-      min-height: 100%;
+      min-height: $height * 1%;
       position: relative; // So children can use relative heights
     }
     @else {
-      height: 100%;
+      height: $height * 1%;
     }
   }
 
   @if $vmax {
-    height: 100vmax;
+    height: #{$height}vmax;
   }
   @else {
     height: auto;
   }
 }
 
-@mixin fluid-type($min-units, $max-units, $min-font-size, $max-font-size, $units: vw) {
-  & {
-    font-size: $min-font-size;
-    @media screen and (min-width: $min-units) {
-      font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-units}) / #{strip-unit($max-units - $min-units)}));
-    }
-    @media screen and (min-width: $max-units) {
-      font-size: $max-font-size;
-    }
-  }
-}
+// Alignment
 
 @mixin align-vertically($top: 50%, $y: -50%) {
   position: relative;
   top: $top;
   transform: translateY($y);
+}
+
+// Type
+
+@mixin fluid-type($min-x, $max-x, $min-font-size, $max-font-size, $units: vw) {
+  @if (unit($min-x) == unit($max-x) && unit($min-x) == unit($min-font-size) && unit($min-x) == unit($max-font-size)) {
+    & {
+      font-size: $min-font-size;
+      @media (min-width: $min-x) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100#{$units} - #{$min-x}) / #{strip-unit($max-x - $min-x)}));
+      }
+      @media (min-width: $max-x) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+  @else {
+    @error "All arguments to fluid-type must be specified with the same units";
+  }
+}
+
+// Background positioning
+
+@mixin focus-background-x($x, $bg-x, $container-xs, $default-x: 50) {
+  @each $container-x in $container-xs {
+    @if ($bg-x > $container-x) {
+      @media (min-width: #{$container-x}px) {
+        background-position-x: focus-background($x, $bg-x, $container-x);
+      }
+    }
+  }
+  @media (min-width: #{$bg-x}px) {
+    background-position-x: #{$default-x}#{'%'};
+  }
+}
+
+@mixin focus-background-y($y, $bg-y, $container-y, $default-y: 50) {
+  background-position-y: focus-background($y, $bg-y, $container-y, $default-y);
+}
+
+@mixin focus-background($x, $y, $bg-x, $bg-y, $container-xs, $container-y, $default-x: 50, $default-y: 50) {
+  @include focus-background-x($x, $bg-x, $container-xs, $default-x);
+  @include focus-background-y($y, $bg-y, $container-y, $default-y);
 }

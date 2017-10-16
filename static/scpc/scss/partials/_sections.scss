@@ -1,0 +1,342 @@
+
+
+@mixin section() {
+  @include media-breakpoint-up(md) {
+    padding: ($section-py-lg / 2) $section-px-lg;
+  }
+
+  padding: ($section-py / 2) $section-px;
+
+  &:first-of-type {
+    @include media-breakpoint-up(md) {
+      padding-top: $section-py-lg;
+    }
+
+    padding-top: $section-py;
+  }
+
+  &:last-of-type {
+    @include media-breakpoint-up(md) {
+      padding-bottom: $section-py-lg;
+    }
+
+    padding-bottom: $section-py;
+  }
+}
+
+
+@mixin section-inverse() {
+  @include media-breakpoint-up(md) {
+    margin: ($section-py-lg / 2) 0;
+  }
+
+  margin: ($section-py / 2) 0;
+
+  &:first-of-type {
+    // Cut section padding in half
+    @include media-breakpoint-up(md) {
+      padding-top: ($section-py-lg / 2);
+    }
+
+    margin-top: 0;
+    padding-top: ($section-py / 2);
+  }
+
+  &:last-of-type {
+    // Cut section padding in half
+    @include media-breakpoint-up(md) {
+      padding-bottom: ($section-py-lg / 2);
+    }
+
+    margin-bottom: 0;
+    padding-bottom: ($section-py / 2);
+  }
+}
+
+
+@mixin section-flush($margin-factor: 2) {
+  @include media-breakpoint-up(md) {
+    margin: ($section-py-lg / $margin-factor) 0;
+  }
+
+  margin: ($section-py / $margin-factor) 0;
+  padding: 0;
+
+  &:first-of-type {
+    margin-top: 0;
+    padding-top: 0;  // Reset
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;  // Reset
+  }
+}
+
+
+.section {
+  @include section();
+
+  $root: &;
+
+  &__body {
+    @include media-breakpoint-up(md) {
+      width: $content-width;
+    }
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      align-items: start;
+      text-align: left;
+    }
+    @include media-breakpoint-up(xl) {
+      align-items: center;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;  // aligns on cross-axis
+    margin: auto;
+    font-size: $font-size-base;
+    text-align: center;
+  }
+
+  //noinspection CssRedundantUnit
+  &__image {
+    @include media-breakpoint-up(lg) {
+      margin-right: $content-px-md / 2;
+      margin-bottom: 0;
+    }
+
+    flex: 0 5 auto;
+    width: 100%;
+    margin-bottom: $content-px-md / 2;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+    }
+  }
+
+  //noinspection CssRedundantUnit
+  &__content {
+    display: flex;
+    flex: 1 4 auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__name {
+    @include media-breakpoint-up(lg) {
+      font-size: $font-size-xl;
+    }
+
+    margin-bottom: $content-px-md / 2;
+    font-family: $font-family-title;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-hl-3;
+  }
+
+  &__subcontent {
+
+    p:last-child {
+      margin-bottom: 0;  // Bootstrap override
+    }
+  }
+
+  // Alignment
+
+  &--left, &--right {
+
+    #{$root}__content--flatten {
+      flex-direction: row;
+
+      #{$root}__name {
+        margin-bottom: 0;
+      }
+
+      #{$root}__subcontent {
+        flex: 1;
+      }
+    }
+  }
+
+  &--left {
+
+    #{$root}__content--flatten {
+
+      #{$root}__name {
+        @include media-breakpoint-up(md) {
+          padding-right: $content-px-md;
+        }
+
+        padding-right: $content-px;
+        text-align: right;
+      }
+
+      #{$root}__subcontent {
+        @include media-breakpoint-up(md) {
+          padding-left: $content-px-md;
+        }
+
+        padding-left: $content-px;
+        border-left: 1px solid $color-border;
+        text-align: left;
+      }
+    }
+  }
+
+  &--right {
+
+    #{$root}__body {
+      @include media-breakpoint-up(lg) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    #{$root}__image {
+      @include media-breakpoint-up(lg) {
+        margin-left: $content-px-md / 2;
+      }
+
+      margin-right: 0;
+    }
+
+    #{$root}__content {
+      @include media-breakpoint-up(lg) {
+        text-align: right;
+      }
+    }
+
+    #{$root}__content--flatten {
+
+      flex-direction: row-reverse;
+      padding-right: 0;
+
+      #{$root}__name {
+        @include media-breakpoint-up(md) {
+          padding-left: $content-px-md;
+        }
+
+        padding-left: $content-px;
+        text-align: left;
+      }
+
+      #{$root}__subcontent {
+        @include media-breakpoint-up(md) {
+          padding-right: $content-px-md;
+        }
+
+        padding-right: $content-px;
+        border-right: 1px solid $color-border;
+        text-align: right;
+      }
+    }
+  }
+
+  // Location Section
+
+  &--location {
+    @include section-flush();
+
+    #{$root}__body {
+      @include media-breakpoint-up(md) {
+        padding: ($section-py-lg / 2) $section-px-lg 0;
+      }
+
+      padding: ($section-py / 2) $section-px 0;
+
+      // Resets
+      display: block;
+      width: 100%;
+      margin: 0;
+    }
+
+    #{$root}__content {
+      @include media-breakpoint-up(md) {
+        width: $content-width;
+      }
+
+      margin: auto;
+
+      // Resets
+      display: block;
+    }
+
+    #{$root}__subcontent {
+      font-size: $font-size-md;
+      text-align: center;
+    }
+
+    #{$root}__social-icons {
+      margin-top: ($section-py / 2);
+      color: $color-hl-3;
+    }
+
+    .map {
+      @include media-breakpoint-up(md) {
+        height: 50vh;
+      }
+
+      height: 50vmax;
+      min-height: 300px;
+      background-color: $color-hl-2;
+    }
+
+    .address {
+      margin: 0 auto;
+      font-size: $font-size-lg;
+      text-align: center;
+
+      &__name {
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
+  // Verse Section
+
+  &--verse {
+    @include section-inverse();
+
+    color: $color-hl-4;
+    background-color: $color-hl-1;
+
+    #{$root}__body {
+      align-items: center;
+    }
+
+    #{$root}__subcontent {
+      font-style: italic;
+      letter-spacing: 0.125em;
+      text-align: center;
+    }
+
+    #{$root}__verse {
+      margin-top: 1rem;
+    }
+  }
+
+  // Bio Section
+
+  &--bio {
+
+
+  }
+
+  // Divider Section
+
+  &--divider {
+    @include section-flush($margin-factor: 4);
+
+    .hrule__text {
+      @include fluid-type(25em, 100em, 2em, 3em);
+
+      text-transform: lowercase;
+      letter-spacing: 0.125em;
+      color: $color-bg-3;
+    }
+  }
+}

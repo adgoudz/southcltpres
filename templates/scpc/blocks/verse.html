@@ -1,0 +1,13 @@
+
+{% load wagtailcore_tags %}
+
+<section class="section section--verse">
+    <div class="section__body">
+        <div class="section__content">
+            <div class="section__subcontent">
+                {{ value.passage|richtext }}
+                <p class="section__verse">{{ value.verse }}</p>
+            </div>
+        </div>
+    </div>
+</section>
