@@ -1,12 +1,27 @@
 
-$pastel-blue: #ACC4C1;
-$tropical-rain-forest: #006D62;
-$onyx: #373F3E;
-$sonic-silver: #697776;
-$silver-sand: #BEC1C1;
+$default-green: #008275;
+$default-grey: #4b5351;
 
-$color-hl-light: $pastel-blue;
-$color-hl-dark: $tropical-rain-forest;
-$color-bg-dark: $onyx;
-$color-bg-med: $sonic-silver;
-$color-bg-light: $silver-sand;
+$platinum: #eff4f3;
+$pastel-blue: #acc4c1;
+$tropical-rain-forest: #006b60;
+$warm-black: #004740;
+
+$anti-flash-white: #f2f2f2;
+$silver-sand: #bec1c1;
+$outer-space: #454c4a;
+
+$light-grey: #d1d4d4;
+
+// Defaults
+
+$color-hl-1: $platinum;
+$color-hl-2: $pastel-blue;
+$color-hl-3: $tropical-rain-forest;
+$color-hl-4: $warm-black;
+
+$color-bg-1: $anti-flash-white;
+$color-bg-2: $silver-sand;
+$color-bg-3: $outer-space;
+
+$color-border: $light-grey;

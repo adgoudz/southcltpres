@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+    <header class="ministries-header">
+        <div class="ministries-hero">
+            <div class="ministries-hero__overlay"></div>
+            <h1 class="ministries-hero__title">{{ page.title }}</h1>
+            {% image page.hero_image min-1900x768 %}
+        </div>
+    </header>
+
+{% for block in page.sections %}
+    {% cycle 'left' 'right' as align silent %}
+    {% include_block block %}
+{% endfor %}
+
+{% endblock %}

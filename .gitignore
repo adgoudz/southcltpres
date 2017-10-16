@@ -30,7 +30,10 @@ requirements.urls
 # local
 *.log
 *.sql
+*.tar
+*.gz
 .idea
 stats.json
 static/bundles
+static/webpack-stats.json
 scpc/migrations

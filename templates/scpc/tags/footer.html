@@ -1,0 +1,34 @@
+
+{% load wagtailcore_tags %}
+
+<footer class="footer">
+    <p class="footer__social-icons">
+        <a href="{{ contact_info.facebook_url }}" class="icon-link">
+          <i class="fa fa-facebook fa-2x"></i>
+        </a>
+        <a href="{{ contact_info.twitter_url }}" class="icon-link">
+          <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a href="{{ contact_info.instagram_url }}" class="icon-link">
+          <i class="fa fa-instagram fa-2x"></i>
+        </a>
+    </p>
+    <p class="footer__contact-info">
+        <span class="footer__contact-address">
+            {% if contact_info.mailing_name %}
+            {{ contact_info.mailing_name }},
+            {% endif %}
+            {{ contact_info.mailing_street }}, {{ contact_info.mailing_city }}<br/>
+        </span>
+        <span class="spacer spacer--inverse">|</span>
+        <span class="footer__contact-email">
+            <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a>
+        </span>
+        {% if contact_info.phone_number %}
+        <span class="spacer spacer--inverse">|</span>
+        <span class="footer__contact-phone">
+            {{ contact_info.phone_number }}
+        </span>
+        {% endif %}
+    </p>
+</footer>

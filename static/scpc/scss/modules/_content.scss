@@ -1,18 +1,17 @@
 
-/* Links */
+// Links
 
 @mixin inline-link {
-  color: $color-hl-dark;
+  color: $color-hl-3;
 
   &:hover {
-    color: $color-hl-dark;
+    color: $color-hl-3;
   }
 }
 
 .rich-text a {
   @include inline-link;
 }
-
 
 .external-link {
   @include inline-link;
@@ -21,15 +20,84 @@
 }
 
 .external-link--footer {
+  @include media-breakpoint-up(lg) {
+    font-size: $font-size-md;
+  }
+
   display: inline-block;
   margin-top: 0.75rem;
   font-size: $font-size-base;
 }
 
 .icon-link {
+  display: inline-block;
+  margin: 0 1.25rem;
   text-transform: none;
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+// Inline
+
+.spacer {
+  @include media-breakpoint-up(md) {
+    display: inline-block;
+  }
+
+  display: none;
+  margin: 0 1rem;
+  color: $color-border;
+
+  &--inverse {
+    color: $white;
+  }
+}
+
+// Flow
+
+.hrule {
+
+  $root: &;
+
+
+  &__hr {
+    @include media-breakpoint-up(lg) {
+      padding: ($section-py / 2) $content-px-md;
+    }
+
+    padding: ($section-py / 2) $content-px;
+
+    hr {
+      width: 100%;
+      margin: 0;
+      border-top: 1px solid rgba($color-border, 0.75);
+    }
+  }
+
+  &--text {
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    #{$root}__hr {
+      flex: 1 1 0;
+      width: 100%;
+    }
+
+    #{$root}__text {
+      flex: 0 0 auto;
+      width: auto;
+      font-size: $font-size-lg;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: $color-bg-3;
+    }
+
+    p {
+      margin-bottom: 0;  // Bootstrap reset
+    }
   }
 }
