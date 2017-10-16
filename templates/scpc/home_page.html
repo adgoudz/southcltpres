@@ -7,17 +7,31 @@
 
 {% block content %}
     <header class="home-header">
+        <div class="home-header__notice notice">
+            <div class="notice__body">
+                <span class="notice__content">{{ page.alert }}</span>
+            </div>
+            <button type="button" class="notice__close close">
+              <span>&times;</span>
+            </button>
+        </div>
         <div class="home-hero" id="hero" data-focus-x="59" data-focus-y="50">
             <div class="home-hero__overlay"></div>
         </div>
         <div class="home-header__body">
             <div class="home-header__content">
-                <h1 class="home-header__title">
-                    {{ page.title }}
-                </h1>
-                <h2 class="home-header__subtitle">
-                    {{ page.subtitle }}
-                </h2>
+                <div class="home-header__title home-header__title--wide">
+                    <h1>South Charlotte Presbyterian Church</h1>
+                </div>
+                <div class="home-header__title home-header__title--narrow">
+                    <h1>South Charlotte</h1>
+                </div>
+                <div class="home-header__title home-header__title--narrow">
+                    <h1>Presbyterian Church</h1>
+                </div>
+                <div class="home-header__subtitle">
+                    <span>{{ page.subtitle }}</span>
+                </div>
                 <div class="home-header__intro">
                     {{ page.introduction|richtext }}
                 </div>
@@ -26,11 +40,12 @@
     </header>
 
 {% for block in page.sections %}
-    {% if block.block_type == 'text' %}
+    {% if block.block_type in 'text|bio' %}
         {% cycle 'left' 'right' as align silent %}
     {% endif %}
-    {% include_block block %}
+    {% include_block block with type=block.block_type %}
 {% endfor %}
+
 {% endblock %}
 
 {% block extra_js %}

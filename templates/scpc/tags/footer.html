@@ -13,20 +13,22 @@
           <i class="fa fa-instagram fa-2x"></i>
         </a>
     </p>
-    <span class="footer__contact-address">
-        {% if contact_info.mailing_name %}
-        {{ contact_info.mailing_name }},
+    <p class="footer__contact-info">
+        <span class="footer__contact-address">
+            {% if contact_info.mailing_name %}
+            {{ contact_info.mailing_name }},
+            {% endif %}
+            {{ contact_info.mailing_street }}, {{ contact_info.mailing_city }}<br/>
+        </span>
+        <span class="spacer spacer--inverse">|</span>
+        <span class="footer__contact-email">
+            <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a>
+        </span>
+        {% if contact_info.phone_number %}
+        <span class="spacer spacer--inverse">|</span>
+        <span class="footer__contact-phone">
+            {{ contact_info.phone_number }}
+        </span>
         {% endif %}
-        {{ contact_info.mailing_street }}, {{ contact_info.mailing_city }}<br/>
-    </span>
-    <span class="spacer spacer--inverse">|</span>
-    <span class="footer__contact-email">
-        <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a>
-    </span>
-    {% if contact_info.phone %}
-    <span class="spacer spacer--inverse">|</span>
-    <span class="footer__contact-phone">
-        {{ contact_info.phone }}
-    </span>
-    {% endif %}
+    </p>
 </footer>

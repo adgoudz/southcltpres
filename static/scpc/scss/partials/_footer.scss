@@ -6,14 +6,34 @@
   background-color: $color-bg-3;
   color: $white;
   font-weight: $font-weight-light;
-  font-size: $font-size-sm;
+  font-size: $font-size-base;
   text-align: center;
 
   &__social-icons {
-    margin: 0 0 0.75rem;
+    margin: 0 0 1rem;
+  }
+
+  &__contact-info {
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;  // Bootstrap override
   }
 
   &__contact-address, &__contact-email, &__contact-phone {
-    display: inline-block;
+    @include media-breakpoint-up(md) {
+      margin-bottom: 0;
+    }
+
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 }

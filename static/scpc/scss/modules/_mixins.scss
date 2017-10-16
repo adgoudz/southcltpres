@@ -1,10 +1,6 @@
 
 // Dimensions
 
-@mixin section() {
-  width: 100%;
-}
-
 @mixin cover($height: 100, $fluid: false, $vmax: false) {
   @include media-breakpoint-up(xl) {
     @if $fluid {

@@ -20,6 +20,10 @@
 }
 
 .external-link--footer {
+  @include media-breakpoint-up(lg) {
+    font-size: $font-size-md;
+  }
+
   display: inline-block;
   margin-top: 0.75rem;
   font-size: $font-size-base;
@@ -27,7 +31,7 @@
 
 .icon-link {
   display: inline-block;
-  margin: 0 1rem;
+  margin: 0 1.25rem;
   text-transform: none;
 
   &:hover {
@@ -38,8 +42,11 @@
 // Inline
 
 .spacer {
-  display: inline-block;
-  content: '|';
+  @include media-breakpoint-up(md) {
+    display: inline-block;
+  }
+
+  display: none;
   margin: 0 1rem;
   color: $color-border;
 
@@ -54,16 +61,16 @@
 
   $root: &;
 
-  align-items: center;
 
   &__hr {
     @include media-breakpoint-up(lg) {
-      padding: ($section-py-lg / 3);
+      padding: ($section-py / 2) $content-px-md;
     }
 
-    padding: ($section-py / 2);
+    padding: ($section-py / 2) $content-px;
 
     hr {
+      width: 100%;
       margin: 0;
       border-top: 1px solid rgba($color-border, 0.75);
     }
@@ -72,22 +79,21 @@
   &--text {
 
     display: flex;
+    align-items: center;
     text-align: center;
-    font-size: $font-size-lg;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    color: $color-bg-3;
 
     #{$root}__hr {
       flex: 1 1 0;
       width: 100%;
-      max-width: 100%;
     }
 
     #{$root}__text {
       flex: 0 0 auto;
       width: auto;
-      max-width: auto;
+      font-size: $font-size-lg;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: $color-bg-3;
     }
 
     p {

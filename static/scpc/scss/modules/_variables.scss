@@ -20,6 +20,16 @@ $sizes: (
   100: 100%
 );
 
+// Extend Bootstrap's breakpoints
+$grid-breakpoints: (
+  xxs: 0,
+  xs: 480px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1366px
+);
+
 // Device widths
 
 $phone-widths: 320 360 375 412 480;
@@ -29,22 +39,28 @@ $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
 // Sizes
 
-$base-width: 75%;
+$title-width: 75%;
+$content-width: 65%;
 
-$nav-height: 6rem;
-$nav-width: $base-width;
+$navbar-width: $title-width;
+$navbar-padding-x: 2rem;
+$navbar-padding-y: 1rem;
 
-$content-width: $base-width;
+$navbar-brand-width: 213px;
+
+$nav-link-padding-y: 1rem;
+
+$content-width: $content-width;
 
 // Padding and margins
 
-$section-py: 3rem;
+$section-py: 8rem;
 $section-py-lg: 14rem;
 $section-px: 1.5rem;
 $section-px-lg: 3rem;
 
 $content-px: 2rem;
-$content-px-lg: 4rem;
+$content-px-md: 4rem;
 
 // Font families
 
@@ -71,7 +87,7 @@ $font-size-sm: 1rem;
 $font-size-md: 1.2rem;
 $font-size-lg: 1.4rem;
 $font-size-xl: 2rem;
-$font-size-base: $font-size-md;
+$font-size-base: $font-size-sm;
 $line-height-base: 1.4;
 
 // Z Index

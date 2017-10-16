@@ -3,7 +3,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks import StaticBlock
+from wagtail.wagtailcore.blocks import StaticBlock, CharBlock
+from wagtail.wagtailcore.blocks.list_block import ListBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
@@ -18,17 +19,6 @@ from scpc.utils.blocks import static_label
 # Stream Blocks
 
 
-class TextBlock(blocks.StructBlock):
-    """The primary container for generic page content."""
-    image = ImageChooserBlock(required=False)
-    name = blocks.CharBlock(max_length=32, required=False)
-    content = blocks.RichTextBlock()
-
-    class Meta:
-        icon = 'form'
-        template = 'scpc/blocks/section.html'
-
-
 class LocationBlock(blocks.StructBlock):
     """A container similar to :class`TextBlock` which also includes maps, addresses, etc."""
     contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
@@ -40,13 +30,30 @@ class LocationBlock(blocks.StructBlock):
         template = 'scpc/blocks/location.html'
 
 
+class ContentBlock(blocks.StructBlock):
+    """The primary container for generic page content."""
+    image = ImageChooserBlock(required=False)
+    header = blocks.CharBlock(max_length=32, required=False)
+    content = blocks.RichTextBlock()
+
+    class Meta:
+        icon = 'form'
+        template = 'scpc/blocks/section.html'
+
+
+class BioBlock(ContentBlock):
+
+    class Meta:
+        icon = 'user'
+
+
 # Root Pages
 
 
 class SectionedPage(Page):
     """Abstract base class for pages containing :class:`SectionBlock`."""
     sections = StreamField(
-        [('text', TextBlock())],
+        [('text', ContentBlock())],
         blank=True
     )
     sections_panel = StreamFieldPanel('sections')
@@ -73,20 +80,29 @@ class HomePage(Page):
     # Extend `SectionedPage` stream field
     sections = StreamField(
         [
-            ('text', TextBlock()),
             ('location', LocationBlock()),
-            ('verse', SnippetChooserBlock(template='scpc/blocks/verse.html', target_model='scpc.VerseSnippet'))
+            ('text', ContentBlock()),
+            ('bio', BioBlock()),
+            ('divider', CharBlock(
+                icon='horizontalrule',
+                required=True,
+                max_length=25,
+                template='scpc/blocks/divider.html')),
+            ('verse', SnippetChooserBlock(
+                template='scpc/blocks/verse.html',
+                target_model='scpc.VerseSnippet'))
         ],
         blank=True
     )
 
+    alert = models.TextField(null=True, max_length=200)
     subtitle = models.CharField(max_length=35)
     introduction = RichTextField(max_length=750)
 
     content_panels = [
+        FieldPanel('alert'),
         MultiFieldPanel(
             [
-                FieldPanel('title', classname='title'),
                 FieldPanel('subtitle', classname='title'),
                 FieldPanel('introduction', classname='full'),
             ],
