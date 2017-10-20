@@ -21,7 +21,16 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i" rel="stylesheet">
 
-    {% block extra_css %}{% endblock %}
+    {% if env == 'production' and not request.is_preview %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('js', new Date());
+      gtag('config', '');
+    </script>
+    {% endif %}
 </head>
 <body>
 

@@ -24,9 +24,9 @@ INSTALLED_APPS.extend([
     'wagtail.contrib.wagtailstyleguide',
 ])
 
-MIDDLEWARE_CLASSES.extend([
-
-])
+TEMPLATES[0]['OPTIONS']['context_processors'].append(
+    'scpc.context_processors.env.export'
+)
 
 # Wagtail settings
 WAGTAIL_ENABLE_UPDATE_CHECK = True
