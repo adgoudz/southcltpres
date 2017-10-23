@@ -55,42 +55,6 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 // Homepage
 
 
-.notice {
-
-  position: relative;
-  padding: 1rem 3rem;
-
-  &__body {
-    @include media-breakpoint-up(md) {
-      width: $content-width;
-    }
-
-    margin: auto;
-    text-align: center;
-  }
-
-  &__content {
-    animation: fadein 0.75s ease-in;
-
-    @keyframes fadein {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-  }
-
-  &__close {
-    @include align-vertically();
-
-    position: absolute;
-    right: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    line-height: 1;
-    opacity: .5;
-  }
-}
-
-
 .home-header {
 
   @mixin title() {
@@ -102,15 +66,6 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   }
 
   @include header();
-
-  &__notice {
-    color: $white;
-    background-color: $color-hl-3;
-
-    .notice__close {
-      color: $white;
-    }
-  }
 
   &__body {
     @include media-breakpoint-up(md) {

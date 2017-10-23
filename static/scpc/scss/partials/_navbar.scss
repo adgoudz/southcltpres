@@ -6,23 +6,14 @@
 
   margin: 0 auto;
 
-  // TODO Temporary, until subpages are available
-  justify-content: center;
-
   &-brand {
     line-height: 0;
-
-    // TODO Temporary, until subpages are available
-    margin: 0;
   }
   
   &-collapse {
     @include media-breakpoint-up(md) {
       padding: 0;
     }
-
-    // TODO Temporary, until subpages are available
-    flex-basis: 0%;
 
     padding: 2rem 0;
   }
@@ -56,11 +47,6 @@
 
     text-transform: uppercase;
   }
-
-  // TODO Temporary, until subpages are available
-  .navbar-toggler {
-    display: none !important;
-  }
 }
 
 
@@ -73,8 +59,7 @@
 
   &__text {
     @include media-breakpoint-between(md, lg) {
-      // TODO Temporary, until subpages are available
-      //display: none;
+      display: none;
     }
   }
 }

@@ -3,8 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks import StaticBlock, CharBlock
-from wagtail.wagtailcore.blocks.list_block import ListBlock
+from wagtail.wagtailcore.blocks import CharBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
@@ -12,8 +11,6 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
-
-from scpc.utils.blocks import static_label
 
 
 # Stream Blocks
@@ -95,12 +92,10 @@ class HomePage(Page):
         blank=True
     )
 
-    alert = models.TextField(null=True, max_length=200)
     subtitle = models.CharField(max_length=35)
     introduction = RichTextField(max_length=750)
 
     content_panels = [
-        FieldPanel('alert'),
         MultiFieldPanel(
             [
                 FieldPanel('subtitle', classname='title'),
