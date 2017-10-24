@@ -1,7 +1,8 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.forms import widgets
 from django.utils.translation import ugettext_lazy
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, FieldRowPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.blocks import CharBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
@@ -172,15 +173,39 @@ class Subpage(SectionedPage):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    hero_align = models.CharField(
+        verbose_name='Alignment',
+        max_length=6,
+        choices=(
+            ('top', 'Top'),
+            ('middle', 'Middle'),
+            ('bottom', 'Bottom'),
+        ),
+        default='middle',
+        help_text='Aligns the image vertically',
+    )
+    hero_y = models.PositiveSmallIntegerField(
+        verbose_name='Y',
+        default=50,
+        help_text='The vertical position to align to the middle of the container (middle alignment only)',
+    )
+
     menu_title = models.CharField(
         max_length=12,
         null=True,
         blank=True,
-        help_text="An alternate page title to be used in automatically generated menus"
+        help_text='An alternate page title to be used in automatically generated menus'
     )
 
     content_panels = [
-        ImageChooserPanel('hero_image')
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('hero_image'),
+                FieldPanel('hero_align', widget=widgets.RadioSelect),
+                FieldPanel('hero_y'),
+            ],
+            heading="Hero"
+        )
     ] + SectionedPage.content_panels
 
     promote_panels = MultiFieldPanel([

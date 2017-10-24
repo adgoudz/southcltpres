@@ -9,49 +9,6 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-@mixin overlay() {
-  position: absolute;
-  z-index: $zindex-hero-overlay;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background-color: black;
-  opacity: 0.2;
-}
-
-
-@mixin hero($selector, $heights, $overlay: true) {
-
-  @at-root #{$selector} {
-    @include media-breakpoint-up(md) {
-      height: map-get($heights, md);
-    }
-
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: map-get($heights, xs);
-    color: $white;
-  }
-
-  img {
-    position: absolute;
-    z-index: $zindex-hero-image;
-    max-width: 100%;
-    height: auto;
-    top: 50%;
-    transform: translateY(-60%);
-  }
-
-  @if $overlay {
-    #{$selector}__overlay {
-      @include overlay();
-    }
-  }
-}
-
-
 // Homepage
 
 
@@ -143,34 +100,89 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-@mixin title() {
-  @include align-vertically();
-
-  position: absolute;
-  z-index: $zindex-hero-title;
+.hero {
+  position: relative;
+  overflow: hidden;
   width: 100%;
-  font-family: $font-family-title;
-  text-align: center;
-  text-transform: uppercase;
   color: $white;
 
-  @include fluid-type(25em, 100em, 1.5em, 4em, $units: vmin);
-}
-
-
-.home-hero {
-
-  @include hero(&, $homepage-hero-sizes, $overlay: false);
-
-  @include media-breakpoint-up(md) {
-    @include focus-background-y(50, 1900, 768);
+  img {
+    position: absolute;
+    z-index: $zindex-hero-image;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  background: url("../images/heros/home.jpg") no-repeat;
-  background-size: cover;
+  &--home {
+    @include media-breakpoint-up(md) {
+      @include focus-background-y(50, 1900, 768);
 
-  @include focus-background-x(59, 1900, $device-widths);
-  @include focus-background-y(60, 911, 400);
+      height: map-get($homepage-hero-sizes, md);
+    }
+
+    height: map-get($homepage-hero-sizes, xs);
+    background: url("../images/heros/home.jpg") no-repeat;
+    background-size: cover;
+
+    @include focus-background-x(59, 1900, $device-widths);
+    @include focus-background-y(60, 911, 400);
+
+    img {
+      transform: translateY(-60%);
+    }
+  }
+
+  &--subpage {
+    @include media-breakpoint-up(md) {
+      height: map-get($subpage-hero-sizes, md);
+    }
+
+    height: map-get($subpage-hero-sizes, xs);
+  }
+
+  &--top {
+    img {
+      top: 0;
+      bottom: auto;
+      transform: none;
+    }
+  }
+
+  &--bottom {
+    img {
+      top: auto;
+      bottom: 0;
+      transform: none;
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: $zindex-hero-overlay;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.2;
+  }
+
+  &__title {
+    @include align-vertically();
+
+    position: absolute;
+    z-index: $zindex-hero-title;
+    width: 100%;
+    font-family: $font-family-title;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+
+    @include fluid-type(25em, 100em, 1.5em, 4em, $units: vmin);
+  }
 }
 
 
@@ -183,32 +195,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-.ministries-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
 // About us
 
 
 .about-us-header {
 
   @include header();
-}
-
-
-.about-us-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
 }
 
 
@@ -221,32 +213,12 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-.gospel-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
 // Giving
 
 
 .giving-header {
 
   @include header();
-}
-
-
-.giving-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
 }
 
 
