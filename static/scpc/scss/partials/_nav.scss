@@ -15,7 +15,8 @@
 
 %nav-link-base {
   font-family: $font-family-title;
-  font-size: $font-size-base;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-base;
   text-transform: uppercase;
   color: $color-bg-3 !important;
   white-space: nowrap;

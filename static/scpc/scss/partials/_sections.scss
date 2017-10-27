@@ -135,7 +135,7 @@
     margin-bottom: $content-px-md / 2;
     font-family: $font-family-title;
     font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-base;
     color: $color-hl-3;
   }
 
@@ -291,7 +291,7 @@
       text-align: center;
 
       &__name {
-        font-weight: $font-weight-bold;
+        font-weight: $font-weight-regular;
       }
     }
   }
@@ -336,7 +336,7 @@
 
       text-transform: lowercase;
       letter-spacing: 0.125em;
-      color: $color-bg-3;
+      color: $color-hl-3;
     }
   }
 }

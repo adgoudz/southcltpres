@@ -101,6 +101,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 
 
 .hero {
+
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -167,7 +168,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     left: 0;
     top: 0;
     background-color: black;
-    opacity: 0.3;
+    opacity: 0.4;
   }
 
   &__title {
@@ -177,11 +178,13 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     z-index: $zindex-hero-title;
     width: 100%;
     font-family: $font-family-title;
+    font-weight: $font-weight-title;
+    letter-spacing: 0.125em;
     text-align: center;
     text-transform: uppercase;
-    color: $white;
+    color: white;
 
-    @include fluid-type(25em, 100em, 1.5em, 4em, $units: vmin);
+    @include fluid-type(25em, 100em, 1.5em, 3em, $units: vmin);
   }
 }
 
