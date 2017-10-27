@@ -15,7 +15,13 @@ def nav_items(context, current_page, root_page=None):
 
     for menu_page in menu_pages:
         menu_page.show_dropdown = _query_children(menu_page).exists()
-        menu_page.active = False
+
+        # We don't directly check if current_page is None since the template
+        # engine can pass an empty string to current_page if the variable
+        # passed as calling_page does not exist.
+        menu_page.active = (
+            current_page.path.startswith(menu_page.path) if current_page else False
+        )
 
         if current_page.path.startswith(menu_page.path):
             menu_page.active = True

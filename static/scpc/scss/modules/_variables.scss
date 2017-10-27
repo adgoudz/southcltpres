@@ -37,31 +37,6 @@ $tablet-widths: 768 1024;
 $desktop-widths: 1366 1440 1920;
 $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
-// Sizes
-
-$title-width: 75%;
-$content-width: 65%;
-
-$navbar-width: $title-width;
-$navbar-padding-x: 2rem;
-$navbar-padding-y: 1rem;
-
-$navbar-brand-width: 213px;
-
-$nav-link-padding-y: 1rem;
-
-$content-width: $content-width;
-
-// Padding and margins
-
-$section-py: 8rem;
-$section-py-lg: 14rem;
-$section-px: 1.5rem;
-$section-px-lg: 3rem;
-
-$content-px: 2rem;
-$content-px-md: 4rem;
-
 // Font families
 
 // Note: This is duplicated from Bootstrap because Bootstrap
@@ -90,10 +65,41 @@ $font-size-xl: 2rem;
 $font-size-base: $font-size-sm;
 $line-height-base: 1.4;
 
+// Height and width
+
+$title-width: 75%;
+$content-width: 65%;
+
+$navbar-width: $title-width;
+
+$navbar-brand-height: 48px;
+$navbar-brand-width: 213px;
+
+// Padding and margins
+
+$navbar-padding-y: 1rem;
+$navbar-padding-x: 2rem;
+
+$navbar-brand-padding-y: 0;
+
+// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
+$nav-link-height: ($font-size-base * $line-height-base) * 16 / 1rem;  // Strip unit
+$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;
+$nav-link-padding-x: 2rem;
+
+$section-py: 8rem;
+$section-py-lg: 14rem;
+$section-px: 1.5rem;
+$section-px-lg: 3rem;
+
+$content-px: 2rem;
+$content-px-md: 4rem;
+
 // Z Index
 
 $zindex-hero-image: 0;
 $zindex-hero-overlay: 10;
 $zindex-hero-title: 20;
+$zindex-navbar: 30;
 
 
