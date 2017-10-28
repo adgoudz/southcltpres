@@ -1,7 +1,7 @@
 
 
 $homepage-hero-sizes: (xs: 400px, md: 768px);
-$subpage-hero-sizes: (xs: 400px, md: 600px);
+$subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 
 @mixin header() {
@@ -9,7 +9,111 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-// Homepage
+// Hero Images
+
+
+.hero {
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  color: $white;
+
+  img {
+    // Note: The transform property is set in-line
+    position: absolute;
+    z-index: $zindex-hero-image;
+
+    @include media-breakpoint-up(lg) {
+      width: 100%;
+      height: auto;
+      min-height: map-get($subpage-hero-sizes, lg);
+    }
+
+    width: auto;
+    min-width: 100%;
+    height: 100%;
+    min-height: map-get($subpage-hero-sizes, xs) * 1.25;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--home {
+    @include media-breakpoint-up(md) {
+      @include focus-background-y(50, 1900, 768);
+
+      height: map-get($homepage-hero-sizes, md);
+    }
+
+    height: map-get($homepage-hero-sizes, xs);
+    background: url("../images/heros/home.jpg") no-repeat;
+    background-size: cover;
+
+    @include focus-background-x(59, 1900, $device-widths);
+    @include focus-background-y(60, 911, 400);
+
+    img {
+      transform: translateY(-60%);
+    }
+  }
+
+  &--subpage {
+    @include media-breakpoint-up(lg) {
+      height: map-get($subpage-hero-sizes, lg);
+    }
+
+    //height: auto;
+    //max-height: map-get($subpage-hero-sizes, xs);
+    height: map-get($subpage-hero-sizes, xs);
+  }
+
+  &--top {
+    img {
+      top: 0;
+      bottom: auto;
+      transform: translateX(-50%);
+    }
+  }
+
+  &--bottom {
+    img {
+      top: auto;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: $zindex-hero-overlay;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.4;
+  }
+
+  &__title {
+    @include align-vertically();
+
+    position: absolute;
+    z-index: $zindex-hero-title;
+    width: 100%;
+    font-family: $font-family-title;
+    font-weight: $font-weight-title;
+    letter-spacing: 0.125em;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+
+    @include fluid-type(25em, 100em, 1.5em, 3em, $units: vmin);
+  }
+}
+
+
+// Headers
 
 
 .home-header {
@@ -99,106 +203,10 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   }
 }
 
-
-.hero {
-
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  color: $white;
-
-  img {
-    position: absolute;
-    z-index: $zindex-hero-image;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  &--home {
-    @include media-breakpoint-up(md) {
-      @include focus-background-y(50, 1900, 768);
-
-      height: map-get($homepage-hero-sizes, md);
-    }
-
-    height: map-get($homepage-hero-sizes, xs);
-    background: url("../images/heros/home.jpg") no-repeat;
-    background-size: cover;
-
-    @include focus-background-x(59, 1900, $device-widths);
-    @include focus-background-y(60, 911, 400);
-
-    img {
-      transform: translateY(-60%);
-    }
-  }
-
-  &--subpage {
-    @include media-breakpoint-up(md) {
-      height: map-get($subpage-hero-sizes, md);
-    }
-
-    height: map-get($subpage-hero-sizes, xs);
-  }
-
-  &--top {
-    img {
-      top: 0;
-      bottom: auto;
-      transform: none;
-    }
-  }
-
-  &--bottom {
-    img {
-      top: auto;
-      bottom: 0;
-      transform: none;
-    }
-  }
-
-  &__overlay {
-    position: absolute;
-    z-index: $zindex-hero-overlay;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: black;
-    opacity: 0.4;
-  }
-
-  &__title {
-    @include align-vertically();
-
-    position: absolute;
-    z-index: $zindex-hero-title;
-    width: 100%;
-    font-family: $font-family-title;
-    font-weight: $font-weight-title;
-    letter-spacing: 0.125em;
-    text-align: center;
-    text-transform: uppercase;
-    color: white;
-
-    @include fluid-type(25em, 100em, 1.5em, 3em, $units: vmin);
-  }
-}
-
-
-// Ministries
-
-
 .ministries-header {
 
   @include header();
 }
-
-
-// About us
 
 
 .about-us-header {
@@ -207,16 +215,10 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
 }
 
 
-// Gospel
-
-
 .gospel-header {
 
   @include header();
 }
-
-
-// Giving
 
 
 .giving-header {
