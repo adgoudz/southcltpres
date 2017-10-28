@@ -1,8 +1,19 @@
 
+// Mathematically cancels out any unit in a value.
+//
+//   >> strip-unit(5rem)
+//   5
 @function strip-unit($value) {
   @return $value / ($value * 0 + 1);
 }
 
+// Calculates the relative position (top, left, etc.) for a background so that $bg-position
+// is perfectly centered in a container. All values should correspond to the same axis.
+//
+//   $bg-position: A unit-less percentage indicating the focal point of the background
+//   $bg-length: The length of the background
+//   $container-length: The length of the container
+//   $default-position: A position to use when the background is smaller than the container
 @function focus-background($bg-position, $bg-length, $container-length, $default-position: 50) {
   @if ($bg-length < $container-length) {
     @return #{$default-position}#{'%'};
@@ -10,4 +21,20 @@
 
   $ratio: $bg-length / $container-length;
   @return (($bg-position - 50) * ($ratio / ($ratio - 1)) + 50) * 1%;
+}
+
+// Calculates the vertical spacing for any container, possibly scaled by a ratio and/or
+// reduced by a static length. It is assumed that $y corresponds to the _total_ spacing
+// between two containers, and therefore the calculated spacing will always equal half
+// the provided spacing by default.
+//
+//   $y: The spacing to use between containers
+//   $ratio: An optional multiplier by which the spacing will be decreased or increased
+//   $reduce-by: A length (assumed rems) by which the calculated spacing should be reduced
+@function spacing-y($y: 0, $ratio: 1, $reduce-by: 0) {
+  $factor: 2 / $ratio;
+  @if $factor > $y {
+    @error "Space cannot be reduced by a factor less than " + 2rem / $y;
+  }
+  @return ($y / $factor - $reduce-by / 2);
 }
