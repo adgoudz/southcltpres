@@ -3,7 +3,7 @@
 {% load wagtailimages_tags %}
 
 {% with align=align|default:''|lower %}
-<section class="section{% if align == 'right' %} section--right{% elif align == 'left'%} section--left{% endif %}{% if type %} section--{{ type|lower }}{% endif %}">
+<section class="section{% if align == 'stacked' %} section--stacked{% elif align == 'right'%} section--right{% elif align == 'left'%} section--left{% endif %}{% if type %} section--{{ type|lower }}{% endif %}">
     <div class="section__body">
         {% if value.image %}
         {% image value.image max-400x300 as section_image %}

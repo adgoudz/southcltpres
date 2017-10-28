@@ -30,10 +30,7 @@
     </header>
 
 {% for block in page.sections %}
-    {% if block.block_type in 'text|bio' %}
-        {% cycle 'left' 'right' as align silent %}
-    {% endif %}
-    {% include_block block with type=block.block_type %}
+    {% include_block block with type=block.block_type align='stacked' %}
 {% endfor %}
 
 {% endblock %}

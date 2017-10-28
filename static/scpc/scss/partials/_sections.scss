@@ -148,6 +148,18 @@
 
   // Alignment
 
+  &--stacked {
+    #{$root}__body {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #{$root}__image {
+      margin-right: 0;
+      margin-bottom: $content-px-md / 2;
+    }
+  }
+
   &--left, &--right {
 
     #{$root}__content--flatten {
