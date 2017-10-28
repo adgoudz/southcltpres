@@ -108,7 +108,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     text-transform: uppercase;
     color: white;
 
-    @include fluid-type(25em, 100em, 1.5em, 3em, $units: vmin);
+    @include fluid-type($fluid-min-x, $fluid-max-x, 1.5em, 3em, $units: vmin);
   }
 }
 
@@ -153,7 +153,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     h1 {
       @include title();
-      @include fluid-type(25em, 100em, 1.25em, 3.5em);
+      @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3.5em);
 
       background-color: $color-hl-3;
       color: white;
@@ -180,7 +180,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     span {
       @include title();
-      @include fluid-type(25em, 100em, 1em, 3em);
+      @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 3em);
 
       background-color: $color-bg-3;
       color: white;

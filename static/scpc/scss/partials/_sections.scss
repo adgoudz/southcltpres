@@ -342,7 +342,7 @@
     @include flush-section-spacing($ratio: 0.5);
 
     .hrule__text {
-      @include fluid-type(25em, 100em, 2em, 3em);
+      @include fluid-type($fluid-min-x, $fluid-max-x, 2em, 3em);
 
       text-transform: lowercase;
       letter-spacing: 0.125em;

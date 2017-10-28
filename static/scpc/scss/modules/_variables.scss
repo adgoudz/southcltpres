@@ -30,13 +30,6 @@ $grid-breakpoints: (
   xl: 1366px
 );
 
-// Device widths
-
-$phone-widths: 320 360 375 412 480;
-$tablet-widths: 768 1024;
-$desktop-widths: 1366 1440 1920;
-$device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
-
 // Font families
 
 // Note: This is duplicated from Bootstrap because Bootstrap
@@ -67,6 +60,11 @@ $line-height-base: 1.4;
 
 // Height and width
 
+$phone-widths: 320 360 375 412 480;
+$tablet-widths: 768 1024;
+$desktop-widths: 1366 1440 1920;
+$device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
+
 $title-width: 75%;
 $content-width: 65%;
 
@@ -74,6 +72,9 @@ $navbar-width: $title-width;
 
 $navbar-brand-height: 48px;
 $navbar-brand-width: 213px;
+
+$fluid-min-x: 25em;  // Usually 400px
+$fluid-max-x: 100em;  // Usually 1600px
 
 // Padding and margins
 
