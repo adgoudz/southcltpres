@@ -5,7 +5,7 @@
     <div class="map" id="map"></div>
     <div class="section__body">
         {% with contact_info=value.contact_info %}
-        <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
+        <div class="section__content">
             <div class="address">
                 <span class="address__name">{{ contact_info.location_name }}</span><br/>
                 <span class="address__street">{{ contact_info.location_street }}</span><br/>

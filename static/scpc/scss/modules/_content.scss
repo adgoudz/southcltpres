@@ -17,16 +17,16 @@
   @include inline-link;
 
   text-transform: uppercase;
-}
 
-.external-link--footer {
-  @include media-breakpoint-up(lg) {
-    font-size: $font-size-md;
+  &--footer {
+    @include media-breakpoint-up(lg) {
+      font-size: $font-size-md;
+    }
+
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: $font-size-base;
   }
-
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: $font-size-base;
 }
 
 .icon-link {

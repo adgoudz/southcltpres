@@ -100,7 +100,6 @@
     text-align: center;
   }
 
-  //noinspection CssRedundantUnit
   &__image {
     @include media-breakpoint-up(lg) {
       margin-right: $content-px-md / 2;
@@ -118,7 +117,6 @@
     }
   }
 
-  //noinspection CssRedundantUnit
   &__content {
     display: flex;
     flex: 1 4 auto;
