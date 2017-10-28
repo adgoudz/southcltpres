@@ -13,6 +13,3 @@ const defaultBackgroundHeight = 1267;
 
 // Focus hero on resize
 $(window).resize(() => focusBackground($('#hero'), defaultBackgroundWidth, defaultBackgroundHeight));
-
-// Hide alerts on close
-$('.close').click((e) => { $(e.target).closest('.notice').slideUp() });
