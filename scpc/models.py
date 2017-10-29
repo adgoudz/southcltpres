@@ -32,6 +32,7 @@ class ContentBlock(blocks.StructBlock):
     """The primary container for generic page content."""
     image = ImageChooserBlock(required=False)
     header = blocks.CharBlock(max_length=32, required=False)
+    subheader = blocks.CharBlock(max_length=32, required=False)
     content = blocks.RichTextBlock()
 
     class Meta:

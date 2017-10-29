@@ -14,7 +14,22 @@
         {% endif %}
         <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
             {% if value.header %}
-            <h3 class="section__name">{{ value.header }}</h3>
+            {% if hrule %}
+            <div class="hrule hrule--header">
+                <div class="hrule__hr">
+                    <hr>
+                </div>
+                <h2 class="hrule__text">{{ value.header }}</h2>
+                <div class="hrule__hr">
+                    <hr>
+                </div>
+            </div>
+            {% else %}
+            <h2 class="section__header">{{ value.header }}</h2>
+            {% endif %}
+            {% endif %}
+            {% if value.subheader %}
+            <h2 class="section__subheader">{{ value.subheader }}</h2>
             {% endif %}
             <div class="section__subcontent">
                 {{ value.content|richtext }}

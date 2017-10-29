@@ -1,7 +1,7 @@
 
 
 @mixin nav-item-active($bottom: -0.5rem) {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up($bp-navbar-expand) {
     &:after {
       content: '';
       position: absolute;
@@ -31,14 +31,14 @@
 
 
 .brand {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up($bp-navbar-expand) {
     height: 48px;
   }
 
   height: 36px;
 
   &__text {
-    @include media-breakpoint-between(md, lg) {
+    @include media-breakpoint-between($bp-navbar-expand, lg) {
       display: none;
     }
   }
@@ -46,7 +46,7 @@
 
 
 .navbar {
-  @include media-breakpoint-up(xl) {
+  @include media-breakpoint-up($bp-navbar-width) {
     width: $navbar-width;
   }
 
@@ -59,7 +59,7 @@
   }
   
   .navbar-collapse {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-navbar-expand) {
       transform: translateX(-$navbar-brand-width / 2);
       padding: 0;
     }
@@ -86,7 +86,7 @@
     .nav-link {
       @extend %nav-link-base;
 
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up($bp-navbar-expand) {
         // Bootstrap nav-links in don't acknowledge $nav-link-padding-x in navbars
         padding-left: $nav-link-padding-x !important;
         padding-right: $nav-link-padding-x !important;
@@ -101,7 +101,7 @@
 
 
 .nav {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up($bp-content-width) {
     padding: ($section-py-lg / 4) $section-px-lg;
   }
 

@@ -4,11 +4,6 @@ $homepage-hero-sizes: (xs: 400px, md: 768px);
 $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 
-@mixin header() {
-  font-size: 1rem; // set font size for child em units
-}
-
-
 // Hero Images
 
 
@@ -17,6 +12,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   position: relative;
   overflow: hidden;
   width: 100%;
+  font-size: 1rem; // set font size for child em units
   color: $white;
 
   img {
@@ -24,7 +20,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     position: absolute;
     z-index: $zindex-hero-image;
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up($bp-subpage-hero) {
       width: 100%;
       height: auto;
       min-height: map-get($subpage-hero-sizes, lg);
@@ -40,7 +36,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &--home {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-homepage-hero) {
       @include focus-background-y(50, 1900, 768);
 
       height: map-get($homepage-hero-sizes, md);
@@ -59,7 +55,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &--subpage {
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up($bp-subpage-hero) {
       height: map-get($subpage-hero-sizes, lg);
     }
 
@@ -118,7 +114,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 .home-header {
 
-  @mixin title() {
+  %title {
     display: inline;
     box-decoration-break: clone;
     padding: 0.075em .75em 0.2em;  // logo font needs more bottom padding
@@ -126,10 +122,10 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     font-family: $font-family-logo;
   }
 
-  @include header();
+  font-size: 1rem; // set font size for child em units
 
   &__body {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-width) {
       padding: ($section-py-lg / 2) $section-px-lg;
     }
 
@@ -137,10 +133,10 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &__content {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-width) {
       width: $title-width;
     }
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up($bp-hires) {
       text-align: left;
     }
 
@@ -152,7 +148,8 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   &__title {
 
     h1 {
-      @include title();
+      @extend %title;
+
       @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3.5em);
 
       background-color: $color-hl-3;
@@ -160,7 +157,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     }
 
     &--wide {
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up($bp-hires) {
         display: block;
       }
 
@@ -168,7 +165,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     }
 
     &--narrow {
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up($bp-hires) {
         display: none;
       }
 
@@ -179,7 +176,8 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   &__subtitle {
 
     span {
-      @include title();
+      @extend %title;
+
       @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 3em);
 
       background-color: $color-bg-3;
@@ -188,7 +186,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &__intro {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-font) {
       margin: 0;
       font-size: $font-size-md;
     }
@@ -201,27 +199,4 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
       margin-bottom: 0;
     }
   }
-}
-
-.ministries-header {
-
-  @include header();
-}
-
-
-.about-us-header {
-
-  @include header();
-}
-
-
-.gospel-header {
-
-  @include header();
-}
-
-
-.giving-header {
-
-  @include header();
 }

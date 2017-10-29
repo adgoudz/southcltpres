@@ -1,6 +1,6 @@
 
 html, body {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up($bp-content-font) {
     font-size: 16px;
   }
 
@@ -15,6 +15,9 @@ html, body {
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
 }
 
 a {

@@ -14,7 +14,7 @@
   }
 
   &__contact-info {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-width) {
       flex-direction: row;
     }
 
@@ -25,7 +25,7 @@
   }
 
   &__contact-address, &__contact-email, &__contact-phone {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-width) {
       margin-bottom: 0;
     }
 

@@ -1,7 +1,9 @@
 
+
 // Links
 
-@mixin inline-link {
+
+%inline-link {
   color: $color-hl-3;
 
   &:hover {
@@ -10,16 +12,16 @@
 }
 
 .rich-text a {
-  @include inline-link;
+  @extend %inline-link;
 }
 
 .external-link {
-  @include inline-link;
+  @extend %inline-link;
 
   text-transform: uppercase;
 
   &--footer {
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up($bp-content-font) {
       font-size: $font-size-md;
     }
 
@@ -39,10 +41,12 @@
   }
 }
 
+
 // Inline
 
+
 .spacer {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up($bp-content-width) {
     display: inline-block;
   }
 
@@ -55,21 +59,20 @@
   }
 }
 
-// Flow
+
+// Horizontal Rules
+
+
+@mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
+  padding: spacing-y($section-py-lg, $ratio, $reduce-by) $content-px / 2;
+}
+
 
 .hrule {
 
   $root: &;
 
   $hrule-text-height: $font-size-lg * $line-height-base - (1 + .375) / 16;  // Subtract hr border-top
-
-  @mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
-    @include media-breakpoint-up(lg) {
-      padding: spacing-y($section-py-lg, $ratio, $reduce-by) $content-px-md / 4;
-    }
-
-    padding: spacing-y($section-py, $ratio, $reduce-by) $content-px / 4;
-  }
 
   &__hr {
     @include hrule-spacing();
@@ -112,7 +115,7 @@
   &--header {
     #{$root}__hr {
       // Reduce &__text padding-top
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up($bp-content-width) {
         padding-top: spacing-y($section-py-lg, $ratio: 0.15);
       }
 
@@ -121,7 +124,7 @@
 
     #{$root}__text {
       // Reduce &__text padding-top
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up($bp-content-width) {
         padding-top: spacing-y($section-py-lg, $ratio: 0.15, $reduce-by: $hrule-text-height);
       }
 

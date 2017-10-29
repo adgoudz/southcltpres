@@ -18,7 +18,7 @@
 
 {% for block in page.sections %}
     {% cycle 'left' 'right' as align silent %}
-    {% include_block block %}
+    {% include_block block with hrule=True %}
 {% endfor %}
 
 {% endblock %}

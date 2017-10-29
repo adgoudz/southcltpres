@@ -30,6 +30,18 @@ $grid-breakpoints: (
   xl: 1366px
 );
 
+$bp-homepage-hero: md;
+$bp-subpage-hero: lg;
+
+$bp-navbar-expand: md;
+$bp-navbar-width: xl;
+
+$bp-content-width: md;
+$bp-content-font: md;
+$bp-content-row: lg;
+
+$bp-hires: xl;
+
 // Font families
 
 // Note: This is duplicated from Bootstrap because Bootstrap
@@ -95,6 +107,9 @@ $section-px-lg: 3rem;
 
 $content-px: 2rem;
 $content-px-md: 4rem;
+
+$hrule-py: 14rem;
+$hrule-px: 2rem;
 
 // Z Index
 
