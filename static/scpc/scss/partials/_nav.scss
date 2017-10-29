@@ -55,6 +55,7 @@
 
   .navbar-brand {
     line-height: 0;
+    z-index: $zindex-navbar-brand;
   }
   
   .navbar-collapse {
