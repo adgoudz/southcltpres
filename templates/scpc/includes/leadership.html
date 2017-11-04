@@ -1,0 +1,58 @@
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% with align=align|default:'left'|lower %}
+<section class="section section--leadership{% if align == 'stacked' %} section--stacked{% elif align == 'right'%} section--right{% elif align == 'left'%} section--left{% endif %}{% if type %}{% endif %}">
+    <div class="section__body">
+        {% if profile.image %}
+        {% image profile.image max-400x300 as section_image %}
+        <div class="section__image" style="max-width: {{ section_image.width }}px">
+            <img src="{{ section_image.url }}" width="{{ section_image.width }}"
+                 height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
+        </div>
+        {% endif %}
+        <div class="section__content">
+            <div class="section__subcontent bio">
+                <h2 class="bio__name">{{ profile.name }}</h2>
+                <span class="bio__title">{{ profile.title }}</span>
+                <span class="bio__social-icons">
+                    {% if profile.twitter_url %}
+                    <a href="{{ profile.twitter_url }}" class="icon-link">
+                        <span class="fa-stack">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    {% endif %}
+                    {% if profile.facebook_url %}
+                    <a href="{{ profile.facebook_url }}" class="icon-link">
+                        <span class="fa-stack">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    {% endif %}
+                    {% if profile.instagram_url %}
+                    <a href="{{ profile.instagram_url }}" class="icon-link">
+                        <span class="fa-stack">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    {% endif %}
+                    {% if profile.email %}
+                    <a href="mailto:{{ profile.email }}" class="icon-link">
+                        <span class="fa-stack">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    {% endif %}
+                </span>
+                {{ profile.bio|richtext }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endwith %}

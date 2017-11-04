@@ -2,11 +2,11 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, FieldRowPanel
+from modelcluster.fields import ParentalKey
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel, InlinePanel
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.blocks import CharBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
@@ -15,6 +15,18 @@ from wagtail.wagtailsnippets.models import register_snippet
 
 
 # Stream Blocks
+
+
+class ContentBlock(blocks.StructBlock):
+    """The primary container for generic page content."""
+    image = ImageChooserBlock(required=False)
+    header = blocks.CharBlock(max_length=32, required=False)
+    subheader = blocks.CharBlock(max_length=32, required=False)
+    content = blocks.RichTextBlock()
+
+    class Meta:
+        icon = 'form'
+        template = 'scpc/blocks/content.html'
 
 
 class LocationBlock(blocks.StructBlock):
@@ -28,46 +40,67 @@ class LocationBlock(blocks.StructBlock):
         template = 'scpc/blocks/location.html'
 
 
-class ContentBlock(blocks.StructBlock):
-    """The primary container for generic page content."""
-    image = ImageChooserBlock(required=False)
-    header = blocks.CharBlock(max_length=32, required=False)
-    subheader = blocks.CharBlock(max_length=32, required=False)
-    content = blocks.RichTextBlock()
+# Inline Models
+
+
+class Profile(models.Model):
+    """Staff profiles which may or may not contain a bio and contact information."""
+    image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', null=True, blank=True)
+
+    name = models.CharField(max_length=32)
+    title = models.CharField(max_length=32)
+
+    email = models.EmailField(null=True, blank=True)
 
     class Meta:
-        icon = 'form'
-        template = 'scpc/blocks/section.html'
+        abstract = True
 
 
-class BioBlock(ContentBlock):
+class LeadershipProfile(Profile):
+    twitter_url = models.URLField(null=True, blank=True)
+    facebook_url = models.URLField(null=True, blank=True)
+    instagram_url = models.URLField(null=True, blank=True)
 
-    class Meta:
-        icon = 'user'
+    bio = RichTextField(null=True, blank=True)
 
-
-# Root Pages
-
-
-class SectionedPage(Page):
-    """Abstract base class for pages containing :class:`SectionBlock`."""
-    sections = StreamField(
-        [('text', ContentBlock())],
-        blank=True
-    )
-    sections_panel = StreamFieldPanel('sections')
-
-    content_panels = Page.content_panels + [
-        sections_panel
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('name'),
+        FieldPanel('title'),
+        FieldPanel('bio', classname='full'),
+        MultiFieldPanel(
+            [
+                FieldPanel('email'),
+                FieldPanel('twitter_url'),
+                FieldPanel('facebook_url'),
+                FieldPanel('instagram_url'),
+            ],
+            heading='Contact Info',
+            classname='collapsible collapsed',
+        )
     ]
 
     class Meta:
         abstract = True
 
 
+class StaffProfile(Profile):
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('name'),
+        FieldPanel('title'),
+        FieldPanel('email'),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+# Root Pages
+
+
 class HomePage(Page):
     """The permanent home page for the site."""
-
     parent_page_types = []
     subpage_types = [
         'scpc.MinistriesPage',
@@ -77,16 +110,15 @@ class HomePage(Page):
     ]
 
     # Extend `SectionedPage` stream field
-    sections = StreamField(
+    content = StreamField(
         [
             ('location', LocationBlock()),
             ('text', ContentBlock()),
-            ('bio', BioBlock()),
-            ('divider', CharBlock(
-                icon='horizontalrule',
-                required=True,
-                max_length=25,
-                template='scpc/blocks/divider.html')),
+            # ('divider', CharBlock(
+            #     icon='horizontalrule',
+            #     required=True,
+            #     max_length=25,
+            #     template='scpc/blocks/divider.html')),
             ('verse', SnippetChooserBlock(
                 template='scpc/blocks/verse.html',
                 target_model='scpc.VerseSnippet'))
@@ -105,7 +137,7 @@ class HomePage(Page):
             ],
             heading='Header'
         ),
-        StreamFieldPanel('sections'),
+        StreamFieldPanel('content'),
     ]
 
     class Meta:
@@ -115,10 +147,17 @@ class HomePage(Page):
 # Subpages
 
 
-class Subpage(SectionedPage):
+class Subpage(Page):
 
     parent_page_types = ['scpc.HomePage']
     subpage_types = []
+
+    menu_title = models.CharField(
+        max_length=12,
+        null=True,
+        blank=True,
+        help_text='An alternate page title to be used in automatically generated menus'
+    )
 
     hero_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -143,14 +182,7 @@ class Subpage(SectionedPage):
         help_text='The vertical position to align to the middle of the container (middle alignment only)',
     )
 
-    menu_title = models.CharField(
-        max_length=12,
-        null=True,
-        blank=True,
-        help_text='An alternate page title to be used in automatically generated menus'
-    )
-
-    content_panels = [
+    content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
                 ImageChooserPanel('hero_image'),
@@ -158,8 +190,8 @@ class Subpage(SectionedPage):
                 FieldPanel('hero_y'),
             ],
             heading="Hero"
-        )
-    ] + SectionedPage.content_panels
+        ),
+    ]
 
     promote_panels = MultiFieldPanel([
         FieldPanel('slug'),
@@ -174,19 +206,69 @@ class Subpage(SectionedPage):
 
 
 class MinistriesPage(Subpage):
-    pass
+
+    sections = StreamField(
+        [
+            ('text', ContentBlock()),
+        ],
+        blank=True
+    )
+
+    content_panels = Subpage.content_panels + [
+        StreamFieldPanel('sections'),
+    ]
 
 
 class AboutUsPage(Subpage):
-    pass
+
+    content = StreamField(
+        [
+            ('text', ContentBlock()),
+        ],
+        blank=True
+    )
+
+    content_panels = Subpage.content_panels + [
+        StreamFieldPanel('content'),
+        InlinePanel('leadership', label='Leadership'),
+        InlinePanel('staff', label='Staff'),
+    ]
+
+
+class AboutUsLeader(Orderable, LeadershipProfile):
+    page = ParentalKey('scpc.AboutUsPage', related_name='leadership')
+
+
+class AboutUsStaff(Orderable, StaffProfile):
+    page = ParentalKey('scpc.AboutUsPage', related_name='staff')
 
 
 class GospelPage(Subpage):
-    pass
+
+    sections = StreamField(
+        [
+            ('text', ContentBlock()),
+        ],
+        blank=True
+    )
+
+    content_panels = Subpage.content_panels + [
+        StreamFieldPanel('sections'),
+    ]
 
 
 class GivingPage(Subpage):
-    pass
+
+    sections = StreamField(
+        [
+            ('text', ContentBlock()),
+        ],
+        blank=True
+    )
+
+    content_panels = Subpage.content_panels + [
+        StreamFieldPanel('sections'),
+    ]
 
 
 # Snippets

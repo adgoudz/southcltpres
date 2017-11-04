@@ -27,7 +27,7 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1366px
+  xl: 1400px
 );
 
 $bp-homepage-hero: md;
@@ -42,7 +42,7 @@ $bp-content-row: lg;
 
 $bp-hires: xl;
 
-// Font families
+// Type
 
 // Note: This is duplicated from Bootstrap because Bootstrap
 //       isn't loaded prior to loading the current partial
@@ -52,23 +52,37 @@ $font-family-logo: BourtonHandLineBold;
 $font-family-title: Lato, $font-family-sans-serif;
 $font-family-base: Lato, $font-family-sans-serif;
 
-// Font weights
-
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-bold: 700;
 $font-weight-title: $font-weight-regular;
 $font-weight-base: $font-weight-light;
 
-// Font sizes (requires rems)
+$line-height-base: 1.4;
+$line-height-lg: 1.6;  // $line-height-base;  // Override for consistency
+$line-height-sm: $line-height-base;  // Override for consistency
 
 $font-size-xs: .875rem;
 $font-size-sm: 1rem;
 $font-size-md: 1.2rem;
 $font-size-lg: 1.4rem;
-$font-size-xl: 2.2rem;
+$font-size-xl: 2rem;
+$font-size-xxl: 2.2rem;
 $font-size-base: $font-size-sm;
-$line-height-base: 1.4;
+
+// Delegate heading sizes to classes
+$h1-font-size: 1rem;
+$h2-font-size: 1rem;
+$h3-font-size: 1rem;
+$h4-font-size: 1rem;
+$h5-font-size: 1rem;
+$h6-font-size: 1rem;
+
+$headings-margin-bottom: 0;
+$headings-font-weight: inherit;
+
+$lead-font-size: $font-size-md;
+$lead-font-weight: $font-weight-base;
 
 // Height and width
 
@@ -85,8 +99,16 @@ $navbar-width: $title-width;
 $navbar-brand-height: 48px;
 $navbar-brand-width: 213px;
 
+// Bounds for fluid type
 $fluid-min-x: 25em;  // Usually 400px
 $fluid-max-x: 100em;  // Usually 1600px
+
+$profile-width: 240px;
+$profile-max-cols: 4;  // Divisible into 12
+$profile-col-size: 12 / $profile-max-cols;
+
+$grid-gutter-width: 50px;
+$grid-max-width: ($profile-width + $grid-gutter-width) * $profile-max-cols - $grid-gutter-width;
 
 // Padding and margins
 

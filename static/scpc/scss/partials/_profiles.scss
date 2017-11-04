@@ -1,0 +1,94 @@
+
+
+.profile {
+  @include make-col-ready();
+  @include make-col($size: $profile-col-size);
+
+  min-width: 200px;
+  margin-bottom: $grid-gutter-width;
+  text-align: left;
+
+  &__image {
+
+    margin-bottom: .75rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__placeholder {
+
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: .75rem;
+    padding-bottom: 125%;  // Based on profile width
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      margin-bottom: 0;  // Reset default paragraph margin
+      text-align: center;
+      text-transform: lowercase;
+    }
+  }
+
+  &__name, &__title, &__email {
+    margin-bottom: 0;  // Reset default paragraph margin
+  }
+
+  &__title {
+    font-size: $font-size-xs;
+    font-style: italic;
+    text-transform: lowercase;
+    color: $color-bg-2;
+  }
+}
+
+
+%bio-header {
+  display: inline-block;
+  margin-bottom: 1em;
+  font-size: $font-size-lg;
+}
+
+
+.bio {
+
+  &__name {
+    @extend %bio-header;
+
+    position: relative;
+    font-weight: $font-weight-regular;
+
+    &:after {
+      @extend %bio-header;
+
+      content: '|';
+      margin: 0 .75rem;
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__title {
+    @extend %bio-header;
+
+    font-style: italic;
+    line-height: $headings-line-height;  // Mimic name
+    text-transform: lowercase;
+    color: $color-bg-2;
+  }
+
+  &__social-icons {
+    @extend %bio-header;
+
+    margin-bottom: ($font-size-lg * $headings-line-height / 1rem) + $font-size-lg - $font-size-xs * 2; // Name height + margin - icon height
+    font-size: $font-size-xs;
+    vertical-align: top;
+    color: $color-hl-3;
+  }
+}

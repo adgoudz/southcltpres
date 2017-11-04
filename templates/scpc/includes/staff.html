@@ -1,0 +1,21 @@
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<div class="profile">
+    {% if profile.image %}
+    {% image profile.image fill-240x300 as profile_image %}
+    <div class="profile__image" style="max-width: {{ profile_image.width }}px">
+        <img src="{{ profile_image.url }}" width="{{ profile_image.width }}"
+             height="{{ profile_image.height }}" alt="{{ profile_image.alt }}"/>
+    </div>
+    {% else %}
+    <div class="profile__placeholder">
+        <p class="profile__placeholder-text">Coming Soon</p>
+    </div>
+    {% endif %}
+    <p class="profile__name">{{ profile.name }}</p>
+    <p class="profile__title">{{ profile.title }}</p>
+    <p class="profile__email"></p>
+    {{ profile.content|richtext }}
+</div>

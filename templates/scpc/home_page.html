@@ -29,7 +29,7 @@
         </div>
     </header>
 
-{% for block in page.sections %}
+{% for block in page.content %}
     {% include_block block with type=block.block_type align='stacked' %}
 {% endfor %}
 
