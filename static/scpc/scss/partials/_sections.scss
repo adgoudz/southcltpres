@@ -383,6 +383,14 @@
     #{$root}__body {
       max-width: $grid-max-width;
     }
+
+    #{$root}__image {
+      @include media-breakpoint-up($bp-content-row) {
+        margin-bottom: 0;  // Replicate left/right behavior
+      }
+
+      margin-bottom: 1rem;
+    }
   }
 
 

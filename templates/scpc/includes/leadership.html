@@ -5,17 +5,18 @@
 <section class="section section--left section--leadership">
     <div class="section__body">
         {% if profile.image %}
-        {% image profile.image max-400x300 as section_image %}
-        <div class="section__image" style="max-width: {{ section_image.width }}px">
-            <img src="{{ section_image.url }}" width="{{ section_image.width }}"
-                 height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
-        </div>
+            {% image profile.image max-400x300 as section_image %}
+            <div class="section__image" style="max-width: {{ section_image.width }}px">
+                <img src="{{ section_image.url }}" width="{{ section_image.width }}"
+                     height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
+            </div>
         {% endif %}
         <div class="section__content">
-            <div class="section__subcontent bio">
-                <h2 class="bio__name">{{ profile.name }}</h2>
-                <span class="bio__title">{{ profile.title }}</span>
-                <span class="bio__social-icons">
+            <div class="profile profile--bio">
+                <div class="profile__header">
+                    <h2 class="profile__name">{{ profile.name }}</h2>
+                    <span class="profile__title">{{ profile.title }}</span>
+                    <span class="profile__social-icons">
                     {% if profile.twitter_url %}
                     <a href="{{ profile.twitter_url }}" class="icon-link icon-link--compact">
                         <span class="fa-stack">
@@ -48,7 +49,8 @@
                         </span>
                     </a>
                     {% endif %}
-                </span>
+                    </span>
+                </div>
                 {{ profile.bio|richtext }}
             </div>
         </div>

@@ -39,6 +39,14 @@
     text-decoration: none;
   }
 
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
   &--compact {
     margin: 0 .5em;
   }
