@@ -129,7 +129,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
       padding: ($section-py-lg / 2) $section-px-lg;
     }
 
-    padding: ($section-py / 2) $section-px;
+    padding: ($section-py-sm / 2) $section-px-sm;
   }
 
   &__body {

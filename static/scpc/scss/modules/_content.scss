@@ -75,7 +75,7 @@
 
 
 @mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
-  padding: spacing-y($section-py-lg, $ratio, $reduce-by) $content-px / 2;
+  padding: spacing-y($section-py-lg, $ratio, $reduce-by) 1rem;
 }
 
 
@@ -130,7 +130,7 @@
         padding-top: spacing-y($section-py-lg, $ratio: 0.15);
       }
 
-      padding-top: spacing-y($section-py, $ratio: 0.5);
+      padding-top: spacing-y($section-py-sm, $ratio: 0.5);
     }
 
     #{$root}__text {
@@ -139,7 +139,7 @@
         padding-top: spacing-y($section-py-lg, $ratio: 0.15, $reduce-by: $hrule-text-height);
       }
 
-      padding-top: spacing-y($section-py, $ratio: 0.5, $reduce-by: $hrule-text-height);
+      padding-top: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height);
       font-weight: $font-weight-bold;
     }
   }

@@ -132,13 +132,12 @@ $nav-link-height: ($font-size-xs * $line-height-base) * 16 / 1rem;  // Strip uni
 $nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;
 $nav-link-padding-x: 2.5rem;
 
-$section-py: 8rem;
+$section-py-sm: 8rem;
 $section-py-lg: 14rem;
-$section-px: 1.5rem;
+$section-px-sm: 1.5rem;
 $section-px-lg: 3rem;
 
-$content-px: 2rem;
-$content-px-md: 4rem;
+$content-px: 4rem;
 
 $hrule-py: 14rem;
 $hrule-px: 2rem;

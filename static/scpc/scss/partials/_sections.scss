@@ -7,14 +7,14 @@
     padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
 
-  padding: spacing-y($section-py, $ratio) $section-px;
+  padding: spacing-y($section-py-sm, $ratio) $section-px-sm;
 
   &:first-of-type {
     @include media-breakpoint-up($bp-content-width) {
       padding-top: spacing-y($section-py-lg, $ratio) * $multiplier;
     }
 
-    padding-top: spacing-y($section-py, $ratio) * $multiplier;
+    padding-top: spacing-y($section-py-sm, $ratio) * $multiplier;
   }
 
   &:last-of-type {
@@ -22,7 +22,7 @@
       padding-bottom: spacing-y($section-py-lg, $ratio) * $multiplier;
     }
 
-    padding-bottom: spacing-y($section-py, $ratio) * $multiplier;
+    padding-bottom: spacing-y($section-py-sm, $ratio) * $multiplier;
   }
 }
 
@@ -32,7 +32,7 @@
     margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
-  margin: spacing-y($section-py, $ratio) 0;
+  margin: spacing-y($section-py-sm, $ratio) 0;
 
   &:first-of-type {
     @include media-breakpoint-up($bp-content-width) {
@@ -40,7 +40,7 @@
     }
 
     margin-top: 0;
-    padding-top: spacing-y($section-py, $ratio);
+    padding-top: spacing-y($section-py-sm, $ratio);
   }
 
   &:last-of-type {
@@ -49,7 +49,7 @@
     }
 
     margin-bottom: 0;
-    padding-bottom: spacing-y($section-py, $ratio);
+    padding-bottom: spacing-y($section-py-sm, $ratio);
   }
 }
 
@@ -59,7 +59,7 @@
     margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
-  margin: spacing-y($section-py, $ratio) 0;
+  margin: spacing-y($section-py-sm, $ratio) 0;
   padding: 0;
 
   &:first-of-type {
@@ -118,7 +118,7 @@
     flex: 0 5 auto;
     width: 100%;  // Influences flex-shrink
     margin-right: 0;
-    margin-bottom: $content-px-md / 2;
+    margin-bottom: $content-px / 2;
 
     img {
       max-width: 100%;
@@ -235,7 +235,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
-        margin-right: $content-px-md / 2;
+        margin-right: $content-px / 2;
       }
     }
 
@@ -249,12 +249,12 @@
       @include media-breakpoint-up($bp-content-row) {
 
         #{$root}__header {
-          padding-right: $content-px-md / 2;
+          padding-right: $content-px / 2;
           text-align: right;
         }
 
         #{$root}__subcontent {
-          padding-left: $content-px-md / 2;
+          padding-left: $content-px / 2;
           border-left: 1px solid $color-border;
         }
 
@@ -276,7 +276,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
-        margin-left: $content-px-md / 2;
+        margin-left: $content-px / 2;
       }
     }
 
@@ -294,11 +294,11 @@
         }
 
         #{$root}__header {
-          padding-left: $content-px-md / 2;
+          padding-left: $content-px / 2;
         }
 
         #{$root}__subcontent {
-          padding-right: $content-px-md / 2;
+          padding-right: $content-px / 2;
           border-right: 1px solid $color-border;
           text-align: right;
         }
@@ -319,11 +319,11 @@
         padding: ($section-py-lg / 2) $section-px-lg 0;
       }
 
-      padding: ($section-py / 2) $section-px 0;
+      padding: ($section-py-sm / 2) $section-px-sm 0;
     }
 
     #{$root}__social-icons {
-      margin-top: ($section-py / 2);
+      margin-top: ($section-py-sm / 2);
       color: $color-hl-3;
     }
 
