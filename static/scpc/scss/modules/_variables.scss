@@ -20,6 +20,10 @@ $sizes: (
   100: 100%
 );
 
+// Breakpoints
+//
+// Extensions and references for affecting responsive behavior globally.
+
 // Extend Bootstrap's breakpoints
 $grid-breakpoints: (
   xxs: 0,
@@ -43,6 +47,8 @@ $bp-content-row: lg;
 $bp-hires: xl;
 
 // Type
+//
+// Font families, weights, sizes, and line heights
 
 // Note: This is duplicated from Bootstrap because Bootstrap
 //       isn't loaded prior to loading the current partial
@@ -85,6 +91,8 @@ $lead-font-size: $font-size-md;
 $lead-font-weight: $font-weight-base;
 
 // Height and width
+//
+// Dimensions for almost everything.
 
 $phone-widths: 320 360 375 412 480;
 $tablet-widths: 768 1024;
@@ -111,6 +119,8 @@ $grid-gutter-width: 50px;
 $grid-max-width: ($profile-width + $grid-gutter-width) * $profile-max-cols - $grid-gutter-width;
 
 // Padding and margins
+//
+// Spacing for almost everything.
 
 $navbar-padding-y: 1rem;
 $navbar-padding-x: 2rem;
@@ -134,6 +144,8 @@ $hrule-py: 14rem;
 $hrule-px: 2rem;
 
 // Z Index
+//
+// Layering for each element.
 
 $zindex-hero-image: 0;
 $zindex-hero-overlay: 10;

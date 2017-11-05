@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 
-{% load static %}
 {% load wagtailcore_tags %}
-
-{% load render_bundle from webpack_loader %}
 
 {% block content %}
     <header class="home-header">
         <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
-        <div class="home-header__body">
-            <div class="home-header__content">
+        <div class="home-header__container">
+            <div class="home-header__body">
                 <div class="home-header__title home-header__title--wide">
                     <h1>South Charlotte Presbyterian Church</h1>
                 </div>

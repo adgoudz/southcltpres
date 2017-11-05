@@ -2,8 +2,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% with align=align|default:'left'|lower %}
-<section class="section section--leadership{% if align == 'stacked' %} section--stacked{% elif align == 'right'%} section--right{% elif align == 'left'%} section--left{% endif %}{% if type %}{% endif %}">
+<section class="section section--left section--leadership">
     <div class="section__body">
         {% if profile.image %}
         {% image profile.image max-400x300 as section_image %}
@@ -18,7 +17,7 @@
                 <span class="bio__title">{{ profile.title }}</span>
                 <span class="bio__social-icons">
                     {% if profile.twitter_url %}
-                    <a href="{{ profile.twitter_url }}" class="icon-link">
+                    <a href="{{ profile.twitter_url }}" class="icon-link icon-link--compact">
                         <span class="fa-stack">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -26,7 +25,7 @@
                     </a>
                     {% endif %}
                     {% if profile.facebook_url %}
-                    <a href="{{ profile.facebook_url }}" class="icon-link">
+                    <a href="{{ profile.facebook_url }}" class="icon-link icon-link--compact">
                         <span class="fa-stack">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -34,7 +33,7 @@
                     </a>
                     {% endif %}
                     {% if profile.instagram_url %}
-                    <a href="{{ profile.instagram_url }}" class="icon-link">
+                    <a href="{{ profile.instagram_url }}" class="icon-link icon-link--compact">
                         <span class="fa-stack">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
@@ -42,7 +41,7 @@
                     </a>
                     {% endif %}
                     {% if profile.email %}
-                    <a href="mailto:{{ profile.email }}" class="icon-link">
+                    <a href="mailto:{{ profile.email }}" class="icon-link icon-link--compact">
                         <span class="fa-stack">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
@@ -55,4 +54,3 @@
         </div>
     </div>
 </section>
-{% endwith %}

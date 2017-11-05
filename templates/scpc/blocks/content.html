@@ -2,8 +2,21 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
+{% comment %}
+A generic content section, potentially containing an image, header, and/or subheader.
+The following options can be used:
+
+  compact   Decreases the amount of vertical padding for this section.
+  align     Aligns the content 'left' or 'right' (larger screens only).
+  floating  Floats the header to either the left or the right. Requires 'align'. Cannot be used with images.
+  hrule     Displays the header as a horizontal rule. Cannot be used with 'floating'.
+{% endcomment %}
+
 {% with align=align|default:''|lower %}
-<section class="section{% if align == 'stacked' %} section--stacked{% elif align == 'right'%} section--right{% elif align == 'left'%} section--left{% endif %}{% if type %} section--{{ type|lower }}{% endif %}">
+<section class="section{% if compact %} section--compact{% endif %}
+                       {% if align == 'right'%} section--right{% if not value.image and floating %} section--floating{% endif %}
+                       {% elif align == 'left'%} section--left{% if not value.image and floating %} section--floating{% endif %}
+                       {% endif %}">
     <div class="section__body">
         {% if value.image %}
         {% image value.image max-400x300 as section_image %}
@@ -14,7 +27,7 @@
         {% endif %}
         <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
             {% if value.header %}
-            {% if hrule %}
+            {% if not floating and hrule %}
             <div class="hrule hrule--header">
                 <div class="hrule__hr">
                     <hr>

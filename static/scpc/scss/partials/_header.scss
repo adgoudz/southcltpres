@@ -124,7 +124,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   font-size: 1rem; // set font size for child em units
 
-  &__body {
+  &__container {
     @include media-breakpoint-up($bp-content-width) {
       padding: ($section-py-lg / 2) $section-px-lg;
     }
@@ -132,7 +132,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     padding: ($section-py / 2) $section-px;
   }
 
-  &__content {
+  &__body {
     @include media-breakpoint-up($bp-content-width) {
       width: $title-width;
     }
@@ -140,7 +140,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
       text-align: left;
     }
 
-    width: auto;
     margin: auto;
     text-align: center;
   }

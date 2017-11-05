@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+{% for block in page.sections %}
+    {% cycle 'none' 'left' 'right' as align silent %}
+    {% include_block block with align=align floating=True %}
+{% endfor %}
+
+{% for block in page.sections %}
+    {% cycle 'none' 'left' 'right' as align silent %}
+    {% include_block block with align=align hrule=True %}
+{% endfor %}
+
+{% for block in page.custom %}
+    {% include_block block %}
+{% endfor %}
+
+{% endblock %}

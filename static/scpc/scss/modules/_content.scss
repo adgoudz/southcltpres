@@ -32,11 +32,15 @@
 
 .icon-link {
   display: inline-block;
-  margin: 0 0.5em;
+  margin: 0 1.25em;
   text-transform: none;
 
   &:hover {
     text-decoration: none;
+  }
+
+  &--compact {
+    margin: 0 .5em;
   }
 }
 
@@ -71,7 +75,7 @@
 
   $root: &;
 
-  $hrule-text-height: $font-size-lg * $line-height-base - (1 + .375) / 16;  // Subtract hr border-top
+  $hrule-text-height: $font-size-lg * $headings-line-height - 1 / 16;  // Subtract hr border-top
 
   &__hr {
     @include hrule-spacing();

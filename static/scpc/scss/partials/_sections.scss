@@ -2,7 +2,7 @@
 
 @mixin section-spacing($ratio: 1, $distribute-space: true) {
   $multiplier: if($distribute-space, 2, 1);  // For leading/trailing space
-  
+
   @include media-breakpoint-up($bp-content-width) {
     padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
@@ -96,36 +96,28 @@
 
   $root: &;
 
-  font-size: 1rem; // Set font size for child em units
+  font-size: 1rem;  // Set font size for child em units
+
+  &__container {
+    // Extensible by modifier classes
+  }
 
   &__body {
     @include media-breakpoint-up($bp-content-width) {
       width: $content-width;
     }
-    @include media-breakpoint-up(lg) {
-      flex-direction: row;
-      align-items: start;
-      text-align: left;
-    }
-    @include media-breakpoint-up(xl) {
-      align-items: center;
-    }
 
     display: flex;
     flex-direction: column;
-    align-items: center;  // Align on cross-axis
+    align-items: center;  // Aligns on horizontal-axis
     margin: auto;
     text-align: center;
   }
 
   &__image {
-    @include media-breakpoint-up($bp-content-row) {
-      margin-right: $content-px-md / 2;
-      margin-bottom: 0;
-    }
-
     flex: 0 5 auto;
-    width: 100%;
+    width: 100%;  // Influences flex-shrink
+    margin-right: 0;
     margin-bottom: $content-px-md / 2;
 
     img {
@@ -138,8 +130,11 @@
     display: flex;
     flex: 1 3 auto;
     flex-direction: column;
-    flex-wrap: wrap;
-    width: 100%;
+    width: 100%;  // Influences flex-shrink
+
+    p:last-child {
+      margin-bottom: 0;  // Override Bootstrap
+    }
   }
 
   &__header {
@@ -155,16 +150,13 @@
 
   &__subheader {
     margin-bottom: 4rem;
-    font-size: $font-size-md;
+    font-size: $font-size-lg;
     letter-spacing: .05em;
     text-transform: uppercase;
   }
 
   &__subcontent {
-
-    p:last-child {
-      margin-bottom: 0;  // Bootstrap override
-    }
+    // Extensible by modifier classes
   }
 
   &__row {
@@ -173,60 +165,99 @@
     justify-content: center;
   }
 
+
+  // Spacing
+
+
+  &--compact {
+    @include section-spacing($ratio: 0.5);
+  }
+
+
   // Alignment
 
-  &--stacked {
-    #{$root}__body {
-      @include media-breakpoint-up(lg) {
-        align-items: center;  // Override
-      }
-
-      flex-direction: column;
-      text-align: center;
-    }
-
-    #{$root}__image {
-      margin-right: 0;
-      margin-bottom: $content-px-md / 2;
-    }
-  }
 
   &--left, &--right {
 
-    #{$root}__content--flatten {
-      flex-direction: row;
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-row) {
+        align-items: start; // Aligns on vertical axis
+      }
+      @include media-breakpoint-up(xl) {
+        align-items: center; // Aligns on vertical axis
+      }
+    }
+
+    #{$root}__image {
+      @include media-breakpoint-up($bp-content-row) {
+        margin-bottom: 0;
+      }
+    }
+
+    &#{$root}--floating {
+
+      #{$root}__content {
+        @include media-breakpoint-up($bp-content-row) {
+          flex-direction: row;
+        }
+      }
 
       #{$root}__header {
-        margin-bottom: 0;
+        @include media-breakpoint-up($bp-content-row) {
+          font-size: $font-size-lg;
+          margin-bottom: 0;
+        }
+        @include media-breakpoint-up($bp-hires) {
+          font-size: $font-size-xl;
+        }
       }
 
       #{$root}__subcontent {
-        flex: 1;
+        @include media-breakpoint-up($bp-content-row) {
+          flex: 1;
+        }
       }
+
     }
   }
 
   &--left {
 
-    #{$root}__content--flatten {
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-row) {
+        flex-direction: row;
 
-      #{$root}__header {
-        @include media-breakpoint-up($bp-content-width) {
-          padding-right: $content-px-md;
-        }
+        // Only align on larger screens. When sections contain an image on smaller
+        // screens the image is centered and the text should be centered beneath it.
+        text-align: left;
+      }
+    }
 
-        padding-right: $content-px;
-        text-align: right;
+    #{$root}__image {
+      @include media-breakpoint-up($bp-content-row) {
+        margin-right: $content-px-md / 2;
+      }
+    }
+
+    &#{$root}--floating {
+
+      #{$root}__body {
+        // Floating sections don't contain images so we can align on small screens.
+        text-align: left;
       }
 
-      #{$root}__subcontent {
-        @include media-breakpoint-up($bp-content-width) {
-          padding-left: $content-px-md;
+      @include media-breakpoint-up($bp-content-row) {
+
+        #{$root}__header {
+          padding-right: $content-px-md / 2;
+          text-align: right;
         }
 
-        padding-left: $content-px;
-        border-left: 1px solid $color-border;
-        text-align: left;
+        #{$root}__subcontent {
+          padding-left: $content-px-md / 2;
+          border-left: 1px solid $color-border;
+        }
+
       }
     }
   }
@@ -236,6 +267,10 @@
     #{$root}__body {
       @include media-breakpoint-up($bp-content-row) {
         flex-direction: row-reverse;
+
+        // Only align on larger screens. When sections contain an image on smaller
+        // screens the image is centered and the text should be centered beneath it.
+        text-align: right;
       }
     }
 
@@ -243,73 +278,48 @@
       @include media-breakpoint-up($bp-content-row) {
         margin-left: $content-px-md / 2;
       }
-
-      margin-right: 0;
     }
 
-    #{$root}__content {
+    &#{$root}--floating {
+
+      #{$root}__body {
+        // Floating sections don't contain images so we can align on small screens.
+        text-align: right;
+      }
+
       @include media-breakpoint-up($bp-content-row) {
-        text-align: right;
-      }
-    }
 
-    #{$root}__content--flatten {
-
-      flex-direction: row-reverse;
-      padding-right: 0;
-
-      #{$root}__header {
-        @include media-breakpoint-up($bp-content-width) {
-          padding-left: $content-px-md;
+        #{$root}__content {
+          flex-direction: row-reverse;
         }
 
-        padding-left: $content-px;
-        text-align: left;
-      }
-
-      #{$root}__subcontent {
-        @include media-breakpoint-up($bp-content-width) {
-          padding-right: $content-px-md;
+        #{$root}__header {
+          padding-left: $content-px-md / 2;
         }
 
-        padding-right: $content-px;
-        border-right: 1px solid $color-border;
-        text-align: right;
+        #{$root}__subcontent {
+          padding-right: $content-px-md / 2;
+          border-right: 1px solid $color-border;
+          text-align: right;
+        }
+
       }
     }
   }
 
+
   // Location Section
+
 
   &--location {
     @include flush-section-spacing();
 
-    #{$root}__body {
+    #{$root}__container {
       @include media-breakpoint-up($bp-content-width) {
         padding: ($section-py-lg / 2) $section-px-lg 0;
       }
 
       padding: ($section-py / 2) $section-px 0;
-
-      // Resets
-      display: block;
-      width: 100%;
-      margin: 0;
-    }
-
-    #{$root}__content {
-      @include media-breakpoint-up($bp-content-width) {
-        width: $content-width;
-      }
-
-      margin: auto;
-
-      // Resets
-      display: block;
-    }
-
-    #{$root}__subcontent {
-      text-align: center;
     }
 
     #{$root}__social-icons {
@@ -338,7 +348,9 @@
     }
   }
 
+
   // Verse Section
+
 
   &--verse {
     @include inverse-section-spacing();
@@ -350,7 +362,7 @@
       align-items: center;
     }
 
-    #{$root}__subcontent {
+    #{$root}__content {
       font-style: italic;
       letter-spacing: 0.125em;
       text-align: center;
@@ -362,12 +374,7 @@
   }
 
 
-  // About Us Section TODO
-
-
-  &--about {
-    @include section-spacing($ratio: 0.5);
-  }
+  // Profile Sections
 
 
   &--leadership {
@@ -380,7 +387,7 @@
 
 
   &--staff {
-    @include section-spacing($ratio: 0.75, $distribute-space: false);
+    @include section-spacing($ratio: 0.5, $distribute-space: false);
 
     #{$root}__body {
       max-width: $grid-max-width;
@@ -395,7 +402,7 @@
     @include flush-section-spacing($ratio: 0.25);
 
     .hrule__text {
-      $hrule-text-height: $font-size-xxl * $line-height-base - (1 + .281) / 16;  // Subtract hr border-top
+      $hrule-text-height: $font-size-xxl * $headings-line-height - (1 / 16);  // Subtract hr border-top
 
       @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
 

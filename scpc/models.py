@@ -40,10 +40,19 @@ class LocationBlock(blocks.StructBlock):
         template = 'scpc/blocks/location.html'
 
 
+class DividerBlock(blocks.CharBlock):
+    """A reusable :class:`CharBlock` for page dividers."""
+
+    def __init__(self, required=True, help_text=None, max_length=25, min_length=None, **kwargs):
+        kwargs['icon'] = 'horizontalrule'
+        kwargs['template'] = 'scpc/blocks/divider.html'
+        super(DividerBlock, self).__init__(required, help_text, max_length, min_length, **kwargs)
+
+
 # Inline Models
 
 
-class Profile(models.Model):
+class BaseProfile(models.Model):
     """Staff profiles which may or may not contain a bio and contact information."""
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', null=True, blank=True)
 
@@ -56,7 +65,7 @@ class Profile(models.Model):
         abstract = True
 
 
-class LeadershipProfile(Profile):
+class LeadershipProfile(BaseProfile):
     twitter_url = models.URLField(null=True, blank=True)
     facebook_url = models.URLField(null=True, blank=True)
     instagram_url = models.URLField(null=True, blank=True)
@@ -84,7 +93,7 @@ class LeadershipProfile(Profile):
         abstract = True
 
 
-class StaffProfile(Profile):
+class StaffProfile(BaseProfile):
     panels = [
         ImageChooserPanel('image'),
         FieldPanel('name'),
@@ -102,26 +111,15 @@ class StaffProfile(Profile):
 class HomePage(Page):
     """The permanent home page for the site."""
     parent_page_types = []
-    subpage_types = [
-        'scpc.MinistriesPage',
-        'scpc.AboutUsPage',
-        'scpc.GospelPage',
-        'scpc.GivingPage',
-    ]
 
     # Extend `SectionedPage` stream field
     content = StreamField(
         [
             ('location', LocationBlock()),
             ('text', ContentBlock()),
-            # ('divider', CharBlock(
-            #     icon='horizontalrule',
-            #     required=True,
-            #     max_length=25,
-            #     template='scpc/blocks/divider.html')),
             ('verse', SnippetChooserBlock(
-                template='scpc/blocks/verse.html',
-                target_model='scpc.VerseSnippet'))
+                target_model='scpc.VerseSnippet',
+                template='scpc/blocks/verse.html')),
         ],
         blank=True
     )
@@ -224,6 +222,8 @@ class AboutUsPage(Subpage):
     content = StreamField(
         [
             ('text', ContentBlock()),
+            ('divider', DividerBlock()),
+
         ],
         blank=True
     )
@@ -268,6 +268,39 @@ class GivingPage(Subpage):
 
     content_panels = Subpage.content_panels + [
         StreamFieldPanel('sections'),
+    ]
+
+
+class StyleGuidePage(Page):
+    """A subpage for showcasing and testing all page elements."""
+    parent_page_types = ['scpc.HomePage']
+    subpage_types = []
+
+    sections = StreamField(
+        [
+            ('text', ContentBlock()),
+        ],
+        blank=True
+    )
+
+    custom = StreamField(
+        [
+            ('location', LocationBlock()),
+            ('divider', blocks.CharBlock(
+                icon='horizontalrule',
+                required=True,
+                max_length=25,
+                template='scpc/blocks/divider.html')),
+            ('verse', SnippetChooserBlock(
+                target_model='scpc.VerseSnippet',
+                template='scpc/blocks/verse.html')),
+        ],
+        blank=True
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('sections'),
+        StreamFieldPanel('custom'),
     ]
 
 

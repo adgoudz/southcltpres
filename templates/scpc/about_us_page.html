@@ -17,32 +17,14 @@
     </header>
 
 {% for block in page.content %}
-    {% include_block block with type='about' hrule=True %}
+    {% include_block block with compact=True hrule=True %}
 {% endfor %}
-
-<section class="section section--divider">
-    <div class="section__body">
-        <div class="section__content">
-            <div class="section__subcontent">
-                <div class="hrule hrule--text">
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                    <h2 class="hrule__text">Who We Are</h2>
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 {% for profile in page.leadership.all %}
     {% include 'scpc/includes/leadership.html' with profile=profile only %}
 {% endfor %}
 
-<section class="section section--staff section--stacked">
+<section class="section section--staff">
     <div class="section__body">
         <h3 class="section__subheader">Our Staff</h3>
         <div class="section__row">

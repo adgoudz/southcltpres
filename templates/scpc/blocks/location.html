@@ -3,49 +3,51 @@
 
 <section class="section section--location">
     <div class="map" id="map"></div>
-    <div class="section__body">
+    <div class="section__container">
         {% with contact_info=value.contact_info %}
-        <div class="section__content">
-            <div class="address">
-                <span class="address__name">{{ contact_info.location_name }}</span><br/>
-                <span class="address__street">{{ contact_info.location_street }}</span><br/>
-                <span class="address__city">{{ contact_info.location_city }}</span><br/>
-                <a href="{{ contact_info.directions_url }}"
-                   class="external-link external-link--footer">Get Directions</a>
-            </div>
-            <div class="hrule hrule--text">
-                <div class="hrule__hr">
-                    <hr>
+        <div class="section__body">
+            <div class="section__content">
+                <div class="address">
+                    <span class="address__name">{{ contact_info.location_name }}</span><br/>
+                    <span class="address__street">{{ contact_info.location_street }}</span><br/>
+                    <span class="address__city">{{ contact_info.location_city }}</span><br/>
+                    <a href="{{ contact_info.directions_url }}"
+                       class="external-link external-link--footer">Get Directions</a>
                 </div>
-                <p class="hrule__text">
-                    {{ value.time }}
-                </p>
-                <div class="hrule__hr">
-                    <hr>
+                <div class="hrule hrule--text">
+                    <div class="hrule__hr">
+                        <hr>
+                    </div>
+                    <p class="hrule__text">
+                        {{ value.time }}
+                    </p>
+                    <div class="hrule__hr">
+                        <hr>
+                    </div>
                 </div>
-            </div>
-            <div class="section__subcontent">
-                {{ value.content|richtext }}
-                <p class="section__social-icons">
-                    <a href="{{ contact_info.facebook_url }}" class="icon-link">
-                        <span class="fa-stack fa-2x">
-                          <i class="fa fa-circle fa-stack-2x"></i>
-                          <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                    <a href="{{ contact_info.twitter_url }}" class="icon-link">
-                        <span class="fa-stack fa-2x">
-                          <i class="fa fa-circle fa-stack-2x"></i>
-                          <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                    <a href="{{ contact_info.instagram_url }}" class="icon-link">
-                        <span class="fa-stack fa-2x">
-                          <i class="fa fa-circle fa-stack-2x"></i>
-                          <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </p>
+                <div class="section__subcontent">
+                    {{ value.content|richtext }}
+                    <p class="section__social-icons">
+                        <a href="{{ contact_info.facebook_url }}" class="icon-link icon-link--wide">
+                            <span class="fa-stack fa-2x">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <a href="{{ contact_info.twitter_url }}" class="icon-link icon-link--wide">
+                            <span class="fa-stack fa-2x">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <a href="{{ contact_info.instagram_url }}" class="icon-link icon-link--wide">
+                            <span class="fa-stack fa-2x">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
         {% endwith %}
