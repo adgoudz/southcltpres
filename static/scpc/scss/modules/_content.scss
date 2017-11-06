@@ -53,6 +53,24 @@
 }
 
 
+// Buttons
+
+.btn {
+
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+
+  &-scpc-primary {
+    @include button-variant(
+      $background: $color-btn-default,
+      $border: $color-btn-default,
+      $active-background: $color-btn-active,
+      $active-border: $color-btn-active
+    );
+  }
+}
+
+
 // Inline
 
 
