@@ -1,31 +1,35 @@
 
+// section-spacing
+//
+// Default spacing behavior for section classes. Padding is set via the $section-p*
+// values and margin is avoided for the sake of simplicity. Spacing is increased
+// at the breakpoint set by $bp-content-width. Spacing is also increased for the
+// last section in a container.
+//
+//   $ratio: An optional multiplier by which the spacing will be decreased or increased
 
-@mixin section-spacing($ratio: 1, $distribute-space: true) {
-  $multiplier: if($distribute-space, 2, 1);  // For leading/trailing space
-
+@mixin section-spacing($ratio: 1) {
   @include media-breakpoint-up($bp-content-width) {
     padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
 
   padding: spacing-y($section-py-sm, $ratio) $section-px-sm;
 
-  &:first-of-type {
-    @include media-breakpoint-up($bp-content-width) {
-      padding-top: spacing-y($section-py-lg, $ratio) * $multiplier;
-    }
-
-    padding-top: spacing-y($section-py-sm, $ratio) * $multiplier;
-  }
-
   &:last-of-type {
+    // Double 'trailing' padding if this is the last section
     @include media-breakpoint-up($bp-content-width) {
-      padding-bottom: spacing-y($section-py-lg, $ratio) * $multiplier;
+      padding-bottom: spacing-y($section-py-lg, $ratio) * 2;
     }
 
-    padding-bottom: spacing-y($section-py-sm, $ratio) * $multiplier;
+    padding-bottom: spacing-y($section-py-sm, $ratio) * 2;
   }
 }
 
+// inverse-section-spacing
+//
+// For sections that use a background. In this case margin should be used to further
+// distinguish the section and padding should never be doubled.
+// Intended to be used by modifier classes.
 
 @mixin inverse-section-spacing($ratio: 1) {
   @include media-breakpoint-up($bp-content-width) {
@@ -35,6 +39,7 @@
   margin: spacing-y($section-py-sm, $ratio) 0;
 
   &:first-of-type {
+    // Preserve top padding but remove margins
     @include media-breakpoint-up($bp-content-width) {
       padding-top: spacing-y($section-py-lg, $ratio);
     }
@@ -44,6 +49,7 @@
   }
 
   &:last-of-type {
+    // Preserve bottom padding but remove margins
     @include media-breakpoint-up($bp-content-width) {
       padding-bottom: spacing-y($section-py-lg, $ratio);
     }
@@ -53,6 +59,10 @@
   }
 }
 
+// flush-section-spacing
+//
+// For sections that shouldn't be padded but should still have margin
+// (e.g. container sections). Intended to be used by modifier classes.
 
 @mixin flush-section-spacing($ratio: 1) {
   @include media-breakpoint-up($bp-content-width) {
@@ -60,11 +70,10 @@
   }
 
   margin: spacing-y($section-py-sm, $ratio) 0;
-  padding: 0;
+  padding: 0;  // Reset
 
   &:first-of-type {
     margin-top: 0;
-    padding-top: 0;  // Reset
   }
 
   &:last-of-type {
@@ -73,6 +82,10 @@
   }
 }
 
+// no-section-spacing
+//
+// For sections that shouldn't have _any_ surrounding space.
+// Intended to be used by modifier classes.
 
 @mixin no-section-spacing() {
   @include media-breakpoint-up($bp-content-width) {
@@ -80,10 +93,6 @@
   }
 
   padding: 0;  // Reset
-
-  &:first-of-type {
-    padding-top: 0;  // Reset
-  }
 
   &:last-of-type {
     padding-bottom: 0;  // Reset
@@ -171,6 +180,15 @@
 
   &--compact {
     @include section-spacing($ratio: 0.5);
+
+    &:first-of-type {
+      // Don't decrease the initial padding if this is the first section
+      @include media-breakpoint-up($bp-content-width) {
+        padding-top: spacing-y($section-py-lg, 1);
+      }
+
+      padding-top: spacing-y($section-py-sm, 1);
+    }
   }
 
 
@@ -386,7 +404,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
-        margin-bottom: 0;  // Replicate left/right behavior
+        margin-bottom: 0;  // Mimic section--left/right behavior
       }
 
       margin-bottom: 1rem;
@@ -395,7 +413,7 @@
 
 
   &--staff {
-    @include section-spacing($ratio: 0.5, $distribute-space: false);
+    @include section-spacing($ratio: 0.5);
 
     #{$root}__body {
       max-width: $grid-max-width;
