@@ -45,3 +45,24 @@ def footer(context):
 
 def _query_children(page):
     return page.get_children().live().in_menu()
+
+
+# Utility Tags
+
+
+class ShrinkwrapNode(template.Node):
+    """Remove all redundant whitespace from a rendered :class:`NodeList`."""
+    def __init__(self, nodelist):
+        self.nodelist = nodelist
+
+    def render(self, context):
+        output = self.nodelist.render(context)
+        return ' '.join(output.split())  # Splits on one or more whitespace characters
+
+
+# noinspection PyUnusedLocal
+@register.tag
+def shrinkwrap(parser, token):
+    nodelist = parser.parse(('endshrinkwrap',))
+    parser.delete_first_token()  # Consume end tag
+    return ShrinkwrapNode(nodelist)

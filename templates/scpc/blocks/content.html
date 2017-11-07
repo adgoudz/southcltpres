@@ -1,6 +1,7 @@
 
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load scpc %}
 
 {% comment %}
 A generic content section, potentially containing an image, header, and/or subheader.
@@ -13,10 +14,13 @@ The following options can be used:
 {% endcomment %}
 
 {% with align=align|default:''|lower %}
-<section class="section{% if compact %} section--compact{% endif %}
-                       {% if align == 'right'%} section--right{% if not value.image and floating %} section--floating{% endif %}
-                       {% elif align == 'left'%} section--left{% if not value.image and floating %} section--floating{% endif %}
-                       {% endif %}">
+<section class="{% shrinkwrap %}
+                section
+                {% if compact %}section--compact{% endif %}
+                {% if align == 'right'%}section--right{% if not value.image and floating %} section--floating{% endif %}
+                {% elif align == 'left'%}section--left{% if not value.image and floating %} section--floating{% endif %}
+                {% endif %}
+                {% endshrinkwrap %}">
     <div class="section__body">
         {% if value.image %}
         {% image value.image max-400x300 as section_image %}
