@@ -29,7 +29,7 @@ The following options can be used:
                  height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
         </div>
         {% endif %}
-        <div class="section__content{% if not value.image and flatten == 'true' %} section__content--flatten{% endif %}">
+        <div class="section__content">
             {% if value.header %}
             {% if not floating and hrule %}
             <div class="hrule hrule--header">
