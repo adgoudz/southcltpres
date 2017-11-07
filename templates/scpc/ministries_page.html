@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
-{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="ministries-header">
+    <header class="subpage-header">
         <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
             <div class="hero__overlay"></div>
             <h1 class="hero__title">{{ page.title }}</h1>
@@ -16,7 +15,7 @@
         </div>
     </header>
 
-{% for block in page.sections %}
+{% for block in page.content %}
     {% cycle 'left' 'right' as align silent %}
     {% include_block block %}
 {% endfor %}

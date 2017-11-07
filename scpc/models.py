@@ -205,7 +205,7 @@ class Subpage(Page):
 
 class MinistriesPage(Subpage):
 
-    sections = StreamField(
+    content = StreamField(
         [
             ('text', ContentBlock()),
         ],
@@ -213,7 +213,7 @@ class MinistriesPage(Subpage):
     )
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('sections'),
+        StreamFieldPanel('content'),
     ]
 
 
@@ -245,7 +245,7 @@ class AboutUsStaff(Orderable, StaffProfile):
 
 class GospelPage(Subpage):
 
-    sections = StreamField(
+    content = StreamField(
         [
             ('text', ContentBlock()),
         ],
@@ -253,13 +253,13 @@ class GospelPage(Subpage):
     )
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('sections'),
+        StreamFieldPanel('content'),
     ]
 
 
 class GivingPage(Subpage):
 
-    sections = StreamField(
+    content = StreamField(
         [
             ('text', ContentBlock()),
         ],
@@ -267,7 +267,7 @@ class GivingPage(Subpage):
     )
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('sections'),
+        StreamFieldPanel('content'),
     ]
 
 
