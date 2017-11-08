@@ -30,7 +30,7 @@ class ContentBlock(blocks.StructBlock):
 
 
 class LocationBlock(blocks.StructBlock):
-    """A container similar to :class`TextBlock` which also includes maps, addresses, etc."""
+    """A container for content describing the church's location."""
     contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
     time = blocks.CharBlock(required=True, max_length=25)
     content = blocks.RichTextBlock(required=True)
@@ -38,6 +38,20 @@ class LocationBlock(blocks.StructBlock):
     class Meta:
         icon = 'site'
         template = 'scpc/blocks/location.html'
+
+
+class GivingBlock(blocks.StructBlock):
+    """A container for all content related to church giving."""
+    introduction = blocks.RichTextBlock()
+    online_link_name = blocks.CharBlock(max_length=15)
+    online_link_url = blocks.URLBlock()
+    mail_header = blocks.CharBlock(max_length=32)
+    contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
+
+    class Meta:
+        icon = 'snippet'
+        template = 'scpc/blocks/giving.html'
+
 
 
 class DividerBlock(blocks.CharBlock):
@@ -262,6 +276,7 @@ class GivingPage(Subpage):
     content = StreamField(
         [
             ('text', ContentBlock()),
+            ('giving', GivingBlock()),
         ],
         blank=True
     )
@@ -329,14 +344,14 @@ class AddressBookSnippet(models.Model):
     twitter_url = models.URLField(verbose_name='Twitter')
     instagram_url = models.URLField(verbose_name='Instagram')
 
-    location_name = models.CharField(verbose_name='Name', max_length=22)
+    location_name = models.CharField(verbose_name='Name', max_length=50)
     location_street = models.CharField(verbose_name='Street', max_length=22)
     location_city = models.CharField(verbose_name='City, State, Zip', max_length=22)
-    directions_url = models.URLField(verbose_name='Google Maps', max_length=350)
+    directions_url = models.URLField(verbose_name='Google Maps')
 
-    mailing_name = models.CharField(verbose_name='Name', max_length=22, null=True, blank=True)
-    mailing_street = models.CharField(null=True, verbose_name='Street', max_length=22)
-    mailing_city = models.CharField(null=True, verbose_name='City, State, Zip', max_length=22)
+    mailing_name = models.CharField(verbose_name='Name', max_length=50, null=True, blank=True)
+    mailing_street = models.CharField(verbose_name='Street', max_length=22, null=True, blank=True)
+    mailing_city = models.CharField(verbose_name='City, State, Zip', max_length=22, null=True, blank=True)
 
     email = models.EmailField(null=True)
 

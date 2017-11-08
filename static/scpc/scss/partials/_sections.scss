@@ -8,7 +8,7 @@
 //
 //   $ratio: An optional multiplier by which the spacing will be decreased or increased
 
-@mixin section-spacing($ratio: 1) {
+@mixin section-spacing($ratio: 1, $trailing-space: true) {
   @include media-breakpoint-up($bp-content-width) {
     padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
@@ -17,11 +17,15 @@
 
   &:last-of-type {
     // Double 'trailing' padding if this is the last section
+    // We always include this pseudo-class in case we're overriding.
+
+    $trailing-multiplier: if($trailing-space, 2, 1);
+
     @include media-breakpoint-up($bp-content-width) {
-      padding-bottom: spacing-y($section-py-lg, $ratio) * 2;
+      padding-bottom: spacing-y($section-py-lg, $ratio * $trailing-multiplier);
     }
 
-    padding-bottom: spacing-y($section-py-sm, $ratio) * 2;
+    padding-bottom: spacing-y($section-py-sm, $ratio * $trailing-multiplier);
   }
 }
 
@@ -339,31 +343,6 @@
 
       padding: ($section-py-sm / 2) $section-px-sm 0;
     }
-
-    #{$root}__social-icons {
-      margin-top: ($section-py-sm / 2);
-      color: $color-hl-3;
-    }
-
-    .map {
-      @include media-breakpoint-up($bp-content-width) {
-        height: 50vh;
-      }
-
-      height: 50vmax;
-      min-height: 300px;
-      background-color: $color-hl-2;
-    }
-
-    .address {
-      margin: 0 auto;
-      font-size: $font-size-lg;
-      text-align: center;
-
-      &__name {
-        font-weight: $font-weight-regular;
-      }
-    }
   }
 
 
@@ -418,6 +397,14 @@
     #{$root}__body {
       max-width: $grid-max-width;
     }
+  }
+
+
+  // Giving Section
+
+
+  &--giving {
+    @include section-spacing($trailing-space: false)
   }
 
 

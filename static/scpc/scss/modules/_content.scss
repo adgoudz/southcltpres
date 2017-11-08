@@ -11,8 +11,10 @@
   }
 }
 
-.rich-text a {
-  @extend %inline-link;
+.rich-text {
+  a {
+    @extend %inline-link;
+  }
 }
 
 .external-link {
@@ -53,24 +55,6 @@
 }
 
 
-// Buttons
-
-.btn {
-
-  font-size: $font-size-xs;
-  text-transform: uppercase;
-
-  &-scpc-primary {
-    @include button-variant(
-      $background: $color-btn-default,
-      $border: $color-btn-default,
-      $active-background: $color-btn-active,
-      $active-border: $color-btn-active
-    );
-  }
-}
-
-
 // Inline
 
 
@@ -85,6 +69,25 @@
 
   &--inverse {
     color: $white;
+  }
+}
+
+
+// Buttons
+
+
+.btn {
+
+  font-size: $font-size-base;
+  text-transform: uppercase;
+
+  &-scpc-primary {
+    @include button-variant(
+      $background: $color-btn-default,
+      $border: $color-btn-default,
+      $active-background: $color-btn-active,
+      $active-border: $color-btn-active
+    );
   }
 }
 
@@ -159,6 +162,47 @@
 
       padding-top: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height);
       font-weight: $font-weight-bold;
+    }
+  }
+
+  &--skinny {
+    width: 75%;
+    margin: auto;
+  }
+}
+
+
+// Misc
+
+
+.map {
+  @include media-breakpoint-up($bp-content-width) {
+    height: 50vh;
+  }
+
+  height: 50vmax;
+  min-height: 300px;
+  background-color: $color-hl-2;
+}
+
+
+.address {
+
+  $root: &;
+
+  margin: 0 auto;
+  font-size: $font-size-md;
+  text-align: center;
+
+  &-sm {
+    font-size: $font-size-base;
+  }
+
+  &-lg {
+    font-size: $font-size-lg;
+
+    #{$root}__name {
+      font-weight: $font-weight-regular;
     }
   }
 }
