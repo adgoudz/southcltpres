@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.db.models import fields
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy
 from modelcluster.fields import ParentalKey
@@ -38,20 +39,6 @@ class LocationBlock(blocks.StructBlock):
     class Meta:
         icon = 'site'
         template = 'scpc/blocks/location.html'
-
-
-class GivingBlock(blocks.StructBlock):
-    """A container for all content related to church giving."""
-    introduction = blocks.RichTextBlock()
-    online_link_name = blocks.CharBlock(max_length=15)
-    online_link_url = blocks.URLBlock()
-    mail_header = blocks.CharBlock(max_length=32)
-    contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
-
-    class Meta:
-        icon = 'snippet'
-        template = 'scpc/blocks/giving.html'
-
 
 
 class DividerBlock(blocks.CharBlock):
@@ -139,7 +126,7 @@ class HomePage(Page):
     )
 
     subtitle = models.CharField(max_length=35)
-    introduction = RichTextField(max_length=750)
+    introduction = RichTextField()
 
     content_panels = [
         MultiFieldPanel(
@@ -272,17 +259,29 @@ class GospelPage(Subpage):
 
 
 class GivingPage(Subpage):
+    introduction = RichTextField(null=True)
+    online_link_name = fields.CharField(null=True, max_length=15)
+    online_link_url = fields.URLField(null=True, )
+    mail_header = fields.CharField(null=True, max_length=32)
 
-    content = StreamField(
-        [
-            ('text', ContentBlock()),
-            ('giving', GivingBlock()),
-        ],
-        blank=True
+    contact_info = models.ForeignKey(
+        'scpc.AddressBookSnippet',
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
     )
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('content'),
+        FieldPanel('introduction'),
+        MultiFieldPanel(
+            [
+                FieldPanel('online_link_name'),
+                FieldPanel('online_link_url'),
+                FieldPanel('mail_header'),
+                SnippetChooserPanel('contact_info'),
+            ],
+            heading='Giving Details',
+        ),
     ]
 
 

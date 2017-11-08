@@ -15,8 +15,37 @@
         </div>
     </header>
 
-{% for block in page.content %}
-    {% include_block block with compact=True %}
-{% endfor %}
+    <section class="section section--giving">
+        <div class="section__body">
+            <div class="section__content">
+                <div class="giving">
+                    <div class="giving__intro">
+                        {{ page.introduction|richtext }}
+                    </div>
+                    <div class="giving__links">
+                        <a class="btn btn-scpc-primary btn-lg" href="{{ page.online_link_url }}" role="button">
+                            {{ page.online_link_name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="hrule hrule--text hrule--skinny">
+                    <div class="hrule__hr">
+                        <hr>
+                    </div>
+                    <h2 class="hrule__text">{{ page.mail_header }}</h2>
+                    <div class="hrule__hr">
+                        <hr>
+                    </div>
+                </div>
+                <div class="address address-sm">
+                    {% with contact_info=page.contact_info %}
+                    <span class="address__name">{{ contact_info.mailing_name }}</span><br/>
+                    <span class="address__street">{{ contact_info.mailing_street }}</span><br/>
+                    <span class="address__city">{{ contact_info.mailing_city }}</span><br/>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
