@@ -23,12 +23,9 @@
   text-transform: uppercase;
 
   &--footer {
-    @include media-breakpoint-up($bp-content-font) {
-      font-size: $font-size-md;
-    }
-
     display: inline-block;
     margin-top: 0.75rem;
+    font-size: $font-size-base;  // Override parent
   }
 }
 
@@ -96,15 +93,21 @@
 
 
 @mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
-  padding: spacing-y($section-py-lg, $ratio, $reduce-by) 1rem;
+  padding: spacing-y($section-py-lg, $ratio, $reduce-by) 0;
 }
 
 
 .hrule {
-
   $root: &;
 
   $hrule-text-height: $font-size-lg * $headings-line-height - 1 / 16;  // Subtract hr border-top
+
+  @include media-breakpoint-up($bp-content-width) {
+    padding: 0 ($section-px-lg * 1.25);
+  }
+
+  width: 100%;  // Explicitly state this in case this is used in a flex container
+  padding: 0 ($section-px-sm * 0.5);
 
   &__hr {
     @include hrule-spacing();
@@ -132,11 +135,11 @@
       @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
 
       flex: 0 0 auto;
-      width: auto;
+      margin: 0 2rem;
       font-size: $font-size-lg;
       font-style: italic;
       letter-spacing: 0.1em;
-      color: $color-bg-3;
+      color: $color-hl-3;
     }
 
     p {
@@ -163,11 +166,6 @@
       padding-top: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height);
       font-weight: $font-weight-bold;
     }
-  }
-
-  &--skinny {
-    width: 75%;
-    margin: auto;
   }
 }
 

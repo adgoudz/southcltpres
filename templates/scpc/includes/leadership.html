@@ -5,7 +5,7 @@
 <section class="section section--left section--leadership">
     <div class="section__body">
         {% if profile.image %}
-            {% image profile.image max-400x300 as section_image %}
+            {% image profile.image max-275x220 as section_image %}
             <div class="section__image" style="max-width: {{ section_image.width }}px">
                 <img src="{{ section_image.url }}" width="{{ section_image.width }}"
                      height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>

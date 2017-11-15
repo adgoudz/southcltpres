@@ -114,14 +114,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 .home-header {
 
-  %title {
-    display: inline;
-    box-decoration-break: clone;
-    padding: 0.075em .75em 0.2em;  // logo font needs more bottom padding
-    line-height: 1.8;
-    font-family: $font-family-logo;
-  }
-
   font-size: 1rem; // set font size for child em units
 
   &__container {
@@ -147,7 +139,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   &__title {
 
     h1 {
-      @extend %title;
+      @include title-type();
 
       @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3.5em);
 
@@ -175,7 +167,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   &__subtitle {
 
     span {
-      @extend %title;
+      @include title-type();
 
       @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 3em);
 

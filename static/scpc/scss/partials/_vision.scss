@@ -1,0 +1,28 @@
+
+.vision {
+  @include make-col-ready();
+
+  @include media-breakpoint-up($bp-content-width) {
+    margin-bottom: spacing-y($section-py-lg);  // Bottom padding for the vision section
+  }
+
+  width: $vision-max-width;
+  min-width: $vision-min-width;
+  margin-bottom: spacing-y($section-py-sm);  // Bottom padding for the vision section
+
+  &__image {
+
+  }
+
+  &__header {
+    margin: 1.5rem 0;
+    font-family: $font-family-logo;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-hl-3;
+  }
+
+  &__content {
+    padding-bottom: 0;  // Override
+  }
+}

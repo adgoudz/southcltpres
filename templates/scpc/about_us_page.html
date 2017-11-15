@@ -4,20 +4,46 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="subpage-header">
-        <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
-            <div class="hero__overlay"></div>
-            <h1 class="hero__title">{{ page.title }}</h1>
-            {% image page.hero_image min-1900x768 as hero_image %}
-            <img src="{{ hero_image.url }}" width="{{ hero_image.width }}"
-                 height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
-                 {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
-        </div>
-    </header>
 
-{% for block in page.content %}
-    {% include_block block with compact=True hrule=True %}
-{% endfor %}
+<header class="subpage-header">
+    <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
+        <div class="hero__overlay"></div>
+        <h1 class="hero__title">{{ page.title }}</h1>
+        {% image page.hero_image min-1900x768 as hero_image %}
+        <img src="{{ hero_image.url }}" width="{{ hero_image.width }}"
+             height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
+             {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
+    </div>
+</header>
+
+<section class="section section--mission">
+    <div class="section__body">
+        <div class="section__content">
+            <h2 class="section__subheader">{{ page.mission_header }}</h2>
+            <div class="section__subcontent">
+                {{ page.mission_statement|richtext }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--vision">
+    <div class="section__body">
+        <div class="section__content">
+            <h2 class="section__subheader">{{ page.vision_header }}</h2>
+            <div class="section__subcontent">
+                {{ page.vision_intro|richtext }}
+            </div>
+        </div>
+        <div class="section__row">
+        {% for vision in page.vision_statement.all %}
+            {% include 'scpc/includes/vision.html' with vision=vision only %}
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% include 'scpc/includes/divider.html' with text=page.profiles_header only %}
 
 {% for profile in page.leadership.all %}
     {% include 'scpc/includes/leadership.html' with profile=profile only %}

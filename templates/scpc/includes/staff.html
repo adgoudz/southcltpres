@@ -16,6 +16,8 @@
     {% endif %}
     <p class="profile__name">{{ profile.name }}</p>
     <p class="profile__title">{{ profile.title }}</p>
-    <p class="profile__email"></p>
+    {% if profile.email %}
+    <p class="profile__email">profile.email</p>
+    {% endif %}
     {{ profile.content|richtext }}
 </div>

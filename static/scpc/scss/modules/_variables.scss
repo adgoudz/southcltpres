@@ -103,6 +103,7 @@ $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
 $title-width: 75%;
 $content-width: 65%;
+$content-max-width: 1366px;
 
 $navbar-width: $title-width;
 
@@ -113,12 +114,18 @@ $navbar-brand-width: 213px;
 $fluid-min-x: 25em;  // Usually 400px
 $fluid-max-x: 100em;  // Usually 1600px
 
-$profile-width: 240px;
-$profile-max-cols: 4;  // Divisible into 12
-$profile-col-size: 12 / $profile-max-cols;
-
 $grid-gutter-width: 50px;
-$grid-max-width: ($profile-width + $grid-gutter-width) * $profile-max-cols - $grid-gutter-width;
+
+$profile-min-width: 180px;
+$profile-max-width: 220px;
+$profile-max-cols: 4;
+$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
+
+$vision-min-width: 200px;
+$vision-max-width: 300px;
+$vision-max-cols: 3;
+$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
+
 
 // Padding and margins
 //
@@ -139,8 +146,8 @@ $nav-link-padding-x: 2.5rem;
 
 $section-py-sm: 8rem;
 $section-py-lg: 14rem;
-$section-px-sm: 1.5rem;
-$section-px-lg: 3rem;
+$section-px-sm: 3rem;
+$section-px-lg: 4rem;
 
 $content-px: 4rem;
 

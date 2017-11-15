@@ -14,6 +14,17 @@ from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
+from .utils import text
+
+
+_svg_help_text = text.join_lines(
+    '''
+    For icon images we use the SVG format and SVGs cannot be uploaded here.
+    This path must refer to an SVG which already exists. Modifying the icon
+    requires changing the raw file externally from Wagtail.
+    '''
+)
+
 
 # Stream Blocks
 
@@ -53,10 +64,31 @@ class DividerBlock(blocks.CharBlock):
 # Inline Models
 
 
+class Vision(models.Model):
+    """A single vision for the church which comprises the overall vision statement."""
+    image_src = models.CharField(max_length=50, verbose_name='Icon Path', help_text=_svg_help_text)
+    header = models.CharField(max_length=25)
+    content = models.CharField(max_length=200)
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('image_src'),
+            ],
+            'Icon',
+            classname='collapsible collapsed',
+        ),
+        FieldPanel('header'),
+        FieldPanel('content'),
+    ]
+
+    class Meta:
+        abstract = True
+
+
 class BaseProfile(models.Model):
     """Staff profiles which may or may not contain a bio and contact information."""
     image = models.ForeignKey('wagtailimages.Image', on_delete=models.SET_NULL, related_name='+', null=True, blank=True)
-
     name = models.CharField(max_length=32)
     title = models.CharField(max_length=32)
 
@@ -219,21 +251,31 @@ class MinistriesPage(Subpage):
 
 
 class AboutUsPage(Subpage):
-
-    content = StreamField(
-        [
-            ('text', ContentBlock()),
-            ('divider', DividerBlock()),
-
-        ],
-        blank=True
-    )
+    mission_header = fields.CharField(max_length=25)
+    mission_statement = RichTextField()
+    vision_header = fields.CharField(max_length=32)
+    vision_intro = RichTextField()
+    profiles_header = fields.CharField(verbose_name='Divider', max_length=25)
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('content'),
+        MultiFieldPanel(
+            [
+                FieldPanel('mission_header'),
+                FieldPanel('mission_statement'),
+                FieldPanel('vision_header'),
+                FieldPanel('vision_intro'),
+            ],
+            heading='Content',
+        ),
+        InlinePanel('vision_statement', label='Vision Statement'),
+        FieldPanel('profiles_header'),
         InlinePanel('leadership', label='Leadership'),
         InlinePanel('staff', label='Staff'),
     ]
+
+
+class AboutUsVision(Orderable, Vision):
+    page = ParentalKey('scpc.AboutUsPage', related_name='vision_statement')
 
 
 class AboutUsLeader(Orderable, LeadershipProfile):
@@ -259,10 +301,10 @@ class GospelPage(Subpage):
 
 
 class GivingPage(Subpage):
-    introduction = RichTextField(null=True)
-    online_link_name = fields.CharField(null=True, max_length=15)
-    online_link_url = fields.URLField(null=True, )
-    mail_header = fields.CharField(null=True, max_length=32)
+    introduction = RichTextField()
+    online_link_name = fields.CharField(max_length=15)
+    online_link_url = fields.URLField()
+    mail_header = fields.CharField(max_length=32)
 
     contact_info = models.ForeignKey(
         'scpc.AddressBookSnippet',

@@ -2,11 +2,11 @@
 
 .profile {
   @include make-col-ready();
-  @include make-col($size: $profile-col-size);
 
   $root: &;
 
-  min-width: 200px;
+  width: $profile-max-width;
+  min-width: $profile-min-width;
   margin-bottom: $grid-gutter-width;
   text-align: left;
 
@@ -71,7 +71,7 @@
 
   &--bio {
     @include media-breakpoint-up($bp-content-row) {
-      text-align: left;
+      text-align: inherit;
     }
 
     text-align: center;

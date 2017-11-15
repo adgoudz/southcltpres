@@ -32,5 +32,5 @@
 //   $ratio: An optional multiplier by which the spacing will be decreased or increased
 //   $reduce-by: A length (assumed rems) by which the calculated spacing should be reduced
 @function spacing-y($y: 0, $ratio: 1, $reduce-by: 0) {
-  @return ($y * $ratio / 2 - $reduce-by / 2);
+  @return max($y * $ratio / 2 - $reduce-by / 2, 0);
 }

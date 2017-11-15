@@ -103,6 +103,19 @@
   }
 }
 
+// wide-section
+//
+// A section which should not be confined to $content-width at the breakpoint
+// determined by $bp-content-width. Instead this section will be confined only
+// by $content-max-width.
+
+@mixin wide-section($max-width: $content-max-width, $root: &) {
+
+    @at-root #{$root}__body {
+      max-width: $max-width;
+      width: auto;  // Override
+    }
+}
 
 .section {
   @include section-spacing();
@@ -162,10 +175,11 @@
   }
 
   &__subheader {
-    margin-bottom: 4rem;
-    font-size: $font-size-lg;
-    letter-spacing: .05em;
-    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-size: $font-size-lg * 1.15;  // Increase to compensate for lowercase type
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+    color: $color-hl-3;
   }
 
   &__subcontent {
@@ -175,7 +189,11 @@
   &__row {
     @include make-row();
 
-    justify-content: center;
+    justify-content: space-evenly;
+
+    p:last-child {
+      margin-bottom: 0;  // Override Bootstrap
+    }
   }
 
 
@@ -371,15 +389,41 @@
   }
 
 
+  // Mission & Vision Sections
+
+  &--mission, &--vision {
+
+    #{$root}__subheader {
+      font-size: $font-size-xl;
+    }
+  }
+
+  &--mission {
+    padding-bottom: 0;  // Override
+  }
+
+
+  &--vision {
+    @include wide-section($max-width: $vision-body-max-width, $root: $root);
+
+    padding-bottom: 0;  // Override
+
+    #{$root}__content {
+      @include media-breakpoint-up($bp-content-width) {
+        padding-bottom: spacing-y($section-py-lg);
+        width: 75%;
+      }
+
+      padding-bottom: spacing-y($section-py-sm);
+    }
+  }
+
+
   // Profile Sections
 
 
   &--leadership {
     @include section-spacing($ratio: 0.5);
-
-    #{$root}__body {
-      max-width: $grid-max-width;
-    }
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
@@ -393,9 +437,10 @@
 
   &--staff {
     @include section-spacing($ratio: 0.5);
+    @include wide-section($max-width: $profile-body-max-width, $root: $root);
 
-    #{$root}__body {
-      max-width: $grid-max-width;
+    #{$root}__subheader {
+      margin-bottom: $grid-gutter-width;  // Mimic space between profiles
     }
   }
 
@@ -420,6 +465,7 @@
       @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
 
       font-size: $font-size-xxl;
+      font-style: normal;
       text-transform: lowercase;
       letter-spacing: 0.125em;
       color: $color-hl-3;
