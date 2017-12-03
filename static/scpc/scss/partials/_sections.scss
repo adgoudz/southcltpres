@@ -165,20 +165,23 @@
 
   &__header {
     @include media-breakpoint-up($bp-content-font) {
-      font-size: $font-size-xxl;
+      font-size: $font-size-xl;
     }
 
     margin-bottom: 2rem;
-    font-family: $font-family-title;
+    font-family: $font-family-header;
+    font-weight: $font-weight-header;
     font-size: $font-size-lg;
+    letter-spacing: $letter-spacing-md;
     color: $color-hl-3;
   }
 
   &__subheader {
     margin-bottom: 2rem;
-    font-size: $font-size-lg * 1.15;  // Increase to compensate for lowercase type
-    letter-spacing: 0.05em;
-    text-transform: lowercase;
+    font-family: $font-family-header;
+    font-weight: $font-weight-header;
+    font-size: $font-size-lg;
+    letter-spacing: $letter-spacing-md;
     color: $color-hl-3;
   }
 

@@ -59,8 +59,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
       height: map-get($subpage-hero-sizes, lg);
     }
 
-    //height: auto;
-    //max-height: map-get($subpage-hero-sizes, xs);
     height: map-get($subpage-hero-sizes, xs);
   }
 
@@ -99,7 +97,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     width: 100%;
     font-family: $font-family-title;
     font-weight: $font-weight-title;
-    letter-spacing: 0.125em;
+    letter-spacing: $letter-spacing-lg;
     text-align: center;
     text-transform: uppercase;
     color: white;
@@ -140,7 +138,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     h1 {
       @include title-type();
-
       @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3.5em);
 
       background-color: $color-hl-3;
@@ -168,7 +165,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     span {
       @include title-type();
-
       @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 3em);
 
       background-color: $color-bg-3;
