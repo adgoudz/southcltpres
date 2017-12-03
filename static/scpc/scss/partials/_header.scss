@@ -116,15 +116,16 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   &__container {
     @include media-breakpoint-up($bp-content-width) {
-      padding: ($section-py-lg / 2) $section-px-lg;
+      padding: spacing-y($section-py-lg, $ratio: 2) $section-px-lg;
     }
 
-    padding: ($section-py-sm / 2) $section-px-sm;
+    padding: spacing-y($section-py-sm, $ratio: 2) $section-px-sm;
   }
 
   &__body {
     @include media-breakpoint-up($bp-content-width) {
       width: $title-width;
+      max-width: $title-max-width;
     }
     @include media-breakpoint-up($bp-hires) {
       text-align: left;

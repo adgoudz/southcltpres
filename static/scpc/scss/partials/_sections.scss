@@ -111,10 +111,10 @@
 
 @mixin wide-section($max-width: $content-max-width, $root: &) {
 
-    @at-root #{$root}__body {
-      max-width: $max-width;
-      width: auto;  // Override
-    }
+  .section__body {
+    max-width: $max-width;
+    width: auto;  // Override
+  }
 }
 
 .section {
@@ -131,6 +131,7 @@
   &__body {
     @include media-breakpoint-up($bp-content-width) {
       width: $content-width;
+      max-width: $content-max-width;
     }
 
     display: flex;

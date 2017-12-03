@@ -47,6 +47,7 @@
 .navbar {
   @include media-breakpoint-up($bp-navbar-width) {
     width: $navbar-width;
+    max-width: $navbar-max-width;
   }
 
   margin: 0 auto;
@@ -56,7 +57,7 @@
     line-height: 0;
     z-index: $zindex-navbar-brand;
   }
-  
+
   .navbar-collapse {
     @include media-breakpoint-up($bp-navbar-expand) {
       transform: translateX(-$navbar-brand-width / 2);
