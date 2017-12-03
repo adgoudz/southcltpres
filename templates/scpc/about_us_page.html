@@ -35,7 +35,7 @@
                 {{ page.vision_intro|richtext }}
             </div>
         </div>
-        <div class="section__row">
+        <div class="section__grid">
         {% for vision in page.vision_statement.all %}
             {% include 'scpc/includes/vision.html' with vision=vision only %}
         {% endfor %}
@@ -52,7 +52,7 @@
 <section class="section section--staff">
     <div class="section__body">
         <h3 class="section__subheader">Our Staff</h3>
-        <div class="section__row">
+        <div class="section__grid">
         {% for profile in page.staff.all %}
             {% include 'scpc/includes/staff.html' with profile=profile only %}
         {% endfor %}

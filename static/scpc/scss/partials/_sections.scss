@@ -190,7 +190,8 @@
     // Extensible by modifier classes
   }
 
-  &__row {
+  &__grid {
+    // Allow for optional separate row elements by making the grid a row itself
     @include make-row();
 
     justify-content: space-evenly;
