@@ -223,12 +223,12 @@
   font-size: $font-size-md;
   text-align: center;
 
-  &-sm {
+  &--sm {
     font-size: $font-size-base;
   }
 
-  &-lg {
-    font-size: $font-size-lg;
+  &--lg {
+    font-size: $font-size-md;
 
     #{$root}__name {
       font-weight: $font-weight-regular;
