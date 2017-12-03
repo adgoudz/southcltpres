@@ -1,5 +1,4 @@
 
-
 .profile {
   @include make-col-ready();
 
@@ -7,7 +6,7 @@
 
   width: $profile-max-width;
   min-width: $profile-min-width;
-  margin-bottom: $grid-gutter-width;
+  margin-bottom: 4rem;
   text-align: left;
 
   &__image {
@@ -102,8 +101,6 @@
     }
 
     #{$root}__name {
-      font-weight: $font-weight-regular;
-
       @include media-breakpoint-up($bp-content-row) {
         &:after {
           content: '|';

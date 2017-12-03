@@ -360,10 +360,10 @@
 
     #{$root}__container {
       @include media-breakpoint-up($bp-content-width) {
-        padding: ($section-py-lg / 2) $section-px-lg 0;
+        padding: 4rem $section-px-lg 0;
       }
 
-      padding: ($section-py-sm / 2) $section-px-sm 0;
+      padding: 4rem $section-px-sm 0;
     }
   }
 
@@ -444,7 +444,7 @@
     @include wide-section($max-width: $profile-body-max-width, $root: $root);
 
     #{$root}__subheader {
-      margin-bottom: $grid-gutter-width;  // Mimic space between profiles
+      margin-bottom: 4rem;  // Mimic space between profiles
     }
   }
 
