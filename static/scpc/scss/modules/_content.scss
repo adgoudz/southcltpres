@@ -93,7 +93,11 @@
 
 
 @mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
-  padding: spacing-y($section-py-lg, $ratio, $reduce-by) 0;
+  @include media-breakpoint-up($bp-content-width) {
+    padding: spacing-y($section-py-lg, $ratio, $reduce-by) 0;
+  }
+
+  padding: spacing-y($section-py-sm, $ratio, $reduce-by) 0;
 }
 
 
@@ -102,16 +106,10 @@
 
   $hrule-text-height: $font-size-lg * $headings-line-height - 1 / 16;  // Subtract hr border-top
 
-  @include media-breakpoint-up($bp-content-width) {
-    padding: 0 ($section-px-lg * 1.25);
-  }
-
   width: 100%;  // Explicitly state this in case this is used in a flex container
-  padding: 0 ($section-px-sm * 0.5);
+  padding: 0 2rem;
 
   &__hr {
-    @include hrule-spacing();
-
     hr {
       width: 100%;
       margin: 0;
@@ -119,9 +117,20 @@
     }
   }
 
+
+  // Header and Text Rules
+
+
   &--header, &--text {
+    @include media-breakpoint-up($bp-content-width) {
+      width: 60%;
+      min-width: 400px;
+      margin: auto;
+    }
+
     display: flex;
     align-items: center;
+    padding: 0;  // Reset
     text-align: center;
 
     #{$root}__hr {
@@ -147,6 +156,7 @@
     }
   }
 
+
   &--header {
     #{$root}__hr {
       // Reduce &__text padding-top
@@ -162,9 +172,30 @@
       @include media-breakpoint-up($bp-content-width) {
         padding-top: spacing-y($section-py-lg, $ratio: 0.15, $reduce-by: $hrule-text-height);
       }
+      @include media-breakpoint-up($bp-content-font) {
+        font-size: $font-size-xl;
+      }
 
       padding-top: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height);
-      font-weight: $font-weight-bold;
+      font-family: $font-family-header;
+      font-weight: $font-weight-header;
+      font-size: $font-size-lg;
+      font-style: normal;  // Reset
+    }
+  }
+
+
+  // Widths
+
+
+  &--narrow {
+
+    padding: 0;  // Reset
+
+    #{$root}__hr {
+      width: 30%;
+      min-width: 72px;
+      margin: auto;
     }
   }
 }

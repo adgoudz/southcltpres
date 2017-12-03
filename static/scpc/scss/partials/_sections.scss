@@ -459,16 +459,26 @@
   &--divider {
     @include flush-section-spacing($ratio: 0.25);
 
-    .hrule__text {
-      $hrule-text-height: $font-size-xxl * $headings-line-height - (1 / 16);  // Subtract hr border-top
+    .hrule {
+      @include media-breakpoint-up($bp-content-width) {
+        padding: 0 ($section-px-lg * 2);  // Rule is narrower than content
+      }
 
-      @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
+      width: 100%;  // Explicitly state this in case this is used in a flex container
+      padding: 0 ($section-px-sm * 0.5);  // Rule is wider than content
 
-      font-size: $font-size-xxl;
-      font-style: normal;
-      text-transform: lowercase;
-      letter-spacing: 0.125em;
-      color: $color-hl-3;
+      &__text {
+        $hrule-text-height: $font-size-xxl * $headings-line-height - (1 / 16); // Subtract hr border-top
+
+        @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
+
+        font-family: $font-family-header;
+        font-weight: $font-weight-header;
+        font-size: $font-size-xxl;
+        font-style: normal;  // Reset
+        letter-spacing: $letter-spacing-lg;
+        color: $color-hl-3;
+      }
     }
   }
 }
