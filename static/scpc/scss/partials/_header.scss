@@ -126,8 +126,8 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   &__body {
     @include media-breakpoint-up($bp-content-width) {
-      width: $title-width;
-      max-width: $title-max-width;
+      width: $content-width;
+      max-width: $content-max-width;
     }
     @include media-breakpoint-up($bp-hires) {
       text-align: left;
@@ -198,6 +198,14 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 
   &--home {
+
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-width) {
+        // Allow for scaling the home header body independently the page's content width
+        width: $title-width;
+        max-width: $title-max-width;
+      }
+    }
 
     #{$root}__intro {
       padding-top: 3rem;

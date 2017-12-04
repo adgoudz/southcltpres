@@ -109,7 +109,7 @@ $tablet-widths: 768 1024;
 $desktop-widths: 1366 1440 1920;
 $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
-$title-width: 75%;
+$title-width: 80%;
 $title-max-width: 1792px * strip-unit($title-width) / 100;  // 1920px minus padding
 $content-width: 65%;
 $content-max-width: 1792px * strip-unit($content-width) / 100;  // 1920px minus padding
