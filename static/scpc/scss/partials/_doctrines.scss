@@ -1,0 +1,20 @@
+
+.doctrine {
+  @include media-breakpoint-up($bp-content-width) {
+    text-align: left;
+  }
+
+  padding-bottom: 1.5rem;
+
+  &__header {
+    margin-bottom: 1rem;
+    font-family: $font-family-header;
+    font-weight: $font-weight-header;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-lg;
+  }
+
+  &__content {
+
+  }
+}

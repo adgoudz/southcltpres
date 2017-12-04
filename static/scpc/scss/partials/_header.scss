@@ -110,7 +110,9 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 // Headers
 
 
-.home-header {
+.header {
+
+  $root: &;
 
   font-size: 1rem; // set font size for child em units
 
@@ -175,21 +177,30 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   &__intro {
     @include media-breakpoint-up($bp-content-font) {
-      margin: 0;
       font-size: $font-size-md;
     }
+    @include media-breakpoint-up($bp-hires) {
+      text-align: left;
+    }
 
-    margin: 0 auto;
-    padding-top: 3rem;
-    font-size: $font-size-base;
+    font-family: $font-family-intro;
+    font-weight: $font-weight-intro;
+    line-height: $line-height-lg;
+    color: $color-bg-3;
 
     p {
       margin-bottom: 0;
     }
   }
-}
 
 
-.subpage-header {
+  // Home Header
 
+
+  &--home {
+
+    #{$root}__intro {
+      padding-top: 3rem;
+    }
+  }
 }

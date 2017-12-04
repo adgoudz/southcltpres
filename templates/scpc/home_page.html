@@ -3,28 +3,29 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-    <header class="home-header">
-        <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
-        <div class="home-header__container">
-            <div class="home-header__body">
-                <div class="home-header__title home-header__title--wide">
-                    <h1>South Charlotte Presbyterian Church</h1>
-                </div>
-                <div class="home-header__title home-header__title--narrow">
-                    <h1>South Charlotte</h1>
-                </div>
-                <div class="home-header__title home-header__title--narrow">
-                    <h1>Presbyterian Church</h1>
-                </div>
-                <div class="home-header__subtitle">
-                    <span>{{ page.subtitle }}</span>
-                </div>
-                <div class="home-header__intro">
-                    {{ page.introduction|richtext }}
-                </div>
+
+<header class="header header--home">
+    <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
+    <div class="header__container">
+        <div class="header__body">
+            <div class="header__title header__title--wide">
+                <h1>South Charlotte Presbyterian Church</h1>
+            </div>
+            <div class="header__title header__title--narrow">
+                <h1>South Charlotte</h1>
+            </div>
+            <div class="header__title header__title--narrow">
+                <h1>Presbyterian Church</h1>
+            </div>
+            <div class="header__subtitle">
+                <span>{{ page.subtitle }}</span>
+            </div>
+            <div class="header__intro">
+                {{ page.introduction|richtext }}
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 {% for block in page.content %}
     {% include_block block with type=block.block_type align='stacked' %}

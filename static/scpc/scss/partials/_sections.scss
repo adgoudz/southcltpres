@@ -375,17 +375,14 @@
   &--verse {
     @include inverse-section-spacing();
 
-    color: $color-hl-4;
-    background-color: $color-hl-1;
+    font-style: italic;
+    letter-spacing: $letter-spacing-lg;
+    text-align: center;
+    color: $color-bg-3;
+    background-color: $color-bg-1;
 
     #{$root}__body {
       align-items: center;
-    }
-
-    #{$root}__content {
-      font-style: italic;
-      letter-spacing: 0.125em;
-      text-align: center;
     }
 
     #{$root}__verse {
@@ -394,14 +391,8 @@
   }
 
 
-  // Mission & Vision Sections
+  // About Us Sections
 
-  &--mission, &--vision {
-
-    #{$root}__subheader {
-      font-size: $font-size-xl;
-    }
-  }
 
   &--mission {
     padding-bottom: 0;  // Override
@@ -424,9 +415,6 @@
   }
 
 
-  // Profile Sections
-
-
   &--leadership {
     @include section-spacing($ratio: 0.5);
 
@@ -446,6 +434,30 @@
 
     #{$root}__subheader {
       margin-bottom: 4rem;  // Mimic space between profiles
+    }
+  }
+
+
+  // Beliefs Sections
+
+
+  &--gospel {
+    @include inverse-section-spacing();
+
+    // Constrain width to $bp-content-width (minus section padding)
+    @include wide-section($max-width: map-get($grid-breakpoints, $bp-content-width), $root: $root);
+
+    color: $color-hl-4;
+    background-color: $color-hl-1;
+  }
+
+
+  &--doctrines {
+    // Constrain width to $bp-content-width (minus section padding)
+    @include wide-section($max-width: map-get($grid-breakpoints, $bp-content-width), $root: $root);
+
+    #{$root}__content {
+      margin-bottom: 2rem;
     }
   }
 

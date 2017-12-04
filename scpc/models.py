@@ -1,6 +1,5 @@
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import fields
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy
 from modelcluster.fields import ParentalKey
@@ -15,7 +14,6 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
 from .utils import text
-
 
 _svg_help_text = text.join_lines(
     '''
@@ -68,7 +66,7 @@ class Vision(models.Model):
     """A single vision for the church which comprises the overall vision statement."""
     image_src = models.CharField(max_length=50, verbose_name='Icon Path', help_text=_svg_help_text)
     header = models.CharField(max_length=25)
-    content = models.CharField(max_length=200)
+    content = models.TextField(max_length=200)
 
     panels = [
         MultiFieldPanel(
@@ -132,6 +130,20 @@ class StaffProfile(BaseProfile):
         FieldPanel('name'),
         FieldPanel('title'),
         FieldPanel('email'),
+    ]
+
+    class Meta:
+        abstract = True
+
+
+class Doctrine(models.Model):
+    """A single doctrine in the summary of the church's theology."""
+    header = models.CharField(max_length=25)
+    content = models.TextField(max_length=200)
+
+    panels = [
+        FieldPanel('header'),
+        FieldPanel('content'),
     ]
 
     class Meta:
@@ -251,11 +263,11 @@ class MinistriesPage(Subpage):
 
 
 class AboutUsPage(Subpage):
-    mission_header = fields.CharField(max_length=25)
+    mission_header = models.CharField(max_length=25)
     mission_statement = RichTextField()
-    vision_header = fields.CharField(max_length=32)
+    vision_header = models.CharField(max_length=32)
     vision_intro = RichTextField()
-    profiles_header = fields.CharField(verbose_name='Divider', max_length=25)
+    profiles_header = models.CharField(verbose_name='Divider', max_length=25)
 
     content_panels = Subpage.content_panels + [
         MultiFieldPanel(
@@ -286,25 +298,32 @@ class AboutUsStaff(Orderable, StaffProfile):
     page = ParentalKey('scpc.AboutUsPage', related_name='staff')
 
 
-class GospelPage(Subpage):
-
-    content = StreamField(
-        [
-            ('text', ContentBlock()),
-        ],
-        blank=True
-    )
+class BeliefsPage(Subpage):
+    introduction = models.TextField()
+    gospel_header = models.CharField(max_length=25)
+    gospel_content = RichTextField()
+    doctrines_header = models.CharField(max_length=32)
+    doctrines_intro = RichTextField()
 
     content_panels = Subpage.content_panels + [
-        StreamFieldPanel('content'),
+        FieldPanel('introduction', classname='full'),
+        FieldPanel('gospel_header'),
+        FieldPanel('gospel_content'),
+        FieldPanel('doctrines_header'),
+        FieldPanel('doctrines_intro'),
+        InlinePanel('doctrines', label='Doctrines'),
     ]
+
+
+class BeliefsDoctrine(Orderable, Doctrine):
+    page = ParentalKey('scpc.BeliefsPage', related_name='doctrines')
 
 
 class GivingPage(Subpage):
     introduction = RichTextField()
-    online_link_name = fields.CharField(max_length=15)
-    online_link_url = fields.URLField()
-    mail_header = fields.CharField(max_length=32)
+    online_link_name = models.CharField(max_length=15)
+    online_link_url = models.URLField()
+    mail_header = models.CharField(max_length=32)
 
     contact_info = models.ForeignKey(
         'scpc.AddressBookSnippet',
