@@ -12,7 +12,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   position: relative;
   overflow: hidden;
   width: 100%;
-  font-size: 1rem; // set font size for child em units
+  font-size: 1rem; // Set font size for child em units
   color: $white;
 
   img {
@@ -95,9 +95,9 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     position: absolute;
     z-index: $zindex-hero-title;
     width: 100%;
-    font-family: $font-family-title;
-    font-weight: $font-weight-title;
-    letter-spacing: $letter-spacing-lg;
+    font-family: $title-font-family;
+    font-weight: $title-font-weight;
+    letter-spacing: $title-letter-spacing;
     text-align: center;
     text-transform: uppercase;
     color: white;
@@ -176,17 +176,12 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &__intro {
-    @include media-breakpoint-up($bp-content-font) {
-      font-size: $font-size-md;
-    }
-    @include media-breakpoint-up($bp-hires) {
-      text-align: left;
-    }
-
-    font-family: $font-family-intro;
-    font-weight: $font-weight-intro;
-    line-height: $line-height-lg;
-    color: $color-bg-3;
+    font-family: $intro-font-family;
+    font-size: $intro-font-size;
+    font-weight: $intro-font-weight;
+    line-height: $intro-line-height;
+    letter-spacing: $intro-letter-spacing;
+    color: $intro-color;
 
     p {
       margin-bottom: 0;

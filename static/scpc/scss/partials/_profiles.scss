@@ -97,7 +97,7 @@
 
       display: block;
       font-size: $font-size-lg;  // Reset profile behavior
-      line-height: $line-height-base;  // Reset for headings
+      line-height: $line-height-base;  // Override headings line-height
     }
 
     #{$root}__name {

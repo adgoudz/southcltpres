@@ -166,24 +166,22 @@
 
   &__header {
     @include media-breakpoint-up($bp-content-font) {
-      font-size: $font-size-xl;
+      font-size: $header-desktop-font-size;
     }
 
+    // Note: Most header font attributes are set by headings variables
     margin-bottom: 2rem;
-    font-family: $font-family-header;
-    font-weight: $font-weight-header;
-    font-size: $font-size-lg;
-    letter-spacing: $letter-spacing-md;
-    color: $color-hl-3;
+    font-size: $header-mobile-font-size;
   }
 
   &__subheader {
+    @include media-breakpoint-up($bp-content-font) {
+      font-size: $subheader-desktop-font-size;
+    }
+
+    // Note: Most subheader font attributes are set by headings variables
     margin-bottom: 2rem;
-    font-family: $font-family-header;
-    font-weight: $font-weight-header;
-    font-size: $font-size-lg;
-    letter-spacing: $letter-spacing-md;
-    color: $color-hl-3;
+    font-size: $subheader-mobile-font-size;
   }
 
   &__subcontent {
@@ -249,12 +247,13 @@
 
       #{$root}__header {
         @include media-breakpoint-up($bp-content-row) {
-          font-size: $font-size-lg;
           margin-bottom: 0;
         }
         @include media-breakpoint-up($bp-hires) {
-          font-size: $font-size-xl;
+          //font-size: $font-size-xl;  // TODO Is this needed?
         }
+
+        font-size: $header-floating-font-size;
       }
 
       #{$root}__subcontent {
@@ -475,27 +474,5 @@
 
   &--divider {
     @include flush-section-spacing($ratio: 0.25);
-
-    .hrule {
-      @include media-breakpoint-up($bp-content-width) {
-        padding: 0 ($section-px-lg * 2);  // Rule is narrower than content
-      }
-
-      width: 100%;  // Explicitly state this in case this is used in a flex container
-      padding: 0 ($section-px-sm * 0.5);  // Rule is wider than content
-
-      &__text {
-        $hrule-text-height: $font-size-xxl * $headings-line-height - (1 / 16); // Subtract hr border-top
-
-        @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
-
-        font-family: $font-family-header;
-        font-weight: $font-weight-header;
-        font-size: $font-size-xxl;
-        font-style: normal;  // Reset
-        letter-spacing: $letter-spacing-lg;
-        color: $color-hl-3;
-      }
-    }
   }
 }

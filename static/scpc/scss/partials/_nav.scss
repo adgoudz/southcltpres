@@ -9,27 +9,29 @@
       left: 0;
       width: 100%;
       height: 4px;
-      background-color: $color-hl-3;
+      background-color: $nav-link-color-active;
     }
   }
 }
 
 
 %nav-link-base {
-  font-size: $font-size-xs;
-  font-weight: $font-weight-base;
+  // Note: font-size is handled at the class level
+  font-weight: $nav-link-font-weight;
+  letter-spacing: $nav-link-letter-spacing;
   text-align: center;
   text-transform: uppercase;
-  color: $color-bg-3 !important;
+  color: $nav-link-color !important;
   white-space: nowrap;
 
   &:hover, &:focus {
-    color: $color-hl-3 !important;
+    color: $nav-link-color-active !important;
   }
 }
 
 
 .brand {
+  // TODO These heights should be variables
   @include media-breakpoint-up($bp-navbar-expand) {
     height: 48px;
   }
@@ -78,7 +80,7 @@
         @include nav-item-active($bottom: -$navbar-padding-y);
 
         .nav-link {
-          color: $color-hl-3 !important;
+          color: $nav-link-color !important;
         }
       }
     }
@@ -91,10 +93,10 @@
         padding-left: $nav-link-padding-x !important;
         padding-right: $nav-link-padding-x !important;
 
-        font-size: $font-size-xs;
+        font-size: $nav-link-desktop-font-size;
       }
 
-      font-size: $font-size-xxl;  // Full-screen menu
+      font-size: $nav-link-mobile-font-size;
     }
   }
 }
@@ -118,6 +120,8 @@
 
   .nav-link {
     @extend %nav-link-base;
+
+    font-size: $nav-link-desktop-font-size;
   }
 }
 

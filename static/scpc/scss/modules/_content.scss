@@ -25,7 +25,6 @@
   &--footer {
     display: inline-block;
     margin-top: 0.75rem;
-    font-size: $font-size-base;  // Override parent
   }
 }
 
@@ -75,7 +74,6 @@
 
 .btn {
 
-  font-size: $font-size-base;
   text-transform: uppercase;
 
   &-scpc-primary {
@@ -92,19 +90,8 @@
 // Horizontal Rules
 
 
-@mixin hrule-spacing($ratio: 1, $reduce-by: 0) {
-  @include media-breakpoint-up($bp-content-width) {
-    padding: spacing-y($section-py-lg, $ratio, $reduce-by) 0;
-  }
-
-  padding: spacing-y($section-py-sm, $ratio, $reduce-by) 0;
-}
-
-
 .hrule {
   $root: &;
-
-  $hrule-text-height: $font-size-lg * $headings-line-height - 1 / 16;  // Subtract hr border-top
 
   width: 100%;  // Explicitly state this in case this is used in a flex container
   padding: 0 2rem;
@@ -118,10 +105,10 @@
   }
 
 
-  // Header and Text Rules
+  // Text-based Rules
 
 
-  &--header, &--text {
+  &--text, &--header, &--divider {
     @include media-breakpoint-up($bp-content-width) {
       width: 60%;
       min-width: 400px;
@@ -134,21 +121,13 @@
     text-align: center;
 
     #{$root}__hr {
-      @include hrule-spacing($ratio: 0.5);
-
       flex: 1 1 0;
       width: 100%;
     }
 
     #{$root}__text {
-      @include hrule-spacing($ratio: 0.5, $reduce-by: $hrule-text-height);
-
       flex: 0 0 auto;
       margin: 0 2rem;
-      font-size: $font-size-lg;
-      font-style: italic;
-      letter-spacing: $letter-spacing-lg;
-      color: $color-hl-3;
     }
 
     p {
@@ -157,30 +136,93 @@
   }
 
 
-  &--header {
+  &--text {
+
     #{$root}__hr {
-      // Reduce &__text padding-top
       @include media-breakpoint-up($bp-content-width) {
-        padding-top: spacing-y($section-py-lg, $ratio: 0.15);
+        padding: spacing-y($section-py-lg, $ratio: 0.5) 0;
       }
 
-      padding-top: spacing-y($section-py-sm, $ratio: 0.5);
+      padding: spacing-y($section-py-sm, $ratio: 0.5) 0;
     }
 
     #{$root}__text {
-      // Reduce &__text padding-top
+      $hrule-text-height: $hrule-text-font-size * $headings-line-height - 1 / 18;  // Subtract hr border-top
+
       @include media-breakpoint-up($bp-content-width) {
-        padding-top: spacing-y($section-py-lg, $ratio: 0.15, $reduce-by: $hrule-text-height);
-      }
-      @include media-breakpoint-up($bp-content-font) {
-        font-size: $font-size-xl;
+        padding: spacing-y($section-py-lg, $ratio: 0.5, $reduce-by: $hrule-text-height) 0;
       }
 
-      padding-top: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height);
-      font-family: $font-family-header;
-      font-weight: $font-weight-header;
-      font-size: $font-size-lg;
-      font-style: normal;  // Reset
+      padding: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height) 0;
+      font-family: $hrule-text-font-family;
+      font-size: $hrule-text-font-size;
+      font-weight: $hrule-text-font-weight;
+      letter-spacing: $hrule-text-letter-spacing;
+      color: $hrule-text-color;
+    }
+  }
+
+
+  &--header {
+
+    #{$root}__hr {
+      @include media-breakpoint-up($bp-content-width) {
+        // Reduce padding-top
+        padding-top: spacing-y($section-py-lg, $ratio: 0.15);
+        padding-bottom: spacing-y($section-py-lg, $ratio: 0.5);
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: 0.5) 0;
+    }
+
+    #{$root}__text {
+      $hrule-text-height: $hrule-header-font-size * $headings-line-height - (1 / 18); // Subtract hr border-top
+
+      @include media-breakpoint-up($bp-content-width) {
+        // Reduce padding-top
+        padding-top: spacing-y($section-py-lg, $ratio: 0.15, $reduce-by: $hrule-text-height);
+        padding-bottom: spacing-y($section-py-lg, $ratio: 0.5, $reduce-by: $hrule-text-height);
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height) 0;
+      font-family: $hrule-header-font-family;
+      font-size: $hrule-header-font-size;
+      font-weight: $hrule-header-font-weight;
+      letter-spacing: $hrule-header-letter-spacing;
+      color: $hrule-header-color;
+    }
+  }
+
+
+  &--divider {
+    @include media-breakpoint-up($bp-content-width) {
+      padding: 0 ($section-px-lg * 2);  // Rule is narrower than content
+    }
+
+    width: 100%;  // Override
+    padding: 0 ($section-px-sm * 0.5);  // Rule is wider than content
+
+    #{$root}__hr {
+      @include media-breakpoint-up($bp-content-width) {
+        padding: spacing-y($section-py-lg, $ratio: 0.5) 0;
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: 0.5) 0;
+    }
+
+    #{$root}__text {
+      $hrule-text-height: $hrule-divider-font-size * $headings-line-height - (1 / 18); // Subtract hr border-top
+
+      @include media-breakpoint-up($bp-content-width) {
+        padding: spacing-y($section-py-lg, $ratio: 0.5, $reduce-by: $hrule-text-height) 0;
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: 0.5, $reduce-by: $hrule-text-height) 0;
+      font-family: $hrule-divider-font-family;
+      font-size: $hrule-divider-font-size;
+      font-weight: $hrule-divider-font-weight;
+      letter-spacing: $hrule-divider-letter-spacing;
+      color: $hrule-divider-color;
     }
   }
 
@@ -223,15 +265,15 @@
   font-size: $font-size-md;
   text-align: center;
 
+  #{$root}__name {
+    font-weight: $font-weight-regular;
+  }
+
   &--sm {
-    font-size: $font-size-base;
+    font-size: $font-size-sm;
   }
 
   &--lg {
-    font-size: $font-size-md;
-
-    #{$root}__name {
-      font-weight: $font-weight-regular;
-    }
+    font-size: $font-size-lg;
   }
 }

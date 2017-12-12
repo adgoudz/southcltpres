@@ -4,14 +4,14 @@
     text-align: left;
   }
 
-  padding-bottom: 1.5rem;
+  padding-bottom: 2rem;
 
   &__header {
     margin-bottom: 1rem;
-    font-family: $font-family-header;
-    font-weight: $font-weight-header;
-    text-transform: uppercase;
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
     letter-spacing: $letter-spacing-lg;
+    text-transform: uppercase;
   }
 
   &__content {

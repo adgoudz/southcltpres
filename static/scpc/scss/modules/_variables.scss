@@ -26,7 +26,7 @@ $sizes: (
 
 // Extend Bootstrap's breakpoints
 $grid-breakpoints: (
-  xxs: 0,
+  unused: 0,
   xs: 480px,
   sm: 576px,
   md: 768px,
@@ -56,32 +56,47 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
 
 $font-family-logo: BourtonHandLineBold;
 $font-family-title: "Open Sans", $font-family-sans-serif;
-$font-family-header: "Open Sans", $font-family-sans-serif;
-$font-family-intro: "Open Sans", $font-family-sans-serif;
-$font-family-base: Lato, $font-family-sans-serif;
+$font-family-base: Lato, $font-family-sans-serif;  // Bootstrap
 
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-bold: 700;
+$font-weight-light: 300;  // Bootstrap
+$font-weight-regular: 400;  // Bootstrap
+$font-weight-bold: 700;  // Bootstrap
+$font-weight-base: $font-weight-light;  // Bootstrap
 
-$font-weight-title: $font-weight-regular;
-$font-weight-header: $font-weight-light;
-$font-weight-intro: $font-weight-light;
-$font-weight-base: $font-weight-light;
+$line-height-sm: 1.5;  // Bootstrap
+$line-height-lg: 1.6;  // Bootstrap
+$line-height-base: $line-height-sm;  // Bootstrap
 
-$line-height-sm: 1.4;
-$line-height-lg: 1.6;
-$line-height-base: $line-height-sm;
-
-$font-size-xs: .875rem;
-$font-size-sm: 1rem;
+$font-size-xs: .8rem;
+$font-size-sm: 1rem;  // Bootstrap
 $font-size-md: 1.2rem;
-$font-size-lg: 1.6rem;
-$font-size-xl: 2rem;
-$font-size-xxl: 2.2rem;
-$font-size-base: $font-size-sm;
+$font-size-lg: 1.5rem;  // Bootstrap
+$font-size-xl: 1.8rem;
+$font-size-2xl: 2rem;
+$font-size-base: $font-size-sm;  // Bootstrap
 
-// Delegate heading sizes to classes
+$letter-spacing-sm: 0.025em;
+$letter-spacing-md: 0.05em;
+$letter-spacing-lg: 0.125em;
+
+$nav-link-desktop-font-size: $font-size-xs;
+$nav-link-mobile-font-size: $font-size-2xl;
+$nav-link-font-weight: $font-weight-base;
+$nav-link-letter-spacing: $letter-spacing-md;
+$nav-link-color: $black;
+$nav-link-color-active: $color-hl-3;
+
+$title-font-family: $font-family-title;
+$title-font-weight: $font-weight-regular;
+$title-letter-spacing: $letter-spacing-lg;
+
+$headings-margin-bottom: 0;  // Bootstrap
+$headings-font-family: $font-family-base;  // Bootstrap
+$headings-font-weight: $font-weight-regular;  // Bootstrap
+$headings-letter-spacing: $letter-spacing-md;
+$headings-color: $color-hl-3;
+
+// Override Bootstrap and delegate heading sizes to classes
 $h1-font-size: 1rem;
 $h2-font-size: 1rem;
 $h3-font-size: 1rem;
@@ -89,16 +104,39 @@ $h4-font-size: 1rem;
 $h5-font-size: 1rem;
 $h6-font-size: 1rem;
 
-$letter-spacing-md: 0.05em;
-$letter-spacing-lg: 0.125em;
+$intro-font-family: $font-family-base;
+$intro-font-size: $font-size-xl;
+$intro-font-weight: $font-weight-regular;
+$intro-line-height: $line-height-lg;
+$intro-letter-spacing: $letter-spacing-sm;
+$intro-color: $color-bg-3;
 
-$headings-margin-bottom: 0;
-$headings-font-weight: inherit;
+$header-desktop-font-size: $font-size-xl;
+$header-mobile-font-size: $font-size-lg;
+$header-floating-font-size: $font-size-lg;
 
-$lead-font-size: $font-size-md;
-$lead-font-weight: $font-weight-base;
+$subheader-desktop-font-size: $font-size-lg;
+$subheader-mobile-font-size: $font-size-lg;
 
-$btn-font-weight: $font-weight-base;
+$hrule-text-font-family: $font-family-base;
+$hrule-text-font-size: $font-size-lg;
+$hrule-text-font-weight: $font-weight-base;
+$hrule-text-letter-spacing: $letter-spacing-lg;
+$hrule-text-color: $headings-color;
+
+$hrule-header-font-family: $headings-font-family;
+$hrule-header-font-size: $font-size-lg;
+$hrule-header-font-weight: $headings-font-weight;
+$hrule-header-letter-spacing: $headings-letter-spacing;
+$hrule-header-color: $hrule-text-color;
+
+$hrule-divider-font-family: $headings-font-family;
+$hrule-divider-font-size: $font-size-xl;
+$hrule-divider-font-weight: $headings-font-weight;
+$hrule-divider-letter-spacing: $headings-letter-spacing;
+$hrule-divider-color: $hrule-text-color;
+
+$btn-font-weight: $font-weight-base;  // Bootstrap
 
 // Height and width
 //
