@@ -8,8 +8,8 @@
 
   &__header {
     margin-bottom: 1rem;
-    font-family: $headings-font-family;
-    font-weight: $headings-font-weight;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;  // Override headings font-weight
     letter-spacing: $letter-spacing-lg;
     text-transform: uppercase;
   }

@@ -51,7 +51,7 @@
 
 <section class="section section--staff">
     <div class="section__body">
-        <h3 class="section__subheader">Our Staff</h3>
+        <h3 class="section__subheader">{{ page.staff_header }}</h3>
         <div class="section__grid">
         {% for profile in page.staff.all %}
             {% include 'scpc/includes/staff.html' with profile=profile only %}

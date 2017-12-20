@@ -35,6 +35,33 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     transform: translateX(-50%);
   }
 
+  &__overlay {
+    position: absolute;
+    z-index: $zindex-hero-overlay;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.4;
+  }
+
+  &__title {
+    @include align-vertically();
+
+    position: absolute;
+    z-index: $zindex-hero-title;
+    width: 100%;
+    font-family: $hero-title-font-family;
+    font-weight: $hero-title-font-weight;
+    letter-spacing: $hero-title-letter-spacing;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+
+    @include fluid-type($fluid-min-x, $fluid-max-x, 1.5em, 2.75em, $units: vmin);
+  }
+
   &--home {
     @include media-breakpoint-up($bp-homepage-hero) {
       @include focus-background-y(50, 1900, 768);
@@ -77,33 +104,6 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
       transform: translateX(-50%);
     }
   }
-
-  &__overlay {
-    position: absolute;
-    z-index: $zindex-hero-overlay;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: black;
-    opacity: 0.4;
-  }
-
-  &__title {
-    @include align-vertically();
-
-    position: absolute;
-    z-index: $zindex-hero-title;
-    width: 100%;
-    font-family: $title-font-family;
-    font-weight: $title-font-weight;
-    letter-spacing: $title-letter-spacing;
-    text-align: center;
-    text-transform: uppercase;
-    color: white;
-
-    @include fluid-type($fluid-min-x, $fluid-max-x, 1.5em, 3em, $units: vmin);
-  }
 }
 
 
@@ -114,22 +114,20 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   $root: &;
 
-  font-size: 1rem; // set font size for child em units
+  font-size: 1rem; // Set font size for child em units
 
   &__container {
     @include media-breakpoint-up($bp-content-width) {
       padding: spacing-y($section-py-lg, $ratio: 2) $section-px-lg;
     }
 
-    padding: spacing-y($section-py-sm, $ratio: 2) $section-px-sm;
+    padding: spacing-y($section-py-sm) $section-px-sm;
   }
 
   &__body {
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-hires) {
       width: $content-width;
       max-width: $content-max-width;
-    }
-    @include media-breakpoint-up($bp-hires) {
       text-align: left;
     }
 
@@ -139,9 +137,9 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
   &__title {
 
-    h1 {
+    h1, h2, h3, h4, h5, h6 {
       @include title-type();
-      @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3.5em);
+      @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3em);
 
       background-color: $color-hl-3;
       color: white;
@@ -168,7 +166,7 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     span {
       @include title-type();
-      @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 3em);
+      @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 2.5em);
 
       background-color: $color-bg-3;
       color: white;

@@ -17,16 +17,6 @@
   }
 }
 
-.external-link {
-  @extend %inline-link;
-
-  text-transform: uppercase;
-
-  &--footer {
-    display: inline-block;
-    margin-top: 0.75rem;
-  }
-}
 
 .icon-link {
   display: inline-block;
@@ -74,6 +64,7 @@
 
 .btn {
 
+  font-size: $btn-font-size;
   text-transform: uppercase;
 
   &-scpc-primary {
@@ -199,7 +190,7 @@
       padding: 0 ($section-px-lg * 2);  // Rule is narrower than content
     }
 
-    width: 100%;  // Override
+    width: 100%;  // Reset
     padding: 0 ($section-px-sm * 0.5);  // Rule is wider than content
 
     #{$root}__hr {
@@ -265,12 +256,26 @@
   font-size: $font-size-md;
   text-align: center;
 
-  #{$root}__name {
+  &__name {
     font-weight: $font-weight-regular;
+  }
+
+  &__directions-link {
+    @extend %inline-link;
+
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: $font-size-xs;  // Reset
+    letter-spacing: $letter-spacing-sm;
+    text-transform: uppercase;
   }
 
   &--sm {
     font-size: $font-size-sm;
+
+    #{$root}__name {
+      font-weight: $font-weight-base;  // Reset
+    }
   }
 
   &--lg {

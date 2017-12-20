@@ -268,6 +268,7 @@ class AboutUsPage(Subpage):
     vision_header = models.CharField(max_length=32)
     vision_intro = RichTextField()
     profiles_header = models.CharField(verbose_name='Divider', max_length=25)
+    staff_header = models.CharField(max_length=25)
 
     content_panels = Subpage.content_panels + [
         MultiFieldPanel(
@@ -282,6 +283,7 @@ class AboutUsPage(Subpage):
         InlinePanel('vision_statement', label='Vision Statement'),
         FieldPanel('profiles_header'),
         InlinePanel('leadership', label='Leadership'),
+        FieldPanel('staff_header'),
         InlinePanel('staff', label='Staff'),
     ]
 
@@ -321,6 +323,7 @@ class BeliefsDoctrine(Orderable, Doctrine):
 
 class GivingPage(Subpage):
     introduction = RichTextField()
+    giving_content = RichTextField()
     online_link_name = models.CharField(max_length=15)
     online_link_url = models.URLField()
     mail_header = models.CharField(max_length=32)
@@ -334,6 +337,7 @@ class GivingPage(Subpage):
 
     content_panels = Subpage.content_panels + [
         FieldPanel('introduction'),
+        FieldPanel('giving_content'),
         MultiFieldPanel(
             [
                 FieldPanel('online_link_name'),

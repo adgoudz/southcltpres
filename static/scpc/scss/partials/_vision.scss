@@ -16,13 +16,12 @@
 
   &__header {
     margin: 1.5rem 0;
-    font-family: $font-family-logo;
+    font-family: $font-family-header;
     font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
     color: $color-hl-3;
   }
 
   &__content {
-    padding-bottom: 0;  // Override
+    padding-bottom: 0;  // Reset
   }
 }

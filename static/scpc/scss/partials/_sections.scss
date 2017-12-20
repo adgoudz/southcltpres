@@ -113,7 +113,7 @@
 
   .section__body {
     max-width: $max-width;
-    width: auto;  // Override
+    width: auto;  // Reset
   }
 }
 
@@ -170,8 +170,12 @@
     }
 
     // Note: Most header font attributes are set by headings variables
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
     font-size: $header-mobile-font-size;
+
+    &:after {
+      content: '.';
+    }
   }
 
   &__subheader {
@@ -179,9 +183,15 @@
       font-size: $subheader-desktop-font-size;
     }
 
-    // Note: Most subheader font attributes are set by headings variables
-    margin-bottom: 2rem;
+    // Note: Other subheader font attributes are set by headings variables
+    margin-bottom: 1.2rem;
+    font-family: $subheader-font-family;
+    font-weight: $subheader-font-weight;
     font-size: $subheader-mobile-font-size;
+
+    &:after {
+      content: '.';
+    }
   }
 
   &__subcontent {
@@ -394,14 +404,14 @@
 
 
   &--mission {
-    padding-bottom: 0;  // Override
+    padding-bottom: 0;  // Reset
   }
 
 
   &--vision {
     @include wide-section($max-width: $vision-body-max-width, $root: $root);
 
-    padding-bottom: 0;  // Override
+    padding-bottom: 0;  // Reset
 
     #{$root}__content {
       @include media-breakpoint-up($bp-content-width) {
@@ -465,7 +475,7 @@
 
 
   &--giving {
-    @include section-spacing($trailing-space: false)
+    padding-top: 0;
   }
 
 
@@ -473,6 +483,6 @@
 
 
   &--divider {
-    @include flush-section-spacing($ratio: 0.25);
+    @include flush-section-spacing($ratio: 0);
   }
 }

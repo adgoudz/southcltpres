@@ -17,6 +17,7 @@
 
 %nav-link-base {
   // Note: font-size is handled at the class level
+  font-family: $nav-link-font-family;
   font-weight: $nav-link-font-weight;
   letter-spacing: $nav-link-letter-spacing;
   text-align: center;

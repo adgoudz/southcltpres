@@ -13,17 +13,25 @@
                  height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
                  {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
         </div>
+        <div class="header__container">
+            {# Force center text alignment due to that this page only contains one section #}
+            <div class="header__body text-center">
+                <div class="header__intro">
+                    {{ page.introduction|richtext }}
+                </div>
+            </div>
+        </div>
     </header>
 
     <section class="section section--giving">
         <div class="section__body">
             <div class="section__content">
                 <div class="giving">
-                    <div class="giving__intro">
-                        {{ page.introduction|richtext }}
+                    <div class="giving__subcontent">
+                        {{ page.giving_content|richtext }}
                     </div>
                     <div class="giving__links">
-                        <a class="btn btn-scpc-primary btn-lg" href="{{ page.online_link_url }}" role="button">
+                        <a class="btn btn-scpc-primary" href="{{ page.online_link_url }}" role="button">
                             {{ page.online_link_name }}
                         </a>
                     </div>
@@ -32,12 +40,12 @@
                     <div class="hrule__hr">
                         <hr>
                     </div>
-                    <h2 class="hrule__text">{{ page.mail_header }}</h2>
+                    <p class="hrule__text">{{ page.mail_header }}</p>
                     <div class="hrule__hr">
                         <hr>
                     </div>
                 </div>
-                <div class="address address-sm">
+                <div class="address address--sm">
                     {% with contact_info=page.contact_info %}
                     <span class="address__name">{{ contact_info.mailing_name }}</span><br/>
                     <span class="address__street">{{ contact_info.mailing_street }}</span><br/>

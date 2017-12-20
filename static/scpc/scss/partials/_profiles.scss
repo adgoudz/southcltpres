@@ -96,8 +96,8 @@
       }
 
       display: block;
-      font-size: $font-size-lg;  // Reset profile behavior
-      line-height: $line-height-base;  // Override headings line-height
+      font-size: $font-size-md;  // Reset profile behavior
+      line-height: $line-height-base;  // Reset headings line-height
     }
 
     #{$root}__name {
@@ -108,6 +108,8 @@
           font-size: inherit;
         }
       }
+
+      color: $color-bg-3;  // Reset headings color
     }
 
     #{$root}__social-icons {
