@@ -1,5 +1,5 @@
 //
-// The following override and/or supplement variables defined by Bootstrap.
+// The following supplement and/or override variables defined by Bootstrap.
 // See bootstrap/scss/_variables.scss.
 //
 
@@ -19,6 +19,14 @@ $sizes: (
   90: 90%,
   100: 100%
 );
+
+
+// Options
+//
+// These affect Bootstrap-specific behavior.
+
+$enable-rounded: false;
+
 
 // Breakpoints
 //
@@ -46,6 +54,38 @@ $bp-content-row: lg;
 
 $bp-hires: xl;
 
+$phone-widths: 320 360 375 412 480;
+$tablet-widths: 768 1024;
+$desktop-widths: 1366 1440 1920;
+$device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
+
+
+// Page
+//
+// Global settings which apply to each page.
+
+$title-width: 80%;
+$title-max-width: 1792px * strip-unit($title-width) / 100;  // 1920px minus padding
+
+$content-width: 65%;
+$content-max-width: 1792px * strip-unit($content-width) / 100;  // 1920px minus padding
+
+// Bounds for fluid type
+$fluid-min-x: 25em;  // 450px
+$fluid-max-x: 100em;  // 1800px
+
+
+// Z Index
+//
+// Layering for each element.
+
+$zindex-hero-image: 0;
+$zindex-hero-overlay: 10;
+$zindex-hero-title: 20;
+$zindex-navbar: 30;
+$zindex-navbar-brand: 35;
+
+
 // Type
 //
 // Font families, weights, sizes, and line heights.
@@ -58,15 +98,6 @@ $font-family-logo: BourtonHandLineBold;
 $font-family-title: "Open Sans", $font-family-sans-serif;
 $font-family-base: Lato, $font-family-sans-serif;  // Bootstrap
 
-$font-weight-light: 300;  // Bootstrap
-$font-weight-regular: 400;  // Bootstrap
-$font-weight-bold: 700;  // Bootstrap
-$font-weight-base: $font-weight-light;  // Bootstrap
-
-$line-height-sm: 1.5;  // Bootstrap
-$line-height-lg: 1.6;  // Bootstrap
-$line-height-base: $line-height-sm;  // Bootstrap
-
 $font-size-xs: .8rem;
 $font-size-sm: 1rem;  // Bootstrap
 $font-size-md: 1.2rem;
@@ -75,20 +106,18 @@ $font-size-xl: 1.8rem;
 $font-size-2xl: 2rem;
 $font-size-base: $font-size-sm;  // Bootstrap
 
+$font-weight-light: 300;  // Bootstrap
+$font-weight-regular: 400;  // Bootstrap
+$font-weight-bold: 700;  // Bootstrap
+$font-weight-base: $font-weight-light;  // Bootstrap
+
 $letter-spacing-sm: 0.025em;
 $letter-spacing-md: 0.05em;
 $letter-spacing-lg: 0.125em;
 
-$nav-link-desktop-font-size: $font-size-xs;
-$nav-link-mobile-font-size: $font-size-2xl;
-$nav-link-font-weight: $font-weight-base;
-$nav-link-letter-spacing: $letter-spacing-md;
-$nav-link-color: $black;
-$nav-link-color-active: $color-hl-3;
-
-$title-font-family: $font-family-title;
-$title-font-weight: $font-weight-regular;
-$title-letter-spacing: $letter-spacing-lg;
+$line-height-sm: 1.5;  // Bootstrap
+$line-height-lg: 1.6;  // Bootstrap
+$line-height-base: $line-height-sm;  // Bootstrap
 
 $headings-margin-bottom: 0;  // Bootstrap
 $headings-font-family: $font-family-base;  // Bootstrap
@@ -104,6 +133,62 @@ $h4-font-size: 1rem;
 $h5-font-size: 1rem;
 $h6-font-size: 1rem;
 
+
+// Paragraphs
+
+$paragraph-margin-bottom: 1.5rem;  // Bootstrap
+
+
+// Grid Columns
+
+$grid-gutter-width: 50px;  // Bootstrap
+
+$profile-min-width: 180px;
+$profile-max-width: 220px;
+$profile-max-cols: 4;
+$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
+
+$vision-min-width: 200px;
+$vision-max-width: 300px;
+$vision-max-cols: 3;
+$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
+
+
+// Navbar
+
+$navbar-padding-y: 1rem;  // Bootstrap
+$navbar-padding-x: 2rem;  // Bootstrap
+
+$navbar-brand-padding-y: 0;  // Bootstrap
+
+$navbar-width: $title-width;
+$navbar-max-width: $title-max-width;
+
+$navbar-brand-height: 48px;  // Bootstrap
+$navbar-brand-width: 213px;
+
+
+// Navs
+
+// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
+$nav-link-height: ($font-size-xs * $line-height-base) * 16 / 1rem;  // Strip unit
+$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
+$nav-link-padding-x: 2.5rem;  // Bootstrap
+
+$nav-link-desktop-font-size: $font-size-xs;
+$nav-link-mobile-font-size: $font-size-2xl;
+$nav-link-font-weight: $font-weight-base;
+$nav-link-letter-spacing: $letter-spacing-md;
+$nav-link-color: $black;
+$nav-link-color-active: $color-hl-3;
+
+
+// Headers
+
+$title-font-family: $font-family-title;
+$title-font-weight: $font-weight-regular;
+$title-letter-spacing: $letter-spacing-lg;
+
 $intro-font-family: $font-family-base;
 $intro-font-size: $font-size-xl;
 $intro-font-weight: $font-weight-regular;
@@ -111,12 +196,25 @@ $intro-line-height: $line-height-lg;
 $intro-letter-spacing: $letter-spacing-sm;
 $intro-color: $color-bg-3;
 
+
+// Sections
+
+$section-py-sm: 8rem;
+$section-py-lg: 12rem;
+$section-px-sm: 3rem;
+$section-px-lg: 4rem;
+
+$content-px: 4rem;
+
 $header-desktop-font-size: $font-size-xl;
 $header-mobile-font-size: $font-size-lg;
 $header-floating-font-size: $font-size-lg;
 
 $subheader-desktop-font-size: $font-size-lg;
 $subheader-mobile-font-size: $font-size-lg;
+
+
+// Horizontal Rules
 
 $hrule-text-font-family: $font-family-base;
 $hrule-text-font-size: $font-size-lg;
@@ -136,88 +234,12 @@ $hrule-divider-font-weight: $headings-font-weight;
 $hrule-divider-letter-spacing: $headings-letter-spacing;
 $hrule-divider-color: $hrule-text-color;
 
+
+// Buttons
+
 $btn-font-weight: $font-weight-base;  // Bootstrap
 
-// Height and width
-//
-// Dimensions for almost everything.
-
-$phone-widths: 320 360 375 412 480;
-$tablet-widths: 768 1024;
-$desktop-widths: 1366 1440 1920;
-$device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
-
-$title-width: 80%;
-$title-max-width: 1792px * strip-unit($title-width) / 100;  // 1920px minus padding
-$content-width: 65%;
-$content-max-width: 1792px * strip-unit($content-width) / 100;  // 1920px minus padding
-
-$navbar-width: $title-width;
-$navbar-max-width: $title-max-width;
-
-$navbar-brand-height: 48px;
-$navbar-brand-width: 213px;
-
-// Bounds for fluid type
-$fluid-min-x: 25em;  // Usually 400px
-$fluid-max-x: 100em;  // Usually 1600px
-
-$grid-gutter-width: 50px;
-
-$profile-min-width: 180px;
-$profile-max-width: 220px;
-$profile-max-cols: 4;
-$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
-
-$vision-min-width: 200px;
-$vision-max-width: 300px;
-$vision-max-cols: 3;
-$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
-
-
-// Padding and margins
-//
-// Spacing for almost everything.
-
-$navbar-padding-y: 1rem;
-$navbar-padding-x: 2rem;
-
-$navbar-brand-padding-y: 0;
-
-$input-btn-padding-y-lg: .75rem;
-$input-btn-padding-x-lg: 1.75rem;
-
-// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
-$nav-link-height: ($font-size-xs * $line-height-base) * 16 / 1rem;  // Strip unit
-$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;
-$nav-link-padding-x: 2.5rem;
-
-$section-py-sm: 8rem;
-$section-py-lg: 12rem;
-$section-px-sm: 3rem;
-$section-px-lg: 4rem;
-
-$content-px: 4rem;
-
-$hrule-py: 14rem;
-$hrule-px: 2rem;
-
-$paragraph-margin-bottom: 1.5rem;
-
-// Borders
-//
-// Overrides for border behavior.
-
-$enable-rounded: false;
-
-// Z Index
-//
-// Layering for each element.
-
-$zindex-hero-image: 0;
-$zindex-hero-overlay: 10;
-$zindex-hero-title: 20;
-$zindex-navbar: 30;
-$zindex-navbar-brand: 35;
+$input-btn-padding-y-lg: .75rem;  // Bootstrap
+$input-btn-padding-x-lg: 1.75rem;  // Bootstrap
 
 
