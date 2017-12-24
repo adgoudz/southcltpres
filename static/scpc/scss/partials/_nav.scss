@@ -9,7 +9,7 @@
       left: 0;
       width: 100%;
       height: 4px;
-      background-color: $nav-link-color-active;
+      background-color: $nav-link-active-color;
     }
   }
 }
@@ -26,7 +26,7 @@
   white-space: nowrap;
 
   &:hover, &:focus {
-    color: $nav-link-color-active !important;
+    color: $nav-link-active-color !important;
   }
 }
 
@@ -81,7 +81,7 @@
         @include nav-item-active($bottom: -$navbar-padding-y);
 
         .nav-link {
-          color: $nav-link-color !important;
+          color: $nav-link-active-color !important;
         }
       }
     }
