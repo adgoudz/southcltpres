@@ -60,21 +60,6 @@ $desktop-widths: 1366 1440 1920;
 $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
 
-// Page
-//
-// Global settings which apply to each page.
-
-$title-width: 80%;
-$title-max-width: 1792px * strip-unit($title-width) / 100;  // 1920px minus padding
-
-$content-width: 65%;
-$content-max-width: 1792px * strip-unit($content-width) / 100;  // 1920px minus padding
-
-// Bounds for fluid type
-$fluid-min-x: 25em;  // 450px
-$fluid-max-x: 100em;  // 1800px
-
-
 // Z Index
 //
 // Layering for each element.
@@ -97,6 +82,11 @@ $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
 $font-family-logo: BourtonHandLineBold;
 $font-family-header: Raleway, $font-family-sans-serif;
 $font-family-base: Lato, $font-family-sans-serif;  // Bootstrap
+
+// These variables are to be used by the reset partial only. They are specified
+// here to influence the definition of subsequent variables in this partial.
+$mobile-font-unit: 18px;
+$desktop-font-unit: 16px;
 
 $font-size-xs: .8rem;
 $font-size-sm: 1rem;  // Bootstrap
@@ -139,69 +129,34 @@ $h6-font-size: 1rem;
 $paragraph-margin-bottom: 1.5rem;  // Bootstrap
 
 
-// Grid Columns
-
-$grid-gutter-width: 50px;  // Bootstrap
-
-$profile-min-width: 180px;
-$profile-max-width: 220px;
-$profile-max-cols: 4;
-$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
-
-$vision-min-width: 200px;
-$vision-max-width: 300px;
-$vision-max-cols: 3;
-$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
-
-
-// Navbar
-
-$navbar-padding-y: 1rem;  // Bootstrap
-$navbar-padding-x: 2rem;  // Bootstrap
-
-$navbar-brand-padding-y: 0;  // Bootstrap
-
-$navbar-width: $title-width;
-$navbar-max-width: $title-max-width;
-
-$navbar-brand-height: 48px;  // Bootstrap
-$navbar-brand-width: 213px;
-
-
-// Navs
-
-// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
-$nav-link-height: ($font-size-xs * $line-height-base) * 16 / 1rem;  // Strip unit
-$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
-$nav-link-padding-x: 2.5rem;  // Bootstrap
-
-$nav-link-desktop-font-size: $font-size-xs;
-$nav-link-mobile-font-size: $font-size-2xl;
-$nav-link-font-family: $font-family-base;
-$nav-link-font-weight: $font-weight-base;
-$nav-link-letter-spacing: $letter-spacing-md;
-$nav-link-color: $black;
-$nav-link-active-color: $color-hl-3;
-
-
 // Headers
+
+$header-title-font-size-min: 1.25rem;
+$header-title-font-size-max: 3rem;
+
+$header-subtitle-font-size-min: 1rem;
+$header-subtitle-font-size-max: 2.5rem;
+
+$header-intro-font-family: $font-family-base;
+$header-intro-font-size-min: $font-size-md;
+$header-intro-font-size-max: $font-size-lg;
+$header-intro-font-weight: $font-weight-base;
+$header-intro-line-height: $line-height-lg;
+$header-intro-letter-spacing: $letter-spacing-sm;
+$header-intro-color: $color-bg-3;
+
+
+// Heroes
 
 $hero-title-font-family: $font-family-base;
 $hero-title-font-weight: $font-weight-light;
 $hero-title-letter-spacing: $letter-spacing-lg;
 
-$intro-font-family: $font-family-base;
-$intro-font-size: $font-size-lg;
-$intro-font-weight: $font-weight-base;
-$intro-line-height: $line-height-lg;
-$intro-letter-spacing: $letter-spacing-sm;
-$intro-color: $color-bg-3;
-
 
 // Sections
 
-$section-py-sm: 8rem;
-$section-py-lg: 12rem;
+$section-py-sm: 6rem;
+$section-py-lg: 10rem;
 $section-px-sm: 3rem;
 $section-px-lg: 4rem;
 
@@ -224,18 +179,21 @@ $hrule-text-font-size: $font-size-lg;
 $hrule-text-font-weight: $font-weight-base;
 $hrule-text-letter-spacing: $letter-spacing-lg;
 $hrule-text-color: $headings-color;
+$hrule-header-py-ratio: 1/2;
 
 $hrule-header-font-family: $headings-font-family;
 $hrule-header-font-size: $font-size-lg;
 $hrule-header-font-weight: $headings-font-weight;
 $hrule-header-letter-spacing: $headings-letter-spacing;
 $hrule-header-color: $hrule-text-color;
+$hrule-text-py-ratio: 1/2;
 
 $hrule-divider-font-family: $headings-font-family;
 $hrule-divider-font-size: $font-size-xl;
 $hrule-divider-font-weight: $headings-font-weight;
 $hrule-divider-letter-spacing: $headings-letter-spacing;
 $hrule-divider-color: $hrule-text-color;
+$hrule-divider-py-ratio: 2/3;
 
 
 // Buttons
@@ -246,4 +204,73 @@ $btn-font-weight: $font-weight-base;  // Bootstrap
 $input-btn-padding-y: .6rem;  // Bootstrap
 $input-btn-padding-x: 1.5rem;  // Bootstrap
 
+
+// Page Behavior
+
+$title-width: 80%;
+$title-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $title-width / 100%;  // Strip units
+
+$content-width: 65%;
+$content-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $title-width / 100%;  // Strip units
+
+$fluid-min-x: 25em;
+$fluid-max-x: 100em;
+
+$leadership-py-ratio: 2/3;
+$staff-py-ratio: 2/3;
+
+
+// Grid Columns
+
+$grid-gutter-width: 50px;  // Bootstrap
+
+// Max-widths for section bodies which contain grids are calculated by subtracting an arbitrarily-small
+// width (in this case, 10px) from the minimum width which would allow N + 1 grid items to fit on a
+// single row. Because grid rows specify a cumulative negative margin of $grid-gutter-width, they are
+// wider than the section body by that same amount. Hence we subtract this amount to calculate a body
+// width which would result in the appropriate grid row width.
+
+$profile-min-width: 180px;
+$profile-max-width: 220px;
+$profile-max-cols: 4;
+$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
+$vision-py-ratio: 1/2;
+
+$vision-min-width: 200px;
+$vision-max-width: 300px;
+$vision-max-cols: 3;
+$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
+$profile-py-ratio: $staff-py-ratio / 2;
+
+
+// Navbar
+
+$navbar-padding-y: 1rem;  // Bootstrap
+$navbar-padding-x: 2rem;  // Bootstrap
+
+$navbar-brand-padding-y: 0;  // Bootstrap
+
+$navbar-width: $title-width;
+$navbar-max-width: $title-max-width;
+
+$navbar-brand-height: 48px;  // Bootstrap
+$navbar-brand-width: 213px;
+
+
+// Navs
+
+$nav-py-ratio: 1/4;
+
+// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
+$nav-link-height: ($font-size-xs * $line-height-base) * $desktop-font-unit / 1rem;  // Strip unit
+$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
+$nav-link-padding-x: 2rem;  // Bootstrap
+
+$nav-link-desktop-font-size: $font-size-xs;
+$nav-link-mobile-font-size: $font-size-2xl;
+$nav-link-font-family: $font-family-base;
+$nav-link-font-weight: $font-weight-base;
+$nav-link-letter-spacing: $letter-spacing-md;
+$nav-link-color: $black;
+$nav-link-active-color: $color-hl-3;
 

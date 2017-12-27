@@ -3,12 +3,18 @@
   @include make-col-ready();
 
   @include media-breakpoint-up($bp-content-width) {
-    margin-bottom: spacing-y($section-py-lg);  // Bottom padding for the vision section
+    $spacing-y: spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+
+    margin-top: $spacing-y;
+    margin-bottom: $spacing-y;
   }
+
+  $spacing-y: spacing-y($section-py-sm, $ratio: $vision-py-ratio);
 
   width: $vision-max-width;
   min-width: $vision-min-width;
-  margin-bottom: spacing-y($section-py-sm);  // Bottom padding for the vision section
+  margin-top: $spacing-y;
+  margin-bottom: $spacing-y;
 
   &__image {
 

@@ -1,10 +1,10 @@
 
 html {
   @include media-breakpoint-up($bp-content-font) {
-    font-size: 18px;
+    font-size: $mobile-font-unit;
   }
 
-  font-size: 16px;
+  font-size: $desktop-font-unit;
   line-height: $line-height-base;
 }
 

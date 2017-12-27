@@ -117,18 +117,23 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   font-size: 1rem; // Set font size for child em units
 
   &__container {
+    // We hard-code the header spacing ratio here because it affects padding-top only,
+    // and we want it to match the trailing spacing which is provided by the first
+    // section (i.e. via its padding-top). The latter _should_ also apply 2x spacing,
+    // specifically via .section:first-of-type.
+    $header-py-ratio: 2;
+
     @include media-breakpoint-up($bp-content-width) {
-      padding: spacing-y($section-py-lg, $ratio: 2) $section-px-lg;
+      padding: spacing-y($section-py-lg, $ratio: $header-py-ratio) $section-px-lg  0;
     }
 
-    padding: spacing-y($section-py-sm) $section-px-sm;
+    padding: spacing-y($section-py-sm, $ratio: $header-py-ratio) $section-px-sm 0;
   }
 
   &__body {
     @include media-breakpoint-up($bp-hires) {
       width: $content-width;
       max-width: $content-max-width;
-      text-align: left;
     }
 
     margin: auto;
@@ -139,7 +144,13 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     h1, h2, h3, h4, h5, h6 {
       @include title-type();
-      @include fluid-type($fluid-min-x, $fluid-max-x, 1.25em, 3em);
+
+      @include fluid-type(
+          $min-x: $fluid-min-x,
+          $max-x: $fluid-max-x,
+          $min-font-size: $header-title-font-size-min,
+          $max-font-size: $header-title-font-size-max
+      );
 
       background-color: $color-hl-3;
       color: white;
@@ -166,7 +177,13 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
 
     span {
       @include title-type();
-      @include fluid-type($fluid-min-x, $fluid-max-x, 1em, 2.5em);
+
+      @include fluid-type(
+          $min-x: $fluid-min-x,
+          $max-x: $fluid-max-x,
+          $min-font-size: $header-subtitle-font-size-min,
+          $max-font-size: $header-subtitle-font-size-max
+      );
 
       background-color: $color-bg-3;
       color: white;
@@ -174,12 +191,18 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
   }
 
   &__intro {
-    font-family: $intro-font-family;
-    font-size: $intro-font-size;
-    font-weight: $intro-font-weight;
-    line-height: $intro-line-height;
-    letter-spacing: $intro-letter-spacing;
-    color: $intro-color;
+    @include fluid-type(
+        $min-x: $fluid-min-x,
+        $max-x: $fluid-max-x,
+        $min-font-size: $header-intro-font-size-min,
+        $max-font-size: $header-intro-font-size-max
+    );
+
+    font-family: $header-intro-font-family;
+    font-weight: $header-intro-font-weight;
+    line-height: $header-intro-line-height;
+    letter-spacing: $header-intro-letter-spacing;
+    color: $header-intro-color;
 
     p {
       margin-bottom: 0;
@@ -198,10 +221,17 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
         width: $title-width;
         max-width: $title-max-width;
       }
+      @include media-breakpoint-up($bp-hires) {
+        text-align: left;
+      }
     }
 
     #{$root}__intro {
       padding-top: 3rem;
     }
+  }
+
+  &--subpage {
+    // Potential modifier class
   }
 }

@@ -2,11 +2,20 @@
 .profile {
   @include make-col-ready();
 
+  @include media-breakpoint-up($bp-content-width) {
+    $spacing-y: spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+
+    margin-top: $spacing-y;
+    margin-bottom: $spacing-y;
+  }
+
   $root: &;
+  $spacing-y: spacing-y($section-py-sm, $ratio: $profile-py-ratio);
 
   width: $profile-max-width;
   min-width: $profile-min-width;
-  margin-bottom: 4rem;
+  margin-top: $spacing-y;
+  margin-bottom: $spacing-y;
   text-align: left;
 
   &__image {

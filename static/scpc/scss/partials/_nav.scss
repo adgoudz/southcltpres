@@ -105,10 +105,10 @@
 
 .nav {
   @include media-breakpoint-up($bp-content-width) {
-    padding: ($section-py-lg / 4) $section-px-lg;
+    padding: spacing-y($section-py-lg, $ratio: $nav-py-ratio) $section-px-lg;
   }
 
-  padding: ($section-py-sm / 4) $section-px-sm;
+  padding: spacing-y($section-py-sm, $ratio: $nav-py-ratio) $section-px-sm;
 
   .nav-item {
     position: relative;

@@ -1,6 +1,7 @@
 
 .doctrine {
   @include media-breakpoint-up($bp-content-width) {
+    padding-bottom: 1.6rem;
     text-align: left;
   }
 
