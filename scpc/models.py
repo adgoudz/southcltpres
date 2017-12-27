@@ -263,24 +263,17 @@ class MinistriesPage(Subpage):
 
 
 class AboutUsPage(Subpage):
-    mission_header = models.CharField(max_length=25)
-    mission_statement = RichTextField()
+    introduction = models.TextField()
     vision_header = models.CharField(max_length=32)
     vision_intro = RichTextField()
     profiles_header = models.CharField(verbose_name='Divider', max_length=25)
     staff_header = models.CharField(max_length=25)
 
     content_panels = Subpage.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('mission_header'),
-                FieldPanel('mission_statement'),
-                FieldPanel('vision_header'),
-                FieldPanel('vision_intro'),
-            ],
-            heading='Content',
-        ),
-        InlinePanel('vision_statement', label='Vision Statement'),
+        FieldPanel('introduction', classname='full'),
+        FieldPanel('vision_header'),
+        FieldPanel('vision_intro'),
+        InlinePanel('vision_statement', label='Hopes'),
         FieldPanel('profiles_header'),
         InlinePanel('leadership', label='Leadership'),
         FieldPanel('staff_header'),

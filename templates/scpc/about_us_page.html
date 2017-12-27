@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<header class="subpage-header">
+<header class="header header--subpage">
     <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
         <div class="hero__overlay"></div>
         <h1 class="hero__title">{{ page.title }}</h1>
@@ -14,18 +14,14 @@
              height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
              {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
     </div>
-</header>
-
-<section class="section section--mission">
-    <div class="section__body">
-        <div class="section__content">
-            <h2 class="section__header">{{ page.mission_header }}</h2>
-            <div class="section__subcontent">
-                {{ page.mission_statement|richtext }}
+    <div class="header__container">
+        <div class="header__body">
+            <div class="header__intro">
+                <p>{{ page.introduction }}</p>
             </div>
         </div>
     </div>
-</section>
+</header>
 
 <section class="section section--vision">
     <div class="section__body">
