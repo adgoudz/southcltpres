@@ -4,7 +4,7 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="subpage-header">
+    <header class="header header--subpage">
         <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
             <div class="hero__overlay"></div>
             <h1 class="hero__title">{{ page.title }}</h1>
@@ -17,7 +17,7 @@
 
 {% for block in page.content %}
     {% cycle 'left' 'right' as align silent %}
-    {% include_block block %}
+    {% include_block block with align=align %}
 {% endfor %}
 
 {% endblock %}

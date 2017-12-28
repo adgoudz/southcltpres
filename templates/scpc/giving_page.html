@@ -4,7 +4,7 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="subpage-header">
+    <header class="header header--subpage">
         <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
             <div class="hero__overlay"></div>
             <h1 class="hero__title">{{ page.title }}</h1>
@@ -14,8 +14,7 @@
                  {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
         </div>
         <div class="header__container">
-            {# Force center text alignment due to that this page only contains one section #}
-            <div class="header__body text-center">
+            <div class="header__body">
                 <div class="header__intro">
                     {{ page.introduction|richtext }}
                 </div>
