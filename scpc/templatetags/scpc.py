@@ -1,7 +1,39 @@
+
+import os
 import math
+import urllib.parse
 from django import template
+from django.template.defaultfilters import stringfilter
 
 from scpc.models import FooterSnippet
+
+_google_api_url = 'https://maps.googleapis.com/maps/api/staticmap'
+_google_api_key = os.getenv('GOOGLE_API_KEY')
+
+_googls_maps_default_zoom = 12
+_google_maps_styles = [
+    # Unencoded values for the `style` query string parameter
+    'feature:administrative|element:labels.text.fill|color:0x6195a0',
+    'feature:administrative.province|element:geometry.stroke|visibility:off',
+    'feature:landscape|element:geometry|color:0xf5f5f2|saturation:0|lightness:0|gamma:1',
+    'feature:landscape.man_made|lightness:-5', 'feature:landscape.natural.terrain|visibility:off',
+    'feature:poi|visibility:off',
+    'feature:poi.park|element:geometry.fill|color:0xbae5ce|visibility:on',
+    'feature:road|saturation:-100|lightness:45|visibility:simplified',
+    'feature:road.arterial|element:labels.icon|visibility:off',
+    'feature:road.arterial|element:labels.text.fill|color:0x787878',
+    'feature:road.highway|visibility:simplified',
+    'feature:road.highway|element:geometry.fill|color:0xfac9a9|visibility:simplified',
+    'feature:road.highway|element:labels.text|color:0x4e4e4e',
+    'feature:transit|visibility:simplified',
+    'feature:transit.station.airport|element:labels.icon|hue:0x0a00ff|saturation:-77|lightness:0|gamma:0.57',
+    'feature:transit.station.rail|element:labels.icon|hue:0xff6c00|saturation:-68|lightness:4|gamma:0.75',
+    'feature:transit.station.rail|element:labels.text.fill|color:0x43321e',
+    'feature:water|color:0xeaf6f8|visibility:on',
+    'feature:water|element:geometry.fill|color:0xc7eced',
+    'feature:water|element:labels.text.fill|saturation:-53|lightness:-49|gamma:0.79',
+]
+
 
 register = template.Library()
 
@@ -40,6 +72,33 @@ def footer(context):
     return {
         'contact_info': footer.contact_info if footer else None,
         'request': context['request'],  # propagate
+    }
+
+
+@register.inclusion_tag('scpc/tags/static_map.html')
+def static_map(query, latitude=None, longitude=None, zoom=None, width=100, height=100):
+    center = query
+
+    if latitude and longitude:
+        # Allow for specifying exact coordinates for the static map. Note that
+        # the query argument will still be used for the map URL because a query
+        # is the only way we can get Google Maps to display a marker.
+        center = '{},{}'.format(latitude, longitude)
+
+    params = {
+        'key': _google_api_key,
+        'center': center,
+        'zoom': zoom if zoom else _googls_maps_default_zoom,
+        'size': '{}x{}'.format(width, height),
+        'style': _google_maps_styles,
+    }
+
+    query_string = urllib.parse.urlencode(params, doseq=True)
+    url = '{}?{}'.format(_google_api_url, query_string)
+
+    return {
+        'url': url,
+        'query': query,
     }
 
 
@@ -106,3 +165,13 @@ def partition(query_set, group_count):
     # expression returns a list of _unevaluated_ QuerySets so as not to query the entire table
     # into memory.
     return [results[i:i + group_size] for i in range(0, result_count, group_size)]
+
+
+@register.filter()
+@stringfilter
+def friendly_type(block_type):
+    """
+    Format a `block_type` name (as in the first item of a :class:`StreamField` tuple)
+    as a view-friendly name, e.g. for use as a CSS class name.
+    """
+    return block_type.replace('_', '-')

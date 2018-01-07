@@ -107,6 +107,11 @@ let common = {
             Popper: ['popper.js', 'default']
         }),
 
+        // Provide environment variables to modules
+        new webpack.EnvironmentPlugin({
+            GOOGLE_API_KEY: ''
+        }),
+
         new BundleTrackerPlugin({
             path: __dirname,
             filename: 'static/webpack-stats.json',
