@@ -29,7 +29,7 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append(
 )
 
 # Wagtail settings
-WAGTAIL_ENABLE_UPDATE_CHECK = True
+WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Django settings
 USE_TZ = True
