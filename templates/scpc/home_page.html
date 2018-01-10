@@ -1,38 +1,38 @@
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block content %}
-
-<header class="header header--home">
-    <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
-    <div class="header__container">
-        <div class="header__body">
-            <div class="header__title header__title--wide">
-                <h1>South Charlotte Presbyterian Church</h1>
-            </div>
-            <div class="header__title header__title--narrow">
-                <h1>South Charlotte</h1>
-            </div>
-            <div class="header__title header__title--narrow">
-                <h1>Presbyterian Church</h1>
-            </div>
-            <div class="header__subtitle">
-                <span>{{ page.subtitle }}</span>
-            </div>
-            <div class="header__intro">
-                {{ page.introduction|richtext }}
+    <header class="header header--home">
+        <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
+        <div class="header__container">
+            <div class="header__body">
+                <div class="header__title header__title--wide">
+                    <h1>South Charlotte Presbyterian Church</h1>
+                </div>
+                <div class="header__title header__title--narrow">
+                    <h1>South Charlotte</h1>
+                </div>
+                <div class="header__title header__title--narrow">
+                    <h1>Presbyterian Church</h1>
+                </div>
+                <div class="header__subtitle">
+                    <span>{{ page.subtitle }}</span>
+                </div>
+                <div class="header__intro">
+                    {{ page.introduction|richtext }}
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-{% for block in page.content %}
-    {% include_block block with type=block.block_type align='stacked' %}
-{% endfor %}
+    {% for block in page.content %}
+        {% include_block block with align='stacked' type=block.block_type %}
+    {% endfor %}
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
 {% endblock %}

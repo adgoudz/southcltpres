@@ -22,37 +22,6 @@
         </div>
     </header>
 
-    <section class="section section--giving">
-        <div class="section__body">
-            <div class="section__content">
-                <div class="giving">
-                    <div class="giving__subcontent">
-                        {{ page.giving_content|richtext }}
-                    </div>
-                    <div class="giving__links">
-                        <a class="btn btn-scpc-primary" href="{{ page.online_link_url }}" role="button">
-                            {{ page.online_link_name }}
-                        </a>
-                    </div>
-                </div>
-                <div class="hrule hrule--text">
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                    <p class="hrule__text">{{ page.mail_header }}</p>
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                </div>
-                <div class="address address--sm">
-                    {% with contact_info=page.contact_info %}
-                    <span class="address__name">{{ contact_info.mailing_name }}</span><br/>
-                    <span class="address__street">{{ contact_info.mailing_street }}</span><br/>
-                    <span class="address__city">{{ contact_info.mailing_city }}</span><br/>
-                    {% endwith %}
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'scpc/blocks/giving.html' with value=page %}
 
 {% endblock %}

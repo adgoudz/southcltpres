@@ -1,0 +1,27 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+{% load scpc %}
+
+{% block class_name %}section--doctrines{% endblock %}
+
+{% block section_header %}
+    <h2 class="section__header">{{ value.doctrines_header }}</h2>
+{% endblock %}
+
+{% block section_subcontent %}
+    {{ value.doctrines_intro|richtext }}
+{% endblock %}
+
+{% block section_grid %}
+    <div class="section__grid">
+        {% for doctrine_column in value.doctrines|partition:2 %}
+            <div class="col-md-6">
+                {% for doctrine in doctrine_column %}
+                    {% include 'scpc/includes/doctrine.html' with doctrine=doctrine only %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

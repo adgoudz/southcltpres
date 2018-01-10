@@ -1,0 +1,22 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+
+{% block class_name %}section--vision{% endblock %}
+
+{% block section_header %}
+    <h2 class="section__header">{{ page.vision_header }}</h2>
+{% endblock %}
+
+{% block section_subcontent %}
+    {{ page.vision_intro|richtext }}
+{% endblock %}
+
+{% block section_grid %}
+    <div class="section__grid">
+        {% for vision in page.vision_statement.all %}
+            {% include 'scpc/includes/vision.html' with vision=vision only %}
+        {% endfor %}
+    </div>
+{% endblock %}

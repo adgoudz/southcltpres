@@ -1,7 +1,18 @@
 
-{% comment %}
-We delegate this block's content to an include template so that we can include
-dividers using stream fields or static includes interchangeably.
-{% endcomment %}
+{% extends 'scpc/blocks/content.html' %}
 
-{% include 'scpc/includes/divider.html' with text=value %}
+{% load wagtailcore_tags %}
+
+{% block class_name %}section--divider{% endblock %}
+
+{% block section_content %}
+    <div class="hrule hrule--divider">
+        <div class="hrule__hr">
+            <hr>
+        </div>
+        <h2 class="hrule__text">{{ value }}</h2>
+        <div class="hrule__hr">
+            <hr>
+        </div>
+    </div>
+{% endblock %}

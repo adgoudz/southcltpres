@@ -1,11 +1,11 @@
 
+{% extends 'scpc/blocks/content.html' %}
+
 {% load wagtailcore_tags %}
 
-<section class="section section--verse">
-    <div class="section__body">
-        <div class="section__content">
-            {{ value.passage|richtext }}
-            <p class="section__verse">{{ value.verse }}</p>
-        </div>
-    </div>
-</section>
+{% block class_name %}section--verse{% endblock %}
+
+{% block section_content %}
+    {{ value.passage|richtext }}
+    <p class="verse">{{ value.verse }}</p>
+{% endblock %}

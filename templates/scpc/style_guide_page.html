@@ -1,22 +1,22 @@
-
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
+{% load scpc %}
 
 {% block content %}
 
-{% for block in page.sections %}
-    {% cycle 'none' 'left' 'right' as align silent %}
-    {% include_block block with align=align floating=True %}
-{% endfor %}
+    {% for block in page.sections %}
+        {% cycle 'none' 'left' 'right' as align silent %}
+        {% include_block block with align=align floating=True type=block.block_type %}
+    {% endfor %}
 
-{% for block in page.sections %}
-    {% cycle 'none' 'left' 'right' as align silent %}
-    {% include_block block with align=align hrule=True %}
-{% endfor %}
+    {% for block in page.sections %}
+        {% cycle 'none' 'left' 'right' as align silent %}
+        {% include_block block with align=align hrule=True type=block.block_type %}
+    {% endfor %}
 
-{% for block in page.custom %}
-    {% include_block block %}
-{% endfor %}
+    {% for block in page.custom %}
+        {% include_block block with type=block.block_type %}
+    {% endfor %}
 
 {% endblock %}

@@ -4,56 +4,32 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-
-<header class="header header--subpage">
-    <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
-        <div class="hero__overlay"></div>
-        <h1 class="hero__title">{{ page.title }}</h1>
-        {% image page.hero_image min-1900x768 as hero_image %}
-        <img src="{{ hero_image.url }}" width="{{ hero_image.width }}"
-             height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
-             {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
-    </div>
-    <div class="header__container">
-        <div class="header__body">
-            <div class="header__intro">
-                <p>{{ page.introduction }}</p>
+    <header class="header header--subpage">
+        <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
+            <div class="hero__overlay"></div>
+            <h1 class="hero__title">{{ page.title }}</h1>
+            {% image page.hero_image min-1900x768 as hero_image %}
+            <img src="{{ hero_image.url }}" width="{{ hero_image.width }}"
+                 height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
+                 {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
+        </div>
+        <div class="header__container">
+            <div class="header__body">
+                <div class="header__intro">
+                    <p>{{ page.introduction }}</p>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<section class="section section--vision">
-    <div class="section__body">
-        <div class="section__content">
-            <h2 class="section__header">{{ page.vision_header }}</h2>
-            <div class="section__subcontent">
-                {{ page.vision_intro|richtext }}
-            </div>
-        </div>
-        <div class="section__grid">
-        {% for vision in page.vision_statement.all %}
-            {% include 'scpc/includes/vision.html' with vision=vision only %}
-        {% endfor %}
-        </div>
-    </div>
-</section>
+    {% include 'scpc/blocks/vision.html' with value=page %}
 
-{% include 'scpc/includes/divider.html' with text=page.profiles_header only %}
+    {% include 'scpc/blocks/divider.html' with value=page.profiles_header only %}
 
-{% for profile in page.leadership.all %}
-    {% include 'scpc/includes/leadership.html' with profile=profile only %}
-{% endfor %}
+    {% for profile in page.leadership.all %}
+        {% include 'scpc/blocks/leadership.html' with align='left' value=profile only %}
+    {% endfor %}
 
-<section class="section section--staff">
-    <div class="section__body">
-        <h3 class="section__subheader">{{ page.staff_header }}</h3>
-        <div class="section__grid">
-        {% for profile in page.staff.all %}
-            {% include 'scpc/includes/staff.html' with profile=profile only %}
-        {% endfor %}
-        </div>
-    </div>
-</section>
+    {% include 'scpc/blocks/staff.html' with value=page %}
 
 {% endblock %}
