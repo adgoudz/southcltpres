@@ -13,13 +13,33 @@ from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
-from .utils import text
+from . import utils
 
-_svg_help_text = text.join_lines(
+_header_help_text = utils.join_lines(
+    '''
+    The site-wide style for headers is to use sentence case (not title case).
+    Try not to capitalize words unless you'd normally do so in a sentence.
+    '''
+)
+_svg_help_text = utils.join_lines(
     '''
     For icon images we use the SVG format and SVGs cannot be uploaded here.
     This path must refer to an SVG which already exists. Modifying the icon
     requires changing the raw file externally from Wagtail.
+    '''
+)
+_map_query_help_text = utils.join_lines(
+    '''
+    This is used both for creating a static map image and for auto-filling 
+    the search box when this static map is clicked. If Google Maps is unable 
+    to reverse-geocode this query to a single location, latitude and longitude 
+    coordinates can be provided below to center the static map.
+    '''
+)
+_map_zoom_help_text = utils.join_lines(
+    '''
+    See https://developers.google.com/maps/documentation/static-maps/intro
+    #Zoomlevels. The default zoom is 12.
     '''
 )
 
@@ -30,7 +50,7 @@ _svg_help_text = text.join_lines(
 class ContentBlock(blocks.StructBlock):
     """The primary container for generic page content."""
     image = ImageChooserBlock(required=False)
-    header = blocks.CharBlock(max_length=32, required=False)
+    header = blocks.CharBlock(max_length=32, required=False, help_text=_header_help_text)
     subheader = blocks.CharBlock(max_length=32, required=False)
     content = blocks.RichTextBlock()
 
@@ -42,12 +62,56 @@ class ContentBlock(blocks.StructBlock):
 class LocationBlock(blocks.StructBlock):
     """A container for content describing the church's location."""
     contact_info = SnippetChooserBlock(target_model='scpc.AddressBookSnippet')
-    time = blocks.CharBlock(required=True, max_length=25)
-    content = blocks.RichTextBlock(required=True)
+    time = blocks.CharBlock(max_length=25)
+    content = blocks.RichTextBlock()
 
     class Meta:
         icon = 'site'
         template = 'scpc/blocks/location.html'
+
+
+class LifeGroupBlock(blocks.StructBlock):
+    """A container for describing an individual life group. Used by :class:`LifeGroupsBlock`."""
+    day = blocks.ChoiceBlock([
+        ('Sundays', 'Sundays'),
+        ('Mondays', 'Mondays'),
+        ('Tuesdays', 'Tuesdays'),
+        ('Wednesdays', 'Wednesdays'),
+        ('Thursdays', 'Thursdays'),
+        ('Fridays', 'Fridays'),
+        ('Saturdays', 'Saturdays'),
+    ], default='Sundays')
+
+    time = blocks.CharBlock(
+        max_length=12,
+        help_text='Try to stick to the format "HH-HHpm".')
+    region = blocks.CharBlock(
+        max_length=25,
+        help_text='This should be a commonly-recognized area of Charlotte.')
+    location = blocks.CharBlock(
+        max_length=32,
+        help_text='This should be a nearby intersection or well-known neighborhood.')
+
+    childcare_policy = blocks.TextBlock()
+
+    map = blocks.StructBlock([
+        ('query', blocks.CharBlock(help_text=_map_query_help_text)),
+        ('zoom', blocks.IntegerBlock(required=False, min_value=1, max_value=20, help_text=_map_zoom_help_text)),
+        ('latitude', blocks.CharBlock(required=False, label='Lat.')),
+        ('longitude', blocks.CharBlock(required=False, label='Long.')),
+    ], template='scpc/blocks/lifegroups/map.html')
+
+    class Meta:
+        template = 'scpc/blocks/lifegroups/lifegroup.html'
+
+
+class LifeGroupsBlock(ContentBlock):
+    """A container for content describing the life groups ministry."""
+    groups = blocks.ListBlock(LifeGroupBlock())
+
+    class Meta:
+        label = 'Life Groups'
+        template = 'scpc/blocks/lifegroups.html'
 
 
 class DividerBlock(blocks.CharBlock):
@@ -97,6 +161,7 @@ class BaseProfile(models.Model):
 
 
 class LeadershipProfile(BaseProfile):
+    """A large profile for pastors, elders, etc."""
     twitter_url = models.URLField(null=True, blank=True)
     facebook_url = models.URLField(null=True, blank=True)
     instagram_url = models.URLField(null=True, blank=True)
@@ -125,6 +190,7 @@ class LeadershipProfile(BaseProfile):
 
 
 class StaffProfile(BaseProfile):
+    """A smaller profile for staff members."""
     panels = [
         ImageChooserPanel('image'),
         FieldPanel('name'),
@@ -191,7 +257,7 @@ class HomePage(Page):
 
 
 class Subpage(Page):
-
+    """An abstract base `Page` for all children of :class:`HomePage`."""
     parent_page_types = ['scpc.HomePage']
     subpage_types = []
 
@@ -252,9 +318,10 @@ class MinistriesPage(Subpage):
 
     content = StreamField(
         [
-            ('text', ContentBlock()),
+            ('children', ContentBlock()),
+            ('youth', ContentBlock()),
+            ('life_groups', LifeGroupsBlock()),
         ],
-        blank=True
     )
 
     content_panels = Subpage.content_panels + [
@@ -263,6 +330,7 @@ class MinistriesPage(Subpage):
 
 
 class AboutUsPage(Subpage):
+
     introduction = models.TextField()
     vision_header = models.CharField(max_length=32)
     vision_intro = RichTextField()
@@ -294,6 +362,7 @@ class AboutUsStaff(Orderable, StaffProfile):
 
 
 class BeliefsPage(Subpage):
+
     introduction = models.TextField()
     gospel_header = models.CharField(max_length=25)
     gospel_content = RichTextField()
@@ -315,6 +384,7 @@ class BeliefsDoctrine(Orderable, Doctrine):
 
 
 class GivingPage(Subpage):
+
     introduction = RichTextField()
     giving_content = RichTextField()
     online_link_name = models.CharField(max_length=15)
@@ -358,11 +428,8 @@ class StyleGuidePage(Page):
     custom = StreamField(
         [
             ('location', LocationBlock()),
-            ('divider', blocks.CharBlock(
-                icon='horizontalrule',
-                required=True,
-                max_length=25,
-                template='scpc/blocks/divider.html')),
+            ('life_groups', LifeGroupsBlock()),
+            ('divider', DividerBlock()),
             ('verse', SnippetChooserBlock(
                 target_model='scpc.VerseSnippet',
                 template='scpc/blocks/verse.html')),

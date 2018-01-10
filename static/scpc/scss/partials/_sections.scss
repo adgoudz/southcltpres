@@ -11,7 +11,7 @@
 //   $trailing-space: A flag to disable increasing trailing space for the last section
 
 @mixin section-spacing($ratio: 1, $leading-space: true, $trailing-space: true) {
-  @include media-breakpoint-up($bp-content-width) {
+  @include media-breakpoint-up($bp-content-spacing) {
     padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
 
@@ -26,7 +26,7 @@
   &:first-of-type {
     $leading-multiplier: if($leading-space, 2, 1);
 
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       padding-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
     }
 
@@ -36,7 +36,7 @@
   &:last-of-type {
     $trailing-multiplier: if($trailing-space, 2, 1);
 
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       padding-bottom: spacing-y($section-py-lg, $ratio * $trailing-multiplier);
     }
 
@@ -56,7 +56,7 @@
 //   $leading-space: A flag to disable increasing leading space for the first section
 
 @mixin inverse-section-spacing($ratio: 1, $leading-space: true) {
-  @include media-breakpoint-up($bp-content-width) {
+  @include media-breakpoint-up($bp-content-spacing) {
     margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
@@ -65,7 +65,7 @@
   &:first-of-type {
     $leading-multiplier: if($leading-space, 2, 1);
 
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       margin-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
       padding-top: spacing-y($section-py-lg, $ratio);  // Override
     }
@@ -75,7 +75,7 @@
   }
 
   &:last-of-type {
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       padding-bottom: spacing-y($section-py-lg, $ratio);  // Override
     }
 
@@ -95,7 +95,7 @@
 //   $trailing-space: A flag to disable increasing trailing space for the last section
 
 @mixin flush-section-spacing($ratio: 1, $leading-space: true, $trailing-space: true) {
-  @include media-breakpoint-up($bp-content-width) {
+  @include media-breakpoint-up($bp-content-spacing) {
     margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
@@ -105,7 +105,7 @@
   &:first-of-type {
     $leading-multiplier: if($leading-space, 2, 1);
 
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       margin-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
     }
 
@@ -116,7 +116,7 @@
   &:last-of-type {
     $trailing-multiplier: if($trailing-space, 2, 1);
 
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up($bp-content-spacing) {
       margin-bottom: spacing-y($section-py-lg, $ratio * $trailing-multiplier);
     }
 
@@ -131,11 +131,15 @@
 // modifier classes.
 
 @mixin no-section-spacing() {
-  @include media-breakpoint-up($bp-content-width) {
+  @include media-breakpoint-up($bp-content-spacing) {
     padding: 0;  // Override
   }
 
   padding: 0;  // Override
+
+  &:first-of-type {
+    padding-top: 0;  // Override
+  }
 
   &:last-of-type {
     padding-bottom: 0;  // Override
@@ -160,12 +164,12 @@
     $breakpoint-names: map-keys($grid-breakpoints);
 
     $content-font-bp-index: index($breakpoint-names, $bp-content-font);
-    $content-width-bp-index: index($breakpoint-names, $bp-content-width);
+    $content-spacing-bp-index: index($breakpoint-names, $bp-content-spacing);
     $max-width-bp-index: index($breakpoint-names, $max-width);
 
     // Determine the appropriate section padding for this breakpoint (in pixels)
-    $section-px: if($max-width-bp-index < $content-width-bp-index, $section-px-sm, $section-px-lg);
-    $rem-unit: if($max-width-bp-index < $content-width-bp-index, $desktop-font-unit, $mobile-font-unit);
+    $section-px: if($max-width-bp-index < $content-spacing-bp-index, $section-px-sm, $section-px-lg);
+    $rem-unit: if($max-width-bp-index < $content-font-bp-index, $mobile-font-unit, $desktop-font-unit);
 
     #{$root}__body {
       max-width: map-get($grid-breakpoints, $max-width) - ($section-px * $rem-unit * 2 / 1rem);  // Strip unit
@@ -209,7 +213,7 @@
     flex: 0 5 auto;
     width: 100%;  // Influences flex-shrink
     margin-right: 0;
-    margin-bottom: $content-px / 2;
+    margin-bottom: $content-spacer-lg;
 
     img {
       max-width: 100%;
@@ -228,12 +232,12 @@
 
   &__header {
     @include media-breakpoint-up($bp-content-font) {
-      font-size: $header-desktop-font-size;
+      font-size: $section-header-font-size-lg;
     }
 
     // Note: Most header font attributes are set by headings variables
-    margin-bottom: 1.6rem;
-    font-size: $header-mobile-font-size;
+    margin-bottom: $content-spacer-lg;
+    font-size: $section-header-font-size-sm;
 
     &:after {
       content: '.';
@@ -242,14 +246,14 @@
 
   &__subheader {
     @include media-breakpoint-up($bp-content-font) {
-      font-size: $subheader-desktop-font-size;
+      font-size: $section-subheader-font-size-lg;
     }
 
     // Note: Other subheader font attributes are set by headings variables
-    margin-bottom: 1.2rem;
-    font-family: $subheader-font-family;
-    font-weight: $subheader-font-weight;
-    font-size: $subheader-mobile-font-size;
+    margin-bottom: $content-spacer-md;
+    font-family: $section-subheader-font-family;
+    font-weight: $section-subheader-font-weight;
+    font-size: $section-subheader-font-size-sm;
 
     &:after {
       content: '.';
@@ -266,6 +270,7 @@
 
     justify-content: space-evenly;
 
+    // Replicate section__content treatment for paragraphs
     p:last-child {
       margin-bottom: 0;  // Override Bootstrap
     }
@@ -281,9 +286,6 @@
       @include media-breakpoint-up($bp-content-row) {
         align-items: start; // Aligns on vertical axis
       }
-      @include media-breakpoint-up(xl) {
-        align-items: center; // Aligns on vertical axis
-      }
     }
 
     #{$root}__content {
@@ -293,6 +295,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
+        margin-top: 0.25rem;  // Align with tops of headers
         margin-bottom: 0;
       }
     }
@@ -313,7 +316,7 @@
           //font-size: $font-size-xl;  // TODO Is this needed?
         }
 
-        font-size: $header-floating-font-size;
+        font-size: $section-header-floating-font-size;
       }
 
       #{$root}__subcontent {
@@ -339,7 +342,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
-        margin-right: $content-px / 2;
+        margin-right: $content-spacer-lg;
       }
     }
 
@@ -353,12 +356,12 @@
       @include media-breakpoint-up($bp-content-row) {
 
         #{$root}__header {
-          padding-right: $content-px / 2;
+          padding-right: $content-spacer-lg;
           text-align: right;
         }
 
         #{$root}__subcontent {
-          padding-left: $content-px / 2;
+          padding-left: $content-spacer-lg;
           border-left: 1px solid $color-border;
         }
 
@@ -380,7 +383,7 @@
 
     #{$root}__image {
       @include media-breakpoint-up($bp-content-row) {
-        margin-left: $content-px / 2;
+        margin-left: $content-spacer-lg;
       }
     }
 
@@ -398,11 +401,11 @@
         }
 
         #{$root}__header {
-          padding-left: $content-px / 2;
+          padding-left: $content-spacer-lg;
         }
 
         #{$root}__subcontent {
-          padding-right: $content-px / 2;
+          padding-right: $content-spacer-lg;
           border-right: 1px solid $color-border;
           text-align: right;
         }
@@ -419,11 +422,11 @@
     @include flush-section-spacing();
 
     #{$root}__container {
-      @include media-breakpoint-up($bp-content-width) {
-        padding: 4rem $section-px-lg 0;
+      @include media-breakpoint-up($bp-content-spacing) {
+        padding: spacing-y($section-py-lg, $ratio: $location-py-ratio) $section-px-lg 0;
       }
 
-      padding: 4rem $section-px-sm 0;
+      padding: spacing-y($section-py-lg, $ratio: $location-py-ratio) $section-px-sm 0;
     }
   }
 
@@ -443,9 +446,31 @@
     #{$root}__body {
       align-items: center;
     }
+  }
 
-    #{$root}__verse {
-      margin-top: 1rem;
+
+  // Ministry Sections
+
+
+  &--life-groups {
+
+    // We coordinate bottom spacing in and around this section with the grid items
+    // that are also contained in this section. The ratios used here should match
+    // grid item margins to achieve evenly-distributed horizontal space.
+
+    #{$root}__subcontent {
+      margin-bottom: spacing-y($section-py-sm, $ratio: $life-group-py-ratio);
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $life-group-py-ratio);
+      }
+      @include media-breakpoint-up($bp-content-row) {
+        justify-content: flex-start;
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $life-group-py-ratio);
     }
   }
 
@@ -460,33 +485,29 @@
     // that are also contained in this section. The ratios used here should match
     // grid item margins to achieve evenly-distributed horizontal space.
 
-    @include media-breakpoint-up($bp-content-width) {
-      padding-bottom: spacing-y($section-py-lg, $ratio: (1 - $vision-py-ratio));
-    }
-
-    padding-bottom: spacing-y($section-py-sm, $ratio: (1 - $vision-py-ratio));
-
     #{$root}__content {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+      }
       @include media-breakpoint-up($bp-content-width) {
         width: 75%;
-        margin-bottom: spacing-y($section-py-lg, $ratio: $vision-py-ratio);
       }
 
       margin-bottom: spacing-y($section-py-sm, $ratio: $vision-py-ratio);
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $vision-py-ratio);
     }
   }
 
 
   &--leadership {
     @include section-spacing($ratio: $leadership-py-ratio);
-
-    #{$root}__image {
-      @include media-breakpoint-up($bp-content-row) {
-        margin-bottom: 0;  // Mimic section--left/right behavior
-      }
-
-      margin-bottom: 1rem;
-    }
   }
 
 
@@ -499,11 +520,19 @@
     // margins to achieve evenly-distributed horizontal space.
 
     #{$root}__subheader {
-      @include media-breakpoint-up($bp-content-width) {
+      @include media-breakpoint-up($bp-content-spacing) {
         margin-bottom: spacing-y($section-py-lg, $ratio: $profile-py-ratio);
       }
 
       margin-bottom: spacing-y($section-py-sm, $ratio: $profile-py-ratio);
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $profile-py-ratio);
     }
   }
 
@@ -523,12 +552,24 @@
   &--doctrines {
     @include wide-section($max-width: $bp-content-row, $root: $root);
 
+    // We coordinate bottom spacing in this section with the grid items that are
+    // also contained in this section. The ratios used here should match grid item
+    // margins to achieve evenly-distributed horizontal space.
+
     #{$root}__content {
-      @include media-breakpoint-up($bp-content-width) {
-        margin-bottom: 1.6rem;  // Mimic space between doctrines
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: $content-spacer-lg;
       }
 
-      margin-bottom: 2rem;  // Mimic space between doctrines
+      margin-bottom: $content-spacer-xl;
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $profile-py-ratio);
     }
   }
 
@@ -537,7 +578,7 @@
 
 
   &--giving {
-    @include wide-section($max-width: $bp-content-width, $root: $root);
+    @include wide-section($max-width: $bp-content-spacing, $root: $root);
   }
 
 
@@ -545,6 +586,12 @@
 
 
   &--divider {
-    @include flush-section-spacing($ratio: 0);
+    @include no-section-spacing;
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding: 0 $section-px-lg;
+    }
+
+    padding: 0 $section-px-sm;
   }
 }

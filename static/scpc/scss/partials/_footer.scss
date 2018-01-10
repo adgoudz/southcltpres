@@ -9,11 +9,11 @@
   text-align: center;
 
   &__social-icons {
-    margin: 0 0 1rem;
+    margin: 0 0 $content-spacer-md;
   }
 
   &__contact-info {
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up(md) {
       flex-direction: row;
     }
 
@@ -24,11 +24,11 @@
   }
 
   &__contact-address, &__contact-email, &__contact-phone {
-    @include media-breakpoint-up($bp-content-width) {
+    @include media-breakpoint-up(md) {
       margin-bottom: 0;
     }
 
-    margin-bottom: 0.25rem;
+    margin-bottom: $content-shim;
     white-space: nowrap;
 
     &:last-of-type {

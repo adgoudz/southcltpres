@@ -123,15 +123,15 @@ $subpage-hero-sizes: (xs: 400px, lg: 600px);
     // specifically via .section:first-of-type.
     $header-py-ratio: 2;
 
-    @include media-breakpoint-up($bp-content-width) {
-      padding: spacing-y($section-py-lg, $ratio: $header-py-ratio) $section-px-lg  0;
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding: spacing-y($header-py-lg, $ratio: $header-py-ratio) $header-px-lg  0;
     }
 
-    padding: spacing-y($section-py-sm, $ratio: $header-py-ratio) $section-px-sm 0;
+    padding: spacing-y($header-py-sm, $ratio: $header-py-ratio) $header-px-sm 0;
   }
 
   &__body {
-    @include media-breakpoint-up($bp-hires) {
+    @include media-breakpoint-up($bp-content-width) {
       width: $content-width;
       max-width: $content-max-width;
     }

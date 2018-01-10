@@ -35,11 +35,12 @@ $enable-rounded: false;
 // Extend Bootstrap's breakpoints
 $grid-breakpoints: (
   unused: 0,
-  xs: 480px,
+  xs: 375px,
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1400px
+  xl: 1200px,
+  hires: 1400px
 );
 
 $bp-homepage-hero: md;
@@ -48,11 +49,12 @@ $bp-subpage-hero: lg;
 $bp-navbar-expand: md;
 $bp-navbar-width: xl;
 
-$bp-content-width: md;
 $bp-content-font: md;
+$bp-content-spacing: md;
 $bp-content-row: lg;
+$bp-content-width: xl;
 
-$bp-hires: xl;
+$bp-hires: hires;
 
 $phone-widths: 320 360 375 412 480;
 $tablet-widths: 768 1024;
@@ -71,7 +73,7 @@ $zindex-navbar: 30;
 $zindex-navbar-brand: 35;
 
 
-// Type
+// Typography
 //
 // Font families, weights, sizes, and line heights.
 
@@ -85,8 +87,8 @@ $font-family-base: Lato, $font-family-sans-serif;  // Bootstrap
 
 // These variables are to be used by the reset partial only. They are specified
 // here to influence the definition of subsequent variables in this partial.
-$mobile-font-unit: 18px;
-$desktop-font-unit: 16px;
+$mobile-font-unit: 16px;
+$desktop-font-unit: 18px;
 
 $font-size-xs: .8rem;
 $font-size-sm: 1rem;  // Bootstrap
@@ -123,6 +125,8 @@ $h4-font-size: 1rem;
 $h5-font-size: 1rem;
 $h6-font-size: 1rem;
 
+$dt-font-weight: $font-weight-regular;  // Bootstrap
+
 
 // Paragraphs
 
@@ -130,6 +134,11 @@ $paragraph-margin-bottom: 1.5rem;  // Bootstrap
 
 
 // Headers
+
+$header-py-sm: 6rem;
+$header-py-lg: 10rem;
+$header-px-sm: 2.5rem;
+$header-px-lg: 6rem;
 
 $header-title-font-size-min: 1.25rem;
 $header-title-font-size-max: 3rem;
@@ -155,21 +164,29 @@ $hero-title-letter-spacing: $letter-spacing-lg;
 
 // Sections
 
-$section-py-sm: 6rem;
-$section-py-lg: 10rem;
-$section-px-sm: 3rem;
-$section-px-lg: 4rem;
+$section-py-sm: $header-py-sm;
+$section-py-lg: $header-py-lg;
+$section-px-sm: $header-px-sm;
+$section-px-lg: $header-px-lg;
 
-$content-px: 4rem;
+$content-shim: 0.25rem;
+$content-spacer-xs: 0.5rem;
+$content-spacer-sm: 0.75rem;
+$content-spacer-md: 1rem;
+$content-spacer-lg: 1.6rem;
+$content-spacer-xl: 2rem;
 
-$header-desktop-font-size: $font-size-xl;
-$header-mobile-font-size: $font-size-lg;
-$header-floating-font-size: $font-size-lg;
+$image-max-height-sm: 300px;
+$image-max-height-lg: 400px;
 
-$subheader-desktop-font-size: $font-size-lg;
-$subheader-mobile-font-size: $font-size-lg;
-$subheader-font-family: $font-family-base;
-$subheader-font-weight: $font-weight-base;
+$section-header-font-size-sm: $font-size-lg;
+$section-header-font-size-lg: $font-size-xl;
+$section-header-floating-font-size: $font-size-lg;
+
+$section-subheader-font-size-sm: $font-size-lg;
+$section-subheader-font-size-lg: $font-size-lg;
+$section-subheader-font-family: $font-family-base;
+$section-subheader-font-weight: $font-weight-base;
 
 
 // Horizontal Rules
@@ -177,6 +194,7 @@ $subheader-font-weight: $font-weight-base;
 $hrule-text-font-family: $font-family-base;
 $hrule-text-font-size: $font-size-lg;
 $hrule-text-font-weight: $font-weight-base;
+$hrule-text-font-style: italic;
 $hrule-text-letter-spacing: $letter-spacing-lg;
 $hrule-text-color: $headings-color;
 $hrule-header-py-ratio: 1/2;
@@ -184,6 +202,7 @@ $hrule-header-py-ratio: 1/2;
 $hrule-header-font-family: $headings-font-family;
 $hrule-header-font-size: $font-size-lg;
 $hrule-header-font-weight: $headings-font-weight;
+$hrule-header-font-style: normal;
 $hrule-header-letter-spacing: $headings-letter-spacing;
 $hrule-header-color: $hrule-text-color;
 $hrule-text-py-ratio: 1/2;
@@ -191,6 +210,7 @@ $hrule-text-py-ratio: 1/2;
 $hrule-divider-font-family: $headings-font-family;
 $hrule-divider-font-size: $font-size-xl;
 $hrule-divider-font-weight: $headings-font-weight;
+$hrule-divider-font-style: normal;
 $hrule-divider-letter-spacing: $headings-letter-spacing;
 $hrule-divider-color: $hrule-text-color;
 $hrule-divider-py-ratio: 2/3;
@@ -210,14 +230,16 @@ $input-btn-padding-x: 1.5rem;  // Bootstrap
 $title-width: 80%;
 $title-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $title-width / 100%;  // Strip units
 
-$content-width: 65%;
-$content-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $title-width / 100%;  // Strip units
+$content-width: 70%;
+$content-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $content-width / 100%;  // Strip units
 
 $fluid-min-x: 25em;
 $fluid-max-x: 100em;
 
+$location-py-ratio: 1;
 $leadership-py-ratio: 2/3;
 $staff-py-ratio: 2/3;
+$giving-links-py-ratio: 2/3;
 
 
 // Grid Columns
@@ -230,17 +252,21 @@ $grid-gutter-width: 50px;  // Bootstrap
 // wider than the section body by that same amount. Hence we subtract this amount to calculate a body
 // width which would result in the appropriate grid row width.
 
+$life-group-min-width: calc(#{277px + $grid-gutter-width} + 1rem);
+$life-group-max-width: 465px;
+$life-group-py-ratio: 1/4;
+
 $profile-min-width: 180px;
 $profile-max-width: 220px;
 $profile-max-cols: 4;
 $profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
-$vision-py-ratio: 1/2;
+$profile-py-ratio: $staff-py-ratio / 2;
 
 $vision-min-width: 200px;
-$vision-max-width: 300px;
+$vision-max-width: 340px;
 $vision-max-cols: 3;
 $vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
-$profile-py-ratio: $staff-py-ratio / 2;
+$vision-py-ratio: 1/2;
 
 
 // Navbar
@@ -262,7 +288,7 @@ $navbar-brand-width: 213px;
 $nav-py-ratio: 1/4;
 
 // Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
-$nav-link-height: ($font-size-xs * $line-height-base) * $desktop-font-unit / 1rem;  // Strip unit
+$nav-link-height: ($font-size-xs * $line-height-base) * $mobile-font-unit / 1rem;  // Strip unit
 $nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
 $nav-link-padding-x: 2rem;  // Bootstrap
 

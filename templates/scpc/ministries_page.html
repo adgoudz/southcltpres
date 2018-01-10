@@ -15,9 +15,9 @@
         </div>
     </header>
 
-{% for block in page.content %}
-    {% cycle 'left' 'right' as align silent %}
-    {% include_block block with align=align %}
-{% endfor %}
+    {% for block in page.content %}
+        {% cycle 'left' 'right' as align silent %}
+        {% include_block block with align=align type=block.block_type %}
+    {% endfor %}
 
 {% endblock %}

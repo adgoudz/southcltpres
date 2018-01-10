@@ -1,14 +1,16 @@
 
 .doctrine {
+  @include media-breakpoint-up($bp-content-spacing) {
+    padding-bottom: $content-spacer-lg;
+  }
   @include media-breakpoint-up($bp-content-width) {
-    padding-bottom: 1.6rem;
     text-align: left;
   }
 
-  padding-bottom: 2rem;
+  padding-bottom: $content-spacer-xl;
 
   &__header {
-    margin-bottom: 1rem;
+    margin-bottom: $content-spacer-md;
     font-size: $font-size-xs;
     font-weight: $font-weight-bold;  // Override headings font-weight
     letter-spacing: $letter-spacing-lg;
@@ -16,6 +18,6 @@
   }
 
   &__content {
-
+    // No styling needed
   }
 }
