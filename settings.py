@@ -21,6 +21,7 @@ aldryn_addons.settings.load(locals())
 INSTALLED_APPS.extend([
     'scpc',
     'webpack_loader',
+    'mathfilters',
     'wagtail.contrib.wagtailstyleguide',
 ])
 
@@ -29,7 +30,7 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append(
 )
 
 # Wagtail settings
-WAGTAIL_ENABLE_UPDATE_CHECK = True
+WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 # Django settings
 USE_TZ = True

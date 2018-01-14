@@ -1,0 +1,103 @@
+
+.life-group {
+
+  $bp-life-group-row: xs;
+
+  @include make-col-ready();
+
+  @include media-breakpoint-up($bp-content-spacing) {
+    $spacing-y: spacing-y($section-py-lg, $ratio: $life-group-py-ratio);
+
+    margin-top: $spacing-y;
+    margin-bottom: $spacing-y;
+  }
+  @include media-breakpoint-up($bp-life-group-row) {
+    display: flex;
+    flex: 1 1 50%;
+    min-width: $life-group-min-width;
+    max-width: $life-group-max-width;
+  }
+
+  $spacing-y: spacing-y($section-py-sm, $ratio: $life-group-py-ratio);
+
+  margin-top: $spacing-y;
+  margin-bottom: $spacing-y;
+
+  &__map {
+    @include media-breakpoint-up($bp-life-group-row) {
+      margin: 0 $content-spacer-md 0 0;
+    }
+
+    float: right;
+    margin: 0 0 $content-spacer-md $content-spacer-md;
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &__content {
+    font-size: $font-size-xs;
+    text-align: left;
+
+    dd:last-child {
+      margin-bottom: 0;  // Bootstrap override
+    }
+  }
+
+  &__header {
+    @include media-breakpoint-up($bp-life-group-row) {
+      margin-bottom: $content-shim;
+    }
+  }
+
+  &__subheader {
+    margin-bottom: $content-spacer-xs;
+  }
+
+  &__description {
+    margin-bottom: 0;  // Bootstrap override
+  }
+
+  &__day, &__time {
+    @include media-breakpoint-up($bp-life-group-row) {
+      display: inline;  // Reset
+    }
+
+    display: table;
+  }
+
+  &__day {
+    @include media-breakpoint-up($bp-life-group-row) {
+
+      margin-bottom: 0;  // Reset
+
+      &:after {
+        content: '|';
+        margin: 0 $content-spacer-xs;
+        font-size: inherit;
+        color: $color-hl-2;
+      }
+    }
+
+    margin-bottom: $content-shim;
+  }
+
+  &__time, &__region {
+    @include media-breakpoint-up($bp-life-group-row) {
+      font-size: $font-size-base;  // Reset
+    }
+
+    font-size: $font-size-xs;
+  }
+
+  &__time {
+    color: $color-hl-2;
+  }
+
+  &__region {
+    text-transform: lowercase;
+    color: $color-bg-2;
+  }
+}

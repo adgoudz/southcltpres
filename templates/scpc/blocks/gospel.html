@@ -1,0 +1,15 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+{% load scpc %}
+
+{% block class_name %}section--gospel{% endblock %}
+
+{% block section_header %}
+    <h2 class="section__header" data-aos="{% aos animation align %}">{{ value.gospel_header }}</h2>
+{% endblock %}
+
+{% block section_subcontent %}
+    {{ value.gospel_content|richtext }}
+{% endblock %}

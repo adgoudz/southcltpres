@@ -1,4 +1,3 @@
-
 import mapStyle from 'data/location/map-style';
 
 const mapOptions = {
@@ -16,19 +15,26 @@ const iconOptions = {
     fillOpacity: 1.0,
     strokeOpacity: 0,
     scale: 2.8,
+
+    // The following are used to construct a google.maps.Point during initialization
+    x: 11,
+    y: 22,
 };
 
 const markerOptions = {
     position: {lat: 35.037379, lng: -80.856044},
     title: 'Ballantyne Elementary',
-    icon: iconOptions,
 };
 
-window.initMap = function() {
+window.initMap = () => {
     let map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    iconOptions['anchor'] = new google.maps.Point(11, 22); // Ideally this should be definable above
+    // Copy iconOptions and populate the 'anchor' property
+    let {x, y, ...iconOptionsToUse} = iconOptions;
+    iconOptionsToUse['anchor'] = new google.maps.Point(x, y);
 
-    let marker = new google.maps.Marker(markerOptions);
+    // Copy markerOptions and add the newly-created iconOptions
+    let markerOptionsToUse = {icon: iconOptionsToUse, ...markerOptions};
+    let marker = new google.maps.Marker(markerOptionsToUse);
     marker.setMap(map);
 };

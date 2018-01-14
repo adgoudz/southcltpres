@@ -1,0 +1,22 @@
+
+{% load wagtailcore_tags %}
+{% load mathfilters %}
+{% load scpc %}
+
+<div class="life-group" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|mul:250 }}" data-aos-anchor=".section__grid">
+    {% include_block value.map %}
+    <div class="life-group__content">
+        <h4 class="life-group__header">
+            <span class="life-group__day">{{ value.day }}</span><span class="life-group__time">{{ value.time }}</span>
+        </h4>
+        <h4 class="life-group__subheader">
+            <span class="life-group__region">{{ value.region }}</span>
+        </h4>
+        <dl class="life-group__description">
+            <dt>Location</dt>
+            <dd>{{ value.location }}</dd>
+            <dt>Childcare</dt>
+            <dd>{{ value.childcare_policy }}</dd>
+        </dl>
+    </div>
+</div>

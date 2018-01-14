@@ -1,20 +1,18 @@
 
+{% extends 'scpc/blocks/content.html' %}
+
 {% load wagtailcore_tags %}
 
-<section class="section section--divider">
-    <div class="section__body">
-        <div class="section__content">
-            <div class="section__subcontent">
-                <div class="hrule hrule--text">
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                    <h2 class="hrule__text">{{ value }}</h2>
-                    <div class="hrule__hr">
-                        <hr>
-                    </div>
-                </div>
-            </div>
+{% block class_name %}section--divider{% endblock %}
+
+{% block section_content %}
+    <div class="hrule hrule--divider">
+        <div class="hrule__hr">
+            <hr>
+        </div>
+        <h2 class="hrule__text">{{ value }}</h2>
+        <div class="hrule__hr">
+            <hr>
         </div>
     </div>
-</section>
+{% endblock %}

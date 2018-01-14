@@ -1,0 +1,18 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+
+{% block class_name %}section--staff{% endblock %}
+
+{% block section_subheader %}
+    <h3 class="section__subheader">{{ page.staff_header }}</h3>
+{% endblock %}
+
+{% block section_grid %}
+    <div class="section__grid">
+        {% for profile in page.staff.all %}
+            {% include 'scpc/includes/staff.html' with profile=profile only %}
+        {% endfor %}
+    </div>
+{% endblock %}

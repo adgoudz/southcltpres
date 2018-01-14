@@ -1,0 +1,16 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+
+{% block class_name %}section--life-groups{% endblock %}
+
+{% block section_content %}
+    {# We include the grid within the content so that is flush with the image #}
+    {{ block.super }}
+    <div class="section__grid">
+        {% for life_group in value.groups %}
+            {% include_block life_group %}
+        {% endfor %}
+    </div>
+{% endblock %}

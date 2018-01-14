@@ -1,0 +1,33 @@
+
+.vision {
+  @include make-col-ready();
+
+  @include media-breakpoint-up($bp-content-spacing) {
+    $spacing-y: spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+
+    margin-top: $spacing-y;
+    margin-bottom: $spacing-y;
+  }
+
+  $spacing-y: spacing-y($section-py-sm, $ratio: $vision-py-ratio);
+
+  width: $vision-max-width;
+  min-width: $vision-min-width;
+  margin-top: $spacing-y;
+  margin-bottom: $spacing-y;
+
+  &__image {
+
+  }
+
+  &__header {
+    margin: $content-spacer-lg;
+    font-family: $font-family-header;
+    font-size: $font-size-lg;
+    color: $color-hl-3;
+  }
+
+  &__content {
+    padding-bottom: 0;  // Reset
+  }
+}

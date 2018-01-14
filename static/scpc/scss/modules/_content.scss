@@ -1,7 +1,9 @@
 
+
 // Links
 
-@mixin inline-link {
+
+%inline-link {
   color: $color-hl-3;
 
   &:hover {
@@ -9,37 +11,38 @@
   }
 }
 
-.rich-text a {
-  @include inline-link;
-}
-
-.external-link {
-  @include inline-link;
-
-  text-transform: uppercase;
-}
-
-.external-link--footer {
-  @include media-breakpoint-up(lg) {
-    font-size: $font-size-md;
+.rich-text {
+  a {
+    @extend %inline-link;
   }
-
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: $font-size-base;
 }
+
 
 .icon-link {
   display: inline-block;
-  margin: 0 1.25rem;
+  margin: 0 1.25em;
   text-transform: none;
 
   &:hover {
     text-decoration: none;
   }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &--compact {
+    margin: 0 .5em;
+  }
 }
 
+
 // Inline
+
 
 .spacer {
   @include media-breakpoint-up(md) {
@@ -47,7 +50,7 @@
   }
 
   display: none;
-  margin: 0 1rem;
+  margin: 0 $content-spacer-md;
   color: $color-border;
 
   &--inverse {
@@ -55,20 +58,36 @@
   }
 }
 
-// Flow
+
+// Buttons
+
+
+.btn {
+
+  font-size: $btn-font-size;
+  text-transform: uppercase;
+
+  &-scpc-primary {
+    @include button-variant(
+      $background: $color-btn-default,
+      $border: $color-btn-default,
+      $active-background: $color-btn-active,
+      $active-border: $color-btn-active
+    );
+  }
+}
+
+
+// Horizontal Rules
+
 
 .hrule {
-
   $root: &;
 
+  width: 100%;  // Explicitly state this in case this is used in a flex container
+  padding: 0 2rem;
 
   &__hr {
-    @include media-breakpoint-up(lg) {
-      padding: ($section-py / 2) $content-px-md;
-    }
-
-    padding: ($section-py / 2) $content-px;
-
     hr {
       width: 100%;
       margin: 0;
@@ -76,28 +95,208 @@
     }
   }
 
-  &--text {
+
+  // Text-based Rules
+
+
+  &--text, &--header, &--divider {
 
     display: flex;
+    padding: 0 1rem;
+    justify-content: center;
     align-items: center;
     text-align: center;
 
     #{$root}__hr {
-      flex: 1 1 0;
-      width: 100%;
+      @include media-breakpoint-up($bp-content-spacing) {
+        width: $content-spacer-lg;
+      }
+
+      flex: 0 1 auto;
+      width: $content-spacer-md;
     }
 
     #{$root}__text {
-      flex: 0 0 auto;
-      width: auto;
-      font-size: $font-size-lg;
-      font-style: italic;
-      letter-spacing: 0.1em;
-      color: $color-bg-3;
+      @include media-breakpoint-up($bp-content-spacing) {
+        max-width: calc(100% - #{($content-spacer-lg + 1rem) * 2});
+        margin: 0 $content-spacer-lg;
+      }
+
+      flex: 0 1 auto;
+      max-width: calc(100% - #{($content-spacer-md + 1rem) * 2});
+      margin: 0 $content-spacer-md;
     }
 
     p {
       margin-bottom: 0;  // Bootstrap reset
     }
   }
+
+
+  &--text {
+
+    #{$root}__hr {
+      @include media-breakpoint-up($bp-content-spacing) {
+        padding: spacing-y($section-py-lg, $ratio: $hrule-text-py-ratio) 0;
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: $hrule-text-py-ratio) 0;
+    }
+
+    #{$root}__text {
+      $hrule-text-height: $hrule-text-font-size * $headings-line-height - 1 / 18;  // Subtract hr border-top
+
+      @include media-breakpoint-up($bp-content-spacing) {
+        padding: spacing-y($section-py-lg, $ratio: $hrule-text-py-ratio, $reduce-by: $hrule-text-height) 0;
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: $hrule-text-py-ratio, $reduce-by: $hrule-text-height) 0;
+      font-family: $hrule-text-font-family;
+      font-size: $hrule-text-font-size;
+      font-weight: $hrule-text-font-weight;
+      font-style: $hrule-text-font-style;
+      letter-spacing: $hrule-text-letter-spacing;
+      color: $hrule-text-color;
+    }
+  }
+
+
+  &--header {
+
+    #{$root}__hr {
+      @include media-breakpoint-up($bp-content-spacing) {
+        // Reduce padding-top
+        $pt-ratio: $hrule-header-py-ratio * 0.3;
+
+        padding-top: spacing-y($section-py-lg, $ratio: $pt-ratio);
+        padding-bottom: spacing-y($section-py-lg, $ratio: $hrule-header-py-ratio);
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: $hrule-header-py-ratio) 0;
+    }
+
+    #{$root}__text {
+      $hrule-text-height: $hrule-header-font-size * $headings-line-height - (1 / 18); // Subtract hr border-top
+
+      @include media-breakpoint-up($bp-content-spacing) {
+        // Reduce padding-top
+        $pt-ratio: $hrule-header-py-ratio * 0.3;
+
+        padding-top: spacing-y($section-py-lg, $ratio: $pt-ratio, $reduce-by: $hrule-text-height);
+        padding-bottom: spacing-y($section-py-lg, $ratio: $hrule-header-py-ratio, $reduce-by: $hrule-text-height);
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: $hrule-header-py-ratio, $reduce-by: $hrule-text-height) 0;
+      font-family: $hrule-header-font-family;
+      font-size: $hrule-header-font-size;
+      font-weight: $hrule-header-font-weight;
+      font-style: $hrule-header-font-style;
+      letter-spacing: $hrule-header-letter-spacing;
+      color: $hrule-header-color;
+    }
+  }
+
+
+  &--divider {
+
+    padding: 0;  // Reset
+
+    #{$root}__hr {
+      // Use section spacing for hr widths instead of content spacing
+      @include media-breakpoint-up($bp-content-spacing) {
+        width: $section-px-lg;
+        padding: spacing-y($section-py-lg, $ratio: $hrule-divider-py-ratio) 0;
+      }
+
+      width: $section-px-sm;
+      padding: spacing-y($section-py-sm, $ratio: $hrule-divider-py-ratio) 0;
+    }
+
+    #{$root}__text {
+      $hrule-text-height: $hrule-divider-font-size * $headings-line-height - (1 / 18); // Subtract hr border-top
+
+      @include media-breakpoint-up($bp-content-spacing) {
+        padding: spacing-y($section-py-lg, $ratio: $hrule-divider-py-ratio, $reduce-by: $hrule-text-height) 0;
+        max-width: calc(100% - #{$section-px-lg * 2});
+      }
+
+      padding: spacing-y($section-py-sm, $ratio: $hrule-divider-py-ratio, $reduce-by: $hrule-text-height) 0;
+      max-width: calc(100% - #{$section-px-sm * 2});
+      font-family: $hrule-divider-font-family;
+      font-size: $hrule-divider-font-size;
+      font-weight: $hrule-divider-font-weight;
+      font-style: $hrule-divider-font-style;
+      letter-spacing: $hrule-divider-letter-spacing;
+      color: $hrule-divider-color;
+    }
+  }
+
+
+  // Widths
+
+
+  &--narrow {
+
+    padding: 0;  // Reset
+
+    #{$root}__hr {
+      width: 30%;
+      min-width: 72px;
+      margin: auto;
+    }
+  }
+}
+
+
+// Misc
+
+
+.map {
+  @include media-breakpoint-up(md) {
+    height: 50vh;
+  }
+
+  height: 50vmax;
+  min-height: 300px;
+  background-color: $color-hl-2;
+}
+
+
+.address {
+
+  $root: &;
+
+  margin: 0 auto;
+  font-size: $font-size-md;
+  text-align: center;
+
+  &__name {
+    font-weight: $font-weight-regular;
+  }
+
+  &__directions-link {
+    @extend %inline-link;
+
+    display: inline-block;
+    margin-top: $content-spacer-sm;
+    font-size: $font-size-xs;  // Reset
+    letter-spacing: $letter-spacing-sm;
+    text-transform: uppercase;
+  }
+
+  &--sm {
+    font-size: $font-size-sm;
+
+    #{$root}__name {
+      font-weight: $font-weight-base;  // Reset
+    }
+  }
+
+  &--lg {
+    font-size: $font-size-lg;
+  }
+}
+
+.verse {
+  margin-top: $content-spacer-md;
 }

@@ -1,0 +1,129 @@
+
+
+@mixin nav-item-active($bottom: -0.5rem) {
+  @include media-breakpoint-up($bp-navbar-expand) {
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: $bottom;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: $nav-link-active-color;
+    }
+  }
+}
+
+
+%nav-link-base {
+  // Note: font-size is handled at the class level
+  font-family: $nav-link-font-family;
+  font-weight: $nav-link-font-weight;
+  letter-spacing: $nav-link-letter-spacing;
+  text-align: center;
+  text-transform: uppercase;
+  color: $nav-link-color !important;
+  white-space: nowrap;
+
+  &:hover, &:focus {
+    color: $nav-link-active-color !important;
+  }
+}
+
+
+.brand {
+  // TODO These heights should be variables
+  @include media-breakpoint-up($bp-navbar-expand) {
+    height: 48px;
+  }
+
+  height: 36px;
+
+  &__text {
+    @include media-breakpoint-between($bp-navbar-expand, lg) {
+      display: none;
+    }
+  }
+}
+
+
+.navbar {
+  @include media-breakpoint-up($bp-navbar-width) {
+    width: $navbar-width;
+    max-width: $navbar-max-width;
+  }
+
+  margin: 0 auto;
+  z-index: $zindex-navbar;
+
+  .navbar-brand {
+    line-height: 0;
+    z-index: $zindex-navbar-brand;
+  }
+
+  .navbar-collapse {
+    @include media-breakpoint-up($bp-navbar-expand) {
+      transform: translateX(-$navbar-brand-width / 2);
+      padding: 0;
+    }
+
+    padding: 2rem 0;
+  }
+
+  .navbar-nav {
+    height: 100%;
+    margin: 0 auto;
+
+    .nav-item {
+      position: relative;
+
+      &.active {
+        @include nav-item-active($bottom: -$navbar-padding-y);
+
+        .nav-link {
+          color: $nav-link-active-color !important;
+        }
+      }
+    }
+
+    .nav-link {
+      @extend %nav-link-base;
+
+      @include media-breakpoint-up($bp-navbar-expand) {
+        // Bootstrap nav-links in don't acknowledge $nav-link-padding-x in navbars
+        padding-left: $nav-link-padding-x !important;
+        padding-right: $nav-link-padding-x !important;
+
+        font-size: $nav-link-desktop-font-size;
+      }
+
+      font-size: $nav-link-mobile-font-size;
+    }
+  }
+}
+
+
+.nav {
+  @include media-breakpoint-up($bp-content-spacing) {
+    padding: spacing-y($section-py-lg, $ratio: $nav-py-ratio) $section-px-lg;
+  }
+
+  padding: spacing-y($section-py-sm, $ratio: $nav-py-ratio) $section-px-sm;
+
+  .nav-item {
+    position: relative;
+    margin: 0 $content-spacer-md;
+
+    &.active {
+      @include nav-item-active();
+    }
+  }
+
+  .nav-link {
+    @extend %nav-link-base;
+
+    font-size: $nav-link-desktop-font-size;
+  }
+}
+
+
