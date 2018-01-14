@@ -18,7 +18,7 @@ let common = {
 
     entry: {
         main: './static/scpc/js/main.js',
-        vendor: ['jquery', 'popper.js', 'bootstrap']
+        vendor: ['jquery', 'popper.js', 'bootstrap', 'aos']
     },
 
     output: {
@@ -54,7 +54,7 @@ let common = {
                     {
                         loader: 'css-loader',
                         options: {
-                            importLoaders: 1
+                            importLoaders: 1  // Only apply postcss-loader to imports
                         }
                     },
                     'postcss-loader',
@@ -130,7 +130,7 @@ if (process.env.NODE_ENV === 'development') {
     module.exports = merge.smartStrategy(__merge_rules__)(common, {
         output: {
             publicPath: 'http://localhost:8080/bundles/',
-            filename: '[name].js'  // hashing isn't allowed with HMR
+            filename: '[name].js'  // Hashing isn't allowed with HMR
         },
 
         plugins: [

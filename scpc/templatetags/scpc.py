@@ -102,6 +102,19 @@ def static_map(query, latitude=None, longitude=None, zoom=None, width=100, heigh
     }
 
 
+@register.simple_tag(name='aos')
+def animation_name(name, alignment):
+    if name:
+        return name
+
+    by_alignment = {
+        'left': 'fade-left',
+        'right': 'fade-right',
+        'default': 'fade-up',
+    }
+    return by_alignment[alignment if alignment else 'default']
+
+
 def _query_children(page):
     return page.get_children().live().in_menu()
 

@@ -1,7 +1,8 @@
 
 {% load static from staticfiles %}
+{% load mathfilters %}
 
-<div class="vision">
+<div class="vision" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|mul:250 }}" data-aos-anchor=".section__grid">
     <div class="vision__image">
         <img src="{% static vision.image_src %}" height="98px" width="98px"/>
     </div>

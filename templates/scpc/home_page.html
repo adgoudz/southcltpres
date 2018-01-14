@@ -20,7 +20,7 @@
                 <div class="header__subtitle">
                     <span>{{ page.subtitle }}</span>
                 </div>
-                <div class="header__intro">
+                <div class="header__intro" data-aos="fade" data-aos-delay="250">
                     {{ page.introduction|richtext }}
                 </div>
             </div>
@@ -28,7 +28,7 @@
     </header>
 
     {% for block in page.content %}
-        {% include_block block with align='stacked' type=block.block_type %}
+        {% include_block block with type=block.block_type %}
     {% endfor %}
 
 {% endblock %}

@@ -24,10 +24,10 @@
 
     {% include 'scpc/blocks/vision.html' with value=page %}
 
-    {% include 'scpc/blocks/divider.html' with value=page.profiles_header only %}
+    {% include 'scpc/blocks/divider.html' with value=page.profiles_header %}
 
     {% for profile in page.leadership.all %}
-        {% include 'scpc/blocks/leadership.html' with align='left' value=profile only %}
+        {% include 'scpc/blocks/leadership.html' with align='left' value=profile %}
     {% endfor %}
 
     {% include 'scpc/blocks/staff.html' with value=page %}

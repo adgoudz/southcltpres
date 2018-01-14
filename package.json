@@ -28,6 +28,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "aos": "^2.2.0",
     "bootstrap": "^4.0.0-beta",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

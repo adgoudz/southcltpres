@@ -21,6 +21,7 @@ aldryn_addons.settings.load(locals())
 INSTALLED_APPS.extend([
     'scpc',
     'webpack_loader',
+    'mathfilters',
     'wagtail.contrib.wagtailstyleguide',
 ])
 
