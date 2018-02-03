@@ -103,7 +103,7 @@ def static_map(query, latitude=None, longitude=None, zoom=None, width=100, heigh
 
 
 @register.simple_tag(name='aos')
-def animation_name(name, alignment):
+def animation_name(name=None, alignment=None):
     if name:
         return name
 

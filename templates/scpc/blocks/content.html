@@ -37,7 +37,7 @@ The following blocks in this template can be extended:
             {% block section_image %}
                 {% if value.image %}
                     {% image value.image max-400x350 as section_image %}
-                    <div class="section__image" style="max-width: {{ section_image.width }}px" data-aos="fade-in">
+                    <div class="section__image" style="max-width: {{ section_image.width }}px">
                         <img src="{{ section_image.url }}" width="{{ section_image.width }}"
                              height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
                     </div>
@@ -58,16 +58,16 @@ The following blocks in this template can be extended:
                                     </div>
                                 </div>
                             {% else %}
-                                <h2 class="section__header" data-aos="{% aos animation align %}">{{ value.header }}</h2>
+                                <h2 class="section__header" data-aos="{% aos animation %}">{{ value.header }}</h2>
                             {% endif %}
                         {% endif %}
                     {% endblock %}
                     {% block section_subheader %}
                         {% if value.subheader %}
-                            <h3 class="section__subheader" data-aos="{% aos animation align %}">{{ value.subheader }}</h3>
+                            <h3 class="section__subheader" data-aos="{% aos animation %}">{{ value.subheader }}</h3>
                         {% endif %}
                     {% endblock %}
-                    <div class="section__subcontent" data-aos="{% aos animation align %}" data-aos-delay="250">
+                    <div class="section__subcontent" data-aos="{% aos animation %}">
                         {% block section_subcontent %}
                             {{ value.content|richtext }}
                         {% endblock %}
