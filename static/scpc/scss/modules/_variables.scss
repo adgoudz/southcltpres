@@ -280,17 +280,19 @@ $navbar-width: $title-width;
 $navbar-max-width: $title-max-width;
 
 $navbar-brand-height: 48px;  // Bootstrap
-$navbar-brand-width: 213px;
 
 
 // Navs
 
 $nav-py-ratio: 1/4;
 
-// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
 $nav-link-height: ($font-size-xs * $line-height-base) * $mobile-font-unit / 1rem;  // Strip unit
+
+// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
 $nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
-$nav-link-padding-x: 2rem;  // Bootstrap
+
+$nav-link-padding-x-sm: 1rem;  // Bootstrap
+$nav-link-padding-x-lg: 2rem;  // Bootstrap
 
 $nav-link-desktop-font-size: $font-size-xs;
 $nav-link-mobile-font-size: $font-size-2xl;

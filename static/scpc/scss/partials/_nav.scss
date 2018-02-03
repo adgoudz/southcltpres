@@ -39,10 +39,20 @@
 
   height: 36px;
 
-  &__text {
-    @include media-breakpoint-between($bp-navbar-expand, lg) {
+  &--large {
+    @include media-breakpoint-between(md, lg) {
       display: none;
     }
+
+    display: block;
+  }
+
+  &--small {
+    @include media-breakpoint-between(md, lg) {
+      display: block;
+    }
+
+    display: none;
   }
 }
 
@@ -57,13 +67,17 @@
   z-index: $zindex-navbar;
 
   .navbar-brand {
-    line-height: 0;
+    @include media-breakpoint-up($bp-navbar-expand) {
+      position: absolute;
+    }
+
+    margin-right: 0;  // Bootstrap override
+    line-height: 0;  // Bootstrap override
     z-index: $zindex-navbar-brand;
   }
 
   .navbar-collapse {
     @include media-breakpoint-up($bp-navbar-expand) {
-      transform: translateX(-$navbar-brand-width / 2);
       padding: 0;
     }
 
@@ -75,7 +89,7 @@
     margin: 0 auto;
 
     .nav-item {
-      position: relative;
+      position: relative;  // For positioning :after content
 
       &.active {
         @include nav-item-active($bottom: -$navbar-padding-y);
@@ -90,11 +104,17 @@
       @extend %nav-link-base;
 
       @include media-breakpoint-up($bp-navbar-expand) {
-        // Bootstrap nav-links in don't acknowledge $nav-link-padding-x in navbars
-        padding-left: $nav-link-padding-x !important;
-        padding-right: $nav-link-padding-x !important;
+        // Bootstrap nav-links set padding: 0 in navbars to accommodate mobile,
+        // however they reset the padding to 0.5rem for desktop and ignore
+        // $nav-link-padding-x altogether.
+        padding-left: $nav-link-padding-x-sm;
+        padding-right: $nav-link-padding-x-sm;
 
         font-size: $nav-link-desktop-font-size;
+      }
+      @include media-breakpoint-up(hires) {
+        padding-left: $nav-link-padding-x-lg;
+        padding-right: $nav-link-padding-x-lg
       }
 
       font-size: $nav-link-mobile-font-size;
