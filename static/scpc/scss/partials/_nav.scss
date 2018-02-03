@@ -40,7 +40,7 @@
   height: 36px;
 
   &--large {
-    @include media-breakpoint-between(md, lg) {
+    @include media-breakpoint-between(md, xl) {
       display: none;
     }
 
@@ -48,7 +48,7 @@
   }
 
   &--small {
-    @include media-breakpoint-between(md, lg) {
+    @include media-breakpoint-between(md, xl) {
       display: block;
     }
 
@@ -112,7 +112,7 @@
 
         font-size: $nav-link-desktop-font-size;
       }
-      @include media-breakpoint-up(hires) {
+      @include media-breakpoint-up(xl) {
         padding-left: $nav-link-padding-x-lg;
         padding-right: $nav-link-padding-x-lg
       }
