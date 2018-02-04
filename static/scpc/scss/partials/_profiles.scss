@@ -16,6 +16,7 @@
   min-width: $profile-min-width;
   margin-top: $spacing-y;
   margin-bottom: $spacing-y;
+  line-height: $line-height-xs;
   text-align: left;
 
   &__image {
@@ -60,7 +61,7 @@
       margin-right: .5em;  // Add spacing before social icons
     }
 
-    font-size: $font-size-xs;
+    font-size: $font-size-base * .9;  // We intentionally want this to be relative to the base size
     font-style: italic;
     text-transform: lowercase;
     color: $color-bg-2;
@@ -95,6 +96,7 @@
     min-width: 0;
     margin-top: 0;
     margin-bottom: 0;
+    line-height: $line-height-base;
 
     #{$root}__header {
       margin-bottom: $content-spacer-md;
