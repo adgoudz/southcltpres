@@ -7,3 +7,4 @@ https://control.divio.com/api/v1/apps/serve/aldryn-wagtail/1.9.0.1/17b86987-6db3
 # </INSTALLED_ADDONS>
 djangorestframework<3.7
 django-webpack-loader~=0.5
+django-mathfilters~=0.4

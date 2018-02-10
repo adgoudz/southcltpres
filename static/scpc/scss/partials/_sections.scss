@@ -1,189 +1,370 @@
 
+// section-spacing
+//
+// Default spacing behavior for section classes. Padding is set via the $section-p[x|y]
+// values and margin is avoided for the sake of simplicity. Spacing is increased at the
+// breakpoint set by $bp-content-width. Spacing is also increased for the
+// first and last sections in the page.
+//
+//   $ratio: An optional multiplier by which the spacing will be decreased or increased
+//   $leading-space: A flag to disable increasing leading space for the first section
+//   $trailing-space: A flag to disable increasing trailing space for the last section
 
-@mixin section() {
-  @include media-breakpoint-up(md) {
-    padding: ($section-py-lg / 2) $section-px-lg;
+@mixin section-spacing($ratio: 1, $leading-space: true, $trailing-space: true) {
+  @include media-breakpoint-up($bp-content-spacing) {
+    padding: spacing-y($section-py-lg, $ratio) $section-px-lg;
   }
 
-  padding: ($section-py / 2) $section-px;
+  padding: spacing-y($section-py-sm, $ratio) $section-px-sm;
+
+  //
+  // Double 'leading' padding if this is the first section and/or 'trailing' padding if
+  // this is the last section. We always include these pseudo-classes in case we're
+  // overriding.
+  //
 
   &:first-of-type {
-    @include media-breakpoint-up(md) {
-      padding-top: $section-py-lg;
+    $leading-multiplier: if($leading-space, 2, 1);
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
     }
 
-    padding-top: $section-py;
+    padding-top: spacing-y($section-py-sm, $ratio * $leading-multiplier);
   }
 
   &:last-of-type {
-    @include media-breakpoint-up(md) {
-      padding-bottom: $section-py-lg;
+    $trailing-multiplier: if($trailing-space, 2, 1);
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding-bottom: spacing-y($section-py-lg, $ratio * $trailing-multiplier);
     }
 
-    padding-bottom: $section-py;
+    padding-bottom: spacing-y($section-py-sm, $ratio * $trailing-multiplier);
   }
 }
 
+// inverse-section-spacing
+//
+// For sections which use a background. In this case margin should be used to further
+// distinguish the section and padding should never be doubled. For leading sections,
+// margin spacing is doubled to mimic the normal behavior of section top padding.
+// Spacing is removed entirely for trailing sections so that the section background
+// is flush with the footer. Intended to be used by modifier classes.
+//
+//   $ratio: An optional multiplier by which the spacing will be decreased or increased
+//   $leading-space: A flag to disable increasing leading space for the first section
 
-@mixin section-inverse() {
-  @include media-breakpoint-up(md) {
-    margin: ($section-py-lg / 2) 0;
+@mixin inverse-section-spacing($ratio: 1, $leading-space: true) {
+  @include media-breakpoint-up($bp-content-spacing) {
+    margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
-  margin: ($section-py / 2) 0;
+  margin: spacing-y($section-py-sm, $ratio) 0;
 
   &:first-of-type {
-    // Cut section padding in half
-    @include media-breakpoint-up(md) {
-      padding-top: ($section-py-lg / 2);
+    $leading-multiplier: if($leading-space, 2, 1);
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      margin-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
+      padding-top: spacing-y($section-py-lg, $ratio);  // Override
     }
 
-    margin-top: 0;
-    padding-top: ($section-py / 2);
+    margin-top: spacing-y($section-py-sm, $ratio * $leading-multiplier);
+    padding-top: spacing-y($section-py-sm, $ratio);  // Override
   }
 
   &:last-of-type {
-    // Cut section padding in half
-    @include media-breakpoint-up(md) {
-      padding-bottom: ($section-py-lg / 2);
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding-bottom: spacing-y($section-py-lg, $ratio);  // Override
     }
 
     margin-bottom: 0;
-    padding-bottom: ($section-py / 2);
+    padding-bottom: spacing-y($section-py-sm, $ratio);  // Override
   }
 }
 
+// flush-section-spacing
+//
+// For sections which shouldn't be padded but should still have margin (e.g. container
+// sections). Spacing is increased according to the behavior for standard sections.
+// Intended to be used by modifier classes.
+//
+//   $ratio: An optional multiplier by which the spacing will be decreased or increased
+//   $leading-space: A flag to disable increasing leading space for the first section
+//   $trailing-space: A flag to disable increasing trailing space for the last section
 
-@mixin section-flush($margin-factor: 2) {
-  @include media-breakpoint-up(md) {
-    margin: ($section-py-lg / $margin-factor) 0;
+@mixin flush-section-spacing($ratio: 1, $leading-space: true, $trailing-space: true) {
+  @include media-breakpoint-up($bp-content-spacing) {
+    margin: spacing-y($section-py-lg, $ratio) 0;
   }
 
-  margin: ($section-py / $margin-factor) 0;
-  padding: 0;
+  margin: spacing-y($section-py-sm, $ratio) 0;
+  padding: 0;  // Override
 
   &:first-of-type {
-    margin-top: 0;
-    padding-top: 0;  // Reset
+    $leading-multiplier: if($leading-space, 2, 1);
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      margin-top: spacing-y($section-py-lg, $ratio * $leading-multiplier);
+    }
+
+    margin-top: spacing-y($section-py-sm, $ratio * $leading-multiplier);
+    padding-top: 0;  // Override
   }
 
   &:last-of-type {
-    margin-bottom: 0;
-    padding-bottom: 0;  // Reset
+    $trailing-multiplier: if($trailing-space, 2, 1);
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      margin-bottom: spacing-y($section-py-lg, $ratio * $trailing-multiplier);
+    }
+
+    margin-bottom: spacing-y($section-py-sm, $ratio * $trailing-multiplier);
+    padding-bottom: 0;  // Override
+  }
+}
+
+// no-section-spacing
+//
+// For sections which shouldn't have _any_ surrounding space. Intended to be used by
+// modifier classes.
+
+@mixin no-section-spacing() {
+  @include media-breakpoint-up($bp-content-spacing) {
+    padding: 0;  // Override
+  }
+
+  padding: 0;  // Override
+
+  &:first-of-type {
+    padding-top: 0;  // Override
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;  // Override
+  }
+}
+
+// wide-section
+//
+// A section which should not be confined to $content-width at the breakpoint
+// determined by $bp-content-width. Instead this section will be confined only
+// by $max-width.
+//
+// Optionally a breakpoint name (string) can be passed in for $max-width. In this
+// case the section will be confined to a width which, when combined with horizontal
+// section padding, would equal the width defined by this breakpoint.
+//
+//   $max-width: A maximum width or breakpoint name for this section
+
+@mixin wide-section($max-width: $content-max-width, $root: &) {
+
+  @if type-of($max-width) == 'string' {
+    $breakpoint-names: map-keys($grid-breakpoints);
+
+    $content-font-bp-index: index($breakpoint-names, $bp-content-font);
+    $content-spacing-bp-index: index($breakpoint-names, $bp-content-spacing);
+    $max-width-bp-index: index($breakpoint-names, $max-width);
+
+    // Determine the appropriate section padding for this breakpoint (in pixels)
+    $section-px: if($max-width-bp-index < $content-spacing-bp-index, $section-px-sm, $section-px-lg);
+    $rem-unit: if($max-width-bp-index < $content-font-bp-index, $mobile-font-unit, $desktop-font-unit);
+
+    #{$root}__body {
+      max-width: map-get($grid-breakpoints, $max-width) - ($section-px * $rem-unit * 2 / 1rem);  // Strip unit
+      width: auto;  // Reset
+    }
+  }
+  @else {
+    #{$root}__body {
+      max-width: $max-width;
+      width: auto; // Reset
+    }
   }
 }
 
 
 .section {
-  @include section();
+  @include section-spacing();
 
   $root: &;
 
+  font-size: 1rem;  // Set font size for child em units
+
+  &__container {
+    // Extensible by modifier classes
+  }
+
   &__body {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up($bp-content-width) {
       width: $content-width;
-    }
-    @include media-breakpoint-up(lg) {
-      flex-direction: row;
-      align-items: start;
-      text-align: left;
-    }
-    @include media-breakpoint-up(xl) {
-      align-items: center;
+      max-width: $content-max-width;
     }
 
     display: flex;
     flex-direction: column;
-    align-items: center;  // aligns on cross-axis
+    align-items: center;  // Aligns on horizontal-axis
     margin: auto;
-    font-size: $font-size-base;
     text-align: center;
   }
 
-  //noinspection CssRedundantUnit
   &__image {
-    @include media-breakpoint-up(lg) {
-      margin-right: $content-px-md / 2;
-      margin-bottom: 0;
-    }
-
     flex: 0 5 auto;
-    width: 100%;
-    margin-bottom: $content-px-md / 2;
+    width: 100%;  // Influences flex-shrink
+    margin-right: 0;
+    margin-bottom: $content-spacer-lg;
 
     img {
       max-width: 100%;
-      max-height: 100%;
       height: auto;
     }
   }
 
-  //noinspection CssRedundantUnit
   &__content {
-    display: flex;
-    flex: 1 4 auto;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 100%;
+    flex: 1 3 auto;
+    width: 100%;  // Influences flex-shrink
+
+    p:last-child {
+      margin-bottom: 0;  // Override Bootstrap
+    }
   }
 
-  &__name {
-    @include media-breakpoint-up(lg) {
-      font-size: $font-size-xl;
+  &__header {
+    @include media-breakpoint-up($bp-content-font) {
+      font-size: $section-header-font-size-lg;
     }
 
-    margin-bottom: $content-px-md / 2;
-    font-family: $font-family-title;
-    font-size: $font-size-lg;
-    font-weight: $font-weight-bold;
-    color: $color-hl-3;
+    // Note: Most header font attributes are set by headings variables
+    margin-bottom: $content-spacer-lg;
+    font-size: $section-header-font-size-sm;
+
+    &:after {
+      content: '.';
+    }
+  }
+
+  &__subheader {
+    @include media-breakpoint-up($bp-content-font) {
+      font-size: $section-subheader-font-size-lg;
+    }
+
+    // Note: Other subheader font attributes are set by headings variables
+    margin-bottom: $content-spacer-md;
+    font-family: $section-subheader-font-family;
+    font-weight: $section-subheader-font-weight;
+    font-size: $section-subheader-font-size-sm;
+
+    &:after {
+      content: '.';
+    }
   }
 
   &__subcontent {
+    // Extensible by modifier classes
+  }
 
+  &__grid {
+    // Allow for optional separate row elements by making the grid a row itself
+    @include make-row();
+
+    justify-content: space-evenly;
+
+    // Replicate section__content treatment for paragraphs
     p:last-child {
-      margin-bottom: 0;  // Bootstrap override
+      margin-bottom: 0;  // Override Bootstrap
     }
   }
 
+
   // Alignment
+
 
   &--left, &--right {
 
-    #{$root}__content--flatten {
-      flex-direction: row;
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-row) {
+        align-items: start; // Aligns on vertical axis
+      }
+    }
 
-      #{$root}__name {
+    #{$root}__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #{$root}__image {
+      @include media-breakpoint-up($bp-content-row) {
+        margin-top: 0.25rem;  // Align with tops of headers
         margin-bottom: 0;
+      }
+    }
+
+    &#{$root}--floating {
+
+      #{$root}__content {
+        @include media-breakpoint-up($bp-content-row) {
+          flex-direction: row;
+        }
+      }
+
+      #{$root}__header {
+        @include media-breakpoint-up($bp-content-row) {
+          margin-bottom: 0;
+        }
+        @include media-breakpoint-up($bp-hires) {
+          //font-size: $font-size-xl;  // TODO Is this needed?
+        }
+
+        font-size: $section-header-floating-font-size;
       }
 
       #{$root}__subcontent {
-        flex: 1;
+        @include media-breakpoint-up($bp-content-row) {
+          flex: 1;
+        }
       }
+
     }
   }
 
   &--left {
 
-    #{$root}__content--flatten {
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-row) {
+        flex-direction: row;
 
-      #{$root}__name {
-        @include media-breakpoint-up(md) {
-          padding-right: $content-px-md;
-        }
+        // Only align on larger screens. When sections contain an image on smaller
+        // screens the image is centered and the text should be centered beneath it.
+        text-align: left;
+      }
+    }
 
-        padding-right: $content-px;
-        text-align: right;
+    #{$root}__image {
+      @include media-breakpoint-up($bp-content-row) {
+        margin-right: $content-spacer-lg;
+      }
+    }
+
+    &#{$root}--floating {
+
+      #{$root}__body {
+        // Floating sections don't contain images so we can align on small screens.
+        text-align: left;
       }
 
-      #{$root}__subcontent {
-        @include media-breakpoint-up(md) {
-          padding-left: $content-px-md;
+      @include media-breakpoint-up($bp-content-row) {
+
+        #{$root}__header {
+          padding-right: $content-spacer-lg;
+          text-align: right;
         }
 
-        padding-left: $content-px;
-        border-left: 1px solid $color-border;
-        text-align: left;
+        #{$root}__subcontent {
+          padding-left: $content-spacer-lg;
+          border-left: 1px solid $color-border;
+        }
+
       }
     }
   }
@@ -191,152 +372,226 @@
   &--right {
 
     #{$root}__body {
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up($bp-content-row) {
         flex-direction: row-reverse;
+
+        // Only align on larger screens. When sections contain an image on smaller
+        // screens the image is centered and the text should be centered beneath it.
+        text-align: right;
       }
     }
 
     #{$root}__image {
-      @include media-breakpoint-up(lg) {
-        margin-left: $content-px-md / 2;
-      }
-
-      margin-right: 0;
-    }
-
-    #{$root}__content {
-      @include media-breakpoint-up(lg) {
-        text-align: right;
+      @include media-breakpoint-up($bp-content-row) {
+        margin-left: $content-spacer-lg;
       }
     }
 
-    #{$root}__content--flatten {
+    &#{$root}--floating {
 
-      flex-direction: row-reverse;
-      padding-right: 0;
-
-      #{$root}__name {
-        @include media-breakpoint-up(md) {
-          padding-left: $content-px-md;
-        }
-
-        padding-left: $content-px;
-        text-align: left;
+      #{$root}__body {
+        // Floating sections don't contain images so we can align on small screens.
+        text-align: right;
       }
 
-      #{$root}__subcontent {
-        @include media-breakpoint-up(md) {
-          padding-right: $content-px-md;
+      @include media-breakpoint-up($bp-content-row) {
+
+        #{$root}__content {
+          flex-direction: row-reverse;
         }
 
-        padding-right: $content-px;
-        border-right: 1px solid $color-border;
-        text-align: right;
+        #{$root}__header {
+          padding-left: $content-spacer-lg;
+        }
+
+        #{$root}__subcontent {
+          padding-right: $content-spacer-lg;
+          border-right: 1px solid $color-border;
+          text-align: right;
+        }
+
       }
     }
   }
+
 
   // Location Section
 
+
   &--location {
-    @include section-flush();
+    @include flush-section-spacing();
 
-    #{$root}__body {
-      @include media-breakpoint-up(md) {
-        padding: ($section-py-lg / 2) $section-px-lg 0;
+    #{$root}__container {
+      @include media-breakpoint-up($bp-content-spacing) {
+        padding: spacing-y($section-py-lg, $ratio: $location-py-ratio) $section-px-lg 0;
       }
 
-      padding: ($section-py / 2) $section-px 0;
-
-      // Resets
-      display: block;
-      width: 100%;
-      margin: 0;
-    }
-
-    #{$root}__content {
-      @include media-breakpoint-up(md) {
-        width: $content-width;
-      }
-
-      margin: auto;
-
-      // Resets
-      display: block;
-    }
-
-    #{$root}__subcontent {
-      font-size: $font-size-md;
-      text-align: center;
-    }
-
-    #{$root}__social-icons {
-      margin-top: ($section-py / 2);
-      color: $color-hl-3;
-    }
-
-    .map {
-      @include media-breakpoint-up(md) {
-        height: 50vh;
-      }
-
-      height: 50vmax;
-      min-height: 300px;
-      background-color: $color-hl-2;
-    }
-
-    .address {
-      margin: 0 auto;
-      font-size: $font-size-lg;
-      text-align: center;
-
-      &__name {
-        font-weight: $font-weight-bold;
-      }
+      padding: spacing-y($section-py-lg, $ratio: $location-py-ratio) $section-px-sm 0;
     }
   }
 
+
   // Verse Section
 
-  &--verse {
-    @include section-inverse();
 
-    color: $color-hl-4;
-    background-color: $color-hl-1;
+  &--verse {
+    @include inverse-section-spacing();
+
+    font-style: italic;
+    letter-spacing: $letter-spacing-lg;
+    text-align: center;
+    color: $color-bg-3;
+    background-color: $color-bg-1;
 
     #{$root}__body {
       align-items: center;
     }
+  }
+
+
+  // Ministry Sections
+
+
+  &--life-groups {
+
+    // We coordinate bottom spacing in and around this section with the grid items
+    // that are also contained in this section. The ratios used here should match
+    // grid item margins to achieve evenly-distributed horizontal space.
 
     #{$root}__subcontent {
-      font-style: italic;
-      letter-spacing: 0.125em;
-      text-align: center;
+      margin-bottom: spacing-y($section-py-sm, $ratio: $life-group-py-ratio);
     }
 
-    #{$root}__verse {
-      margin-top: 1rem;
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $life-group-py-ratio);
+      }
+      @include media-breakpoint-up($bp-content-row) {
+        justify-content: flex-start;
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $life-group-py-ratio);
     }
   }
 
-  // Bio Section
 
-  &--bio {
+  // About Us Sections
 
 
+  &--vision {
+    @include wide-section($max-width: $vision-body-max-width, $root: $root);
+
+    // We coordinate bottom spacing in and around this section with the grid items
+    // that are also contained in this section. The ratios used here should match
+    // grid item margins to achieve evenly-distributed horizontal space.
+
+    #{$root}__content {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+      }
+      @include media-breakpoint-up($bp-content-width) {
+        width: 75%;
+      }
+
+      margin-bottom: spacing-y($section-py-sm, $ratio: $vision-py-ratio);
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $vision-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $vision-py-ratio);
+    }
   }
+
+
+  &--leadership {
+    @include section-spacing($ratio: $leadership-py-ratio);
+  }
+
+
+  &--staff {
+    @include section-spacing($ratio: $staff-py-ratio);
+    @include wide-section($max-width: $profile-body-max-width, $root: $root);
+
+    // We coordinate bottom spacing in this section with the grid items that are
+    // also contained in this section. The ratios used here should match grid item
+    // margins to achieve evenly-distributed horizontal space.
+
+    #{$root}__subheader {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+      }
+
+      margin-bottom: spacing-y($section-py-sm, $ratio: $profile-py-ratio);
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $profile-py-ratio);
+    }
+  }
+
+
+  // Beliefs Sections
+
+
+  &--gospel {
+    @include inverse-section-spacing();
+    @include wide-section($max-width: $bp-content-row, $root: $root);
+
+    color: $color-hl-4;
+    background-color: $color-hl-1;
+  }
+
+
+  &--doctrines {
+    @include wide-section($max-width: $bp-content-row, $root: $root);
+
+    // We coordinate bottom spacing in this section with the grid items that are
+    // also contained in this section. The ratios used here should match grid item
+    // margins to achieve evenly-distributed horizontal space.
+
+    #{$root}__content {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: $content-spacer-lg;
+      }
+
+      margin-bottom: $content-spacer-xl;
+    }
+
+    #{$root}__grid {
+      @include media-breakpoint-up($bp-content-spacing) {
+        margin-bottom: -1 * spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+      }
+
+      margin-bottom: -1 * spacing-y($section-py-sm, $ratio: $profile-py-ratio);
+    }
+  }
+
+
+  // Giving Section
+
+
+  &--giving {
+    @include wide-section($max-width: $bp-content-spacing, $root: $root);
+  }
+
 
   // Divider Section
 
+
   &--divider {
-    @include section-flush($margin-factor: 4);
+    @include no-section-spacing;
 
-    .hrule__text {
-      @include fluid-type(25em, 100em, 2em, 3em);
-
-      text-transform: lowercase;
-      letter-spacing: 0.125em;
-      color: $color-bg-3;
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding: 0 $section-px-lg;
     }
+
+    padding: 0 $section-px-sm;
   }
 }

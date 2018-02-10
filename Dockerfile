@@ -30,6 +30,10 @@ ENV NODE_PATH=$NVM_DIR/versions/node/v$NODE_VERSION/lib/node_modules \
 RUN bin/install-node.sh
 RUN bin/install-yarn.sh
 
+# Environment Variables
+ENV GOOGLE_API_KEY=
+ENV GA_TRACKING_ID=
+
 COPY . /app
 
 # Install and run webpack

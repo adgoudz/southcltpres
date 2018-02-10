@@ -1,6 +1,6 @@
 {
   "name": "southcltpres",
-  "version": "2.0",
+  "version": "3.0",
   "description": "South Charlotte Presbyterian Church",
   "main": "static/scpc/js/main.js",
   "repository": "adgoudz@bitbucket.org/adgoudz/southcltpres.git",
@@ -10,6 +10,7 @@
     "autoprefixer": "^7.1.3",
     "babel-cli": "^6.24.1",
     "babel-loader": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "browserslist": "^2.4.0",
     "clean-webpack-plugin": "^0.1.16",
@@ -27,6 +28,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "aos": "^2.2.0",
     "bootstrap": "^4.0.0-beta",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

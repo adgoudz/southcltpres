@@ -1,0 +1,137 @@
+
+.profile {
+  @include make-col-ready();
+
+  @include media-breakpoint-up($bp-content-spacing) {
+    $spacing-y: spacing-y($section-py-lg, $ratio: $profile-py-ratio);
+
+    margin-top: $spacing-y;
+    margin-bottom: $spacing-y;
+  }
+
+  $root: &;
+  $spacing-y: spacing-y($section-py-sm, $ratio: $profile-py-ratio);
+
+  width: $profile-max-width;
+  min-width: $profile-min-width;
+  margin-top: $spacing-y;
+  margin-bottom: $spacing-y;
+  line-height: $line-height-xs;
+  text-align: left;
+
+  &__image {
+
+    margin-bottom: $content-spacer-sm;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &__placeholder {
+
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: $content-spacer-md;
+    padding-bottom: 125%;  // Derives from profile width to create a 5:4 aspect ratio
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      margin-bottom: 0;  // Reset default paragraph margin
+      text-align: center;
+      text-transform: lowercase;
+    }
+  }
+
+  &__header {
+    // Extensible by modifier classes
+  }
+
+  &__name, &__title, &__email, &__social-icons {
+    margin-bottom: 0;  // Reset default paragraph margin
+  }
+
+  &__title {
+    @include media-breakpoint-up($bp-content-row) {
+      margin-right: .5em;  // Add spacing before social icons
+    }
+
+    font-size: $font-size-base * .9;  // We intentionally want this to be relative to the base size
+    font-style: italic;
+    text-transform: lowercase;
+    color: $dark-grey;
+  }
+
+  &__email {
+    // Potentially adding this later
+  }
+
+  &__social-icons {
+    margin-top: $content-shim;
+    font-size: $font-size-xs;
+    vertical-align: bottom;
+    color: $color-hl-3;
+  }
+
+  &--bio {
+    @include media-breakpoint-up($bp-content-row) {
+      text-align: inherit;
+    }
+
+    text-align: center;
+
+    // Reset column behavior
+    flex: initial;
+    width: auto;
+    max-width: none;
+    padding: 0;
+    min-height: 0;
+
+    // Reset profile behavior
+    min-width: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: $line-height-base;
+
+    #{$root}__header {
+      margin-bottom: $content-spacer-md;
+    }
+
+    #{$root}__name, #{$root}__title, #{$root}__social-icons  {
+      @include media-breakpoint-up($bp-content-row) {
+        display: inline-block;
+      }
+
+      display: block;
+      font-size: $font-size-md;  // Reset profile behavior
+      line-height: $line-height-base;  // Reset headings line-height
+    }
+
+    #{$root}__name {
+      @include media-breakpoint-up($bp-content-row) {
+        &:after {
+          content: '|';
+          margin: 0 .75rem;
+          font-size: inherit;
+          color: $color-bg-2;
+        }
+      }
+
+      color: $color-bg-3;  // Reset headings color
+    }
+
+    #{$root}__social-icons {
+      // Use an upper bound so we don't need to reset for larger screens
+      @include media-breakpoint-down($bp-content-row) {
+        margin-top: $content-spacer-xs;
+      }
+
+      font-size: $font-size-xs;
+    }
+  }
+}

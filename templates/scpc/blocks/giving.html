@@ -1,0 +1,38 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+{% load scpc %}
+
+{% block class_name %}section--giving{% endblock %}
+
+{% block section_content %}
+    <div data-aos="{% aos animation %}">
+        <div class="giving">
+            <div class="giving__subcontent">
+                {{ value.giving_content|richtext }}
+            </div>
+            <div class="giving__links">
+                <a class="btn btn-scpc-primary" href="{{ value.online_link_url }}" role="button">
+                    {{ value.online_link_name }}
+                </a>
+            </div>
+        </div>
+        <div class="hrule hrule--text">
+            <div class="hrule__hr">
+                <hr>
+            </div>
+            <p class="hrule__text">{{ value.mail_header }}</p>
+            <div class="hrule__hr">
+                <hr>
+            </div>
+        </div>
+        <div class="address address--sm">
+            {% with contact_info=value.contact_info %}
+                <span class="address__name">{{ contact_info.mailing_name }}</span><br/>
+                <span class="address__street">{{ contact_info.mailing_street }}</span><br/>
+                <span class="address__city">{{ contact_info.mailing_city }}</span><br/>
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}

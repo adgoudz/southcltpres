@@ -1,150 +1,163 @@
 
 
 $homepage-hero-sizes: (xs: 400px, md: 768px);
-$subpage-hero-sizes: (xs: 400px, md: 600px);
+$subpage-hero-sizes: (xs: 400px, lg: 600px);
 
 
-@mixin header() {
-  font-size: 1rem; // set font size for child em units
-}
+// Hero Images
 
 
-@mixin overlay() {
-  position: absolute;
-  z-index: $zindex-hero-overlay;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background-color: black;
-  opacity: 0.2;
-}
-
-
-@mixin hero($selector, $heights, $overlay: true) {
-
-  @at-root #{$selector} {
-    @include media-breakpoint-up(md) {
-      height: map-get($heights, md);
-    }
-
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: map-get($heights, xs);
-    color: $white;
-  }
-
-  img {
-    position: absolute;
-    z-index: $zindex-hero-image;
-    max-width: 100%;
-    height: auto;
-    top: 50%;
-    transform: translateY(-60%);
-  }
-
-  @if $overlay {
-    #{$selector}__overlay {
-      @include overlay();
-    }
-  }
-}
-
-
-// Homepage
-
-
-.notice {
+.hero {
 
   position: relative;
-  padding: 1rem 3rem;
+  overflow: hidden;
+  width: 100%;
+  font-size: 1rem; // Set font size for child em units
+  color: $white;
 
-  &__body {
-    @include media-breakpoint-up(md) {
-      width: $content-width;
-    }
-
-    margin: auto;
-    text-align: center;
-  }
-
-  &__content {
-    animation: fadein 0.75s ease-in;
-
-    @keyframes fadein {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-  }
-
-  &__close {
-    @include align-vertically();
-
+  img {
+    // Note: The transform property is set in-line
     position: absolute;
-    right: 1rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    line-height: 1;
-    opacity: .5;
-  }
-}
+    z-index: $zindex-hero-image;
 
-
-.home-header {
-
-  @mixin title() {
-    display: inline;
-    box-decoration-break: clone;
-    padding: 0.075em .75em 0.2em;  // logo font needs more bottom padding
-    line-height: 1.8;
-    font-family: $font-family-logo;
-  }
-
-  @include header();
-
-  &__notice {
-    color: $white;
-    background-color: $color-hl-3;
-
-    .notice__close {
-      color: $white;
-    }
-  }
-
-  &__body {
-    @include media-breakpoint-up(md) {
-      padding: ($section-py-lg / 2) $section-px-lg;
-    }
-
-    padding: ($section-py / 2) $section-px;
-  }
-
-  &__content {
-    @include media-breakpoint-up(md) {
-      width: $title-width;
-    }
-    @include media-breakpoint-up(xl) {
-      text-align: left;
+    @include media-breakpoint-up($bp-subpage-hero) {
+      width: 100%;
+      height: auto;
+      min-height: map-get($subpage-hero-sizes, lg);
     }
 
     width: auto;
+    min-width: 100%;
+    height: 100%;
+    min-height: map-get($subpage-hero-sizes, xs) * 1.25;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__overlay {
+    position: absolute;
+    z-index: $zindex-hero-overlay;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: black;
+    opacity: 0.4;
+  }
+
+  &__title {
+    @include align-vertically();
+
+    position: absolute;
+    z-index: $zindex-hero-title;
+    width: 100%;
+    font-family: $hero-title-font-family;
+    font-weight: $hero-title-font-weight;
+    letter-spacing: $hero-title-letter-spacing;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+
+    @include fluid-type($fluid-min-x, $fluid-max-x, 1.5em, 2.75em, $units: vmin);
+  }
+
+  &--home {
+    @include media-breakpoint-up($bp-homepage-hero) {
+      @include focus-background-y(50, 1900, 768);
+
+      height: map-get($homepage-hero-sizes, md);
+    }
+
+    height: map-get($homepage-hero-sizes, xs);
+    background: url("../images/heros/home.jpg") no-repeat;
+    background-size: cover;
+
+    @include focus-background-x(59, 1900, $device-widths);
+    @include focus-background-y(60, 911, 400);
+
+    img {
+      transform: translateY(-60%);
+    }
+  }
+
+  &--subpage {
+    @include media-breakpoint-up($bp-subpage-hero) {
+      height: map-get($subpage-hero-sizes, lg);
+    }
+
+    height: map-get($subpage-hero-sizes, xs);
+  }
+
+  &--top {
+    img {
+      top: 0;
+      bottom: auto;
+      transform: translateX(-50%);
+    }
+  }
+
+  &--bottom {
+    img {
+      top: auto;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+
+// Headers
+
+
+.header {
+
+  $root: &;
+
+  font-size: 1rem; // Set font size for child em units
+
+  &__container {
+    // We hard-code the header spacing ratio here because it affects padding-top only,
+    // and we want it to match the trailing spacing which is provided by the first
+    // section (i.e. via its padding-top). The latter _should_ also apply 2x spacing,
+    // specifically via .section:first-of-type.
+    $header-py-ratio: 2;
+
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding: spacing-y($header-py-lg, $ratio: $header-py-ratio) $header-px-lg  0;
+    }
+
+    padding: spacing-y($header-py-sm, $ratio: $header-py-ratio) $header-px-sm 0;
+  }
+
+  &__body {
+    @include media-breakpoint-up($bp-content-width) {
+      width: $content-width;
+      max-width: $content-max-width;
+    }
+
     margin: auto;
     text-align: center;
   }
 
   &__title {
 
-    h1 {
-      @include title();
-      @include fluid-type(25em, 100em, 1.25em, 3.5em);
+    h1, h2, h3, h4, h5, h6 {
+      @include title-type();
+
+      @include fluid-type(
+          $min-x: $fluid-min-x,
+          $max-x: $fluid-max-x,
+          $min-font-size: $header-title-font-size-min,
+          $max-font-size: $header-title-font-size-max
+      );
 
       background-color: $color-hl-3;
       color: white;
     }
 
     &--wide {
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up($bp-hires) {
         display: block;
       }
 
@@ -152,7 +165,7 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
     }
 
     &--narrow {
-      @include media-breakpoint-up(xl) {
+      @include media-breakpoint-up($bp-hires) {
         display: none;
       }
 
@@ -163,8 +176,14 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   &__subtitle {
 
     span {
-      @include title();
-      @include fluid-type(25em, 100em, 1em, 3em);
+      @include title-type();
+
+      @include fluid-type(
+          $min-x: $fluid-min-x,
+          $max-x: $fluid-max-x,
+          $min-font-size: $header-subtitle-font-size-min,
+          $max-font-size: $header-subtitle-font-size-max
+      );
 
       background-color: $color-bg-3;
       color: white;
@@ -172,210 +191,47 @@ $subpage-hero-sizes: (xs: 400px, md: 600px);
   }
 
   &__intro {
-    @include media-breakpoint-up(md) {
-      margin: 0;
-      font-size: $font-size-md;
-    }
+    @include fluid-type(
+        $min-x: $fluid-min-x,
+        $max-x: $fluid-max-x,
+        $min-font-size: $header-intro-font-size-min,
+        $max-font-size: $header-intro-font-size-max
+    );
 
-    margin: 0 auto;
-    padding-top: 3rem;
-    font-size: $font-size-base;
+    font-family: $header-intro-font-family;
+    font-weight: $header-intro-font-weight;
+    line-height: $header-intro-line-height;
+    letter-spacing: $header-intro-letter-spacing;
+    color: $header-intro-color;
 
     p {
       margin-bottom: 0;
     }
   }
-}
 
 
-@mixin title() {
-  @include align-vertically();
-
-  position: absolute;
-  z-index: $zindex-hero-title;
-  width: 100%;
-  font-family: $font-family-title;
-  text-align: center;
-  text-transform: uppercase;
-  color: $white;
-
-  @include fluid-type(25em, 100em, 1.5em, 4em, $units: vmin);
-}
+  // Home Header
 
 
-.home-hero {
+  &--home {
 
-  @include hero(&, $homepage-hero-sizes, $overlay: false);
-
-  @include media-breakpoint-up(md) {
-    @include focus-background-y(50, 1900, 768);
-  }
-
-  background: url("../images/heros/home.jpg") no-repeat;
-  background-size: cover;
-
-  @include focus-background-x(59, 1900, $device-widths);
-  @include focus-background-y(60, 911, 400);
-}
-
-
-// Ministries
-
-
-.ministries-header {
-
-  @include header();
-}
-
-
-.ministries-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
-// About us
-
-
-.about-us-header {
-
-  @include header();
-}
-
-
-.about-us-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
-// Gospel
-
-
-.gospel-header {
-
-  @include header();
-}
-
-
-.gospel-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
-// Giving
-
-
-.giving-header {
-
-  @include header();
-}
-
-
-.giving-hero {
-
-  @include hero(&, $subpage-hero-sizes);
-
-  &__title {
-    @include title();
-  }
-}
-
-
-// Landing
-
-
-.landing-header {
-
-  @mixin title() {
-    @include media-breakpoint-up(xl) {
-      margin-bottom: 1.5rem;
+    #{$root}__body {
+      @include media-breakpoint-up($bp-content-width) {
+        // Allow for scaling the home header body independently the page's content width
+        width: $title-width;
+        max-width: $title-max-width;
+      }
+      @include media-breakpoint-up($bp-hires) {
+        text-align: left;
+      }
     }
 
-    padding: 0.185em 1em 0.325em 1em;
-    margin-bottom: 0.75rem;
-    font-family: $font-family-logo;
-  }
-
-  @include cover($vmax: true);
-
-  width: 100%;
-  min-height: 360px;
-  font-size: 1rem; // set font size for child em units
-  color: $white;
-
-  &__overlay {
-    @include cover($vmax: true);
-
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    opacity: 0.3;
-    background: url("../images/heros/landing.jpg") no-repeat right;
-    background-size: cover;
-  }
-
-  &__body {
-    @include media-breakpoint-up(xl) {
-      height: calc(100% - 4em - 0.5rem); // see landing-header__base
+    #{$root}__intro {
+      padding-top: 3rem;
     }
-
-    height: calc(100vmax - 4em - 0.5rem); // see landing-header__base
-    z-index: 10;
   }
 
-  &__logo {
-    @include align-vertically(95%, $y: -100%);
-
-    @include media-breakpoint-up(xl) {
-      @include align-vertically(50%);
-      height: 20rem;
-    }
-
-    height: 75%;
-    opacity: 0.5;
-  }
-
-  &__title {
-    @include title();
-    @include fluid-type(25em, 75em, 1.5em, 3em, $units: vmin);
-
-    line-height: 1.3;
-    text-align: right;
-    background-color: rgba($color-hl-4, 0.75);
-  }
-
-  &__subtitle {
-    @include title();
-    @include fluid-type(25em, 75em, 1em, 2em, $units: vmin);
-
-    text-align: right;
-    background-color: rgba($color-bg-3, 0.75);
-  }
-
-  &__subtitle--inverse {
-    font-weight: $font-weight-bold;
-    background-color: rgba($color-bg-3, 0.75);
-    color: $color-bg-3;
-  }
-
-  &__base {
-    z-index: 5;
-    height: calc(4em + 0.5rem); // use ems to match Font Awesome's units
-    background-color: rgba($color-hl-2, 0.15);
+  &--subpage {
+    // Potential modifier class
   }
 }

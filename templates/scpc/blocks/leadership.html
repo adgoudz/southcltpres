@@ -1,0 +1,61 @@
+
+{% extends 'scpc/blocks/content.html' %}
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block class_name %}section--leadership{% endblock %}
+
+{% block section_image %}
+    {% if value.image %}
+        {% image value.image max-275x220 as section_image %}
+        <div class="section__image" style="max-width: {{ section_image.width }}px">
+            <img src="{{ section_image.url }}" width="{{ section_image.width }}"
+                 height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block section_content %}
+    <div class="profile profile--bio">
+        <div class="profile__header">
+            <h3 class="profile__name">{{ value.name }}</h3>
+            <span class="profile__title">{{ value.title }}</span>
+            <span class="profile__social-icons">
+            {% if value.twitter_url %}
+                <a href="{{ value.twitter_url }}" class="icon-link icon-link--compact">
+                    <span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                    </span>
+                </a>
+            {% endif %}
+            {% if value.facebook_url %}
+                <a href="{{ value.facebook_url }}" class="icon-link icon-link--compact">
+                    <span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                    </span>
+                </a>
+            {% endif %}
+            {% if value.instagram_url %}
+                <a href="{{ value.instagram_url }}" class="icon-link icon-link--compact">
+                    <span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                    </span>
+                </a>
+            {% endif %}
+            {% if value.email %}
+                <a href="mailto:{{ value.email }}" class="icon-link icon-link--compact">
+                    <span class="fa-stack">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                    </span>
+                </a>
+            {% endif %}
+            </span>
+        </div>
+        {{ value.bio|richtext }}
+    </div>
+{% endblock %}

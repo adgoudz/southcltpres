@@ -1,4 +1,7 @@
 
+$white: #fff;
+$black: #000;
+
 $default-green: #008275;
 $default-grey: #4b5351;
 
@@ -12,6 +15,7 @@ $silver-sand: #bec1c1;
 $outer-space: #454c4a;
 
 $light-grey: #d1d4d4;
+$dark-grey: #797b7b;
 
 // Defaults
 
@@ -25,3 +29,6 @@ $color-bg-2: $silver-sand;
 $color-bg-3: $outer-space;
 
 $color-border: $light-grey;
+
+$color-btn-default: $color-hl-3;
+$color-btn-active: $color-bg-3;

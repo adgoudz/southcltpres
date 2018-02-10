@@ -7,3 +7,12 @@
        url('../fonts/BourtonHandLineBold.woff') format('woff'),
        url('../fonts/BourtonHandLineBold.ttf') format('truetype');
 }
+
+@mixin title-type() {
+  display: inline;
+  box-decoration-break: clone;
+  padding: 0.075em .75em 0.2em;  // Logo font needs more bottom padding
+  line-height: 1.8;
+  font-family: BourtonHandLineBold, $font-family-sans-serif;
+  text-transform: uppercase;
+}

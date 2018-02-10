@@ -1,53 +1,38 @@
 {% extends "base.html" %}
 
-{% load static %}
 {% load wagtailcore_tags %}
-
-{% load render_bundle from webpack_loader %}
+{% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="home-header">
-        <div class="home-header__notice notice">
-            <div class="notice__body">
-                <span class="notice__content">{{ page.alert }}</span>
-            </div>
-            <button type="button" class="notice__close close">
-              <span>&times;</span>
-            </button>
-        </div>
-        <div class="home-hero" id="hero" data-focus-x="59" data-focus-y="50">
-            <div class="home-hero__overlay"></div>
-        </div>
-        <div class="home-header__body">
-            <div class="home-header__content">
-                <div class="home-header__title home-header__title--wide">
+    <header class="header header--home">
+        <div class="hero hero--home" id="hero" data-focus-x="59" data-focus-y="50"></div>
+        <div class="header__container">
+            <div class="header__body">
+                <div class="header__title header__title--wide">
                     <h1>South Charlotte Presbyterian Church</h1>
                 </div>
-                <div class="home-header__title home-header__title--narrow">
+                <div class="header__title header__title--narrow">
                     <h1>South Charlotte</h1>
                 </div>
-                <div class="home-header__title home-header__title--narrow">
+                <div class="header__title header__title--narrow">
                     <h1>Presbyterian Church</h1>
                 </div>
-                <div class="home-header__subtitle">
+                <div class="header__subtitle">
                     <span>{{ page.subtitle }}</span>
                 </div>
-                <div class="home-header__intro">
+                <div class="header__intro" data-aos="fade" data-aos-delay="250">
                     {{ page.introduction|richtext }}
                 </div>
             </div>
         </div>
     </header>
 
-{% for block in page.sections %}
-    {% if block.block_type in 'text|bio' %}
-        {% cycle 'left' 'right' as align silent %}
-    {% endif %}
-    {% include_block block with type=block.block_type %}
-{% endfor %}
+    {% for block in page.content %}
+        {% include_block block with type=block.block_type %}
+    {% endfor %}
 
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
 {% endblock %}

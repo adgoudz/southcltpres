@@ -1,0 +1,15 @@
+
+.giving {
+
+  &__subcontent {
+
+  }
+
+  &__links {
+    @include media-breakpoint-up($bp-content-spacing) {
+      padding: spacing-y($section-py-lg, $ratio: $giving-links-py-ratio) 0;
+    }
+
+    padding: spacing-y($section-py-sm, $ratio: $giving-links-py-ratio) 0;
+  }
+}

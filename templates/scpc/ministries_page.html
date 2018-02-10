@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
-{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <header class="ministries-header">
-        <div class="ministries-hero">
-            <div class="ministries-hero__overlay"></div>
-            <h1 class="ministries-hero__title">{{ page.title }}</h1>
-            {% image page.hero_image min-1900x768 %}
+    <header class="header header--subpage">
+        <div class="hero hero--subpage{% if page.hero_align != 'middle' %} hero--{{ page.hero_align }}{% endif %}">
+            <div class="hero__overlay"></div>
+            <h1 class="hero__title">{{ page.title }}</h1>
+            {% image page.hero_image min-1900x768 as hero_image %}
+            <img src="{{ hero_image.url }}" width="{{ hero_image.width }}"
+                 height="{{ hero_image.height }}" alt="{{ hero_image.alt }}"
+                 {% if page.hero_align == 'middle' %}style="transform: translateX(-50%) translateY(-{{ page.hero_y }}%);"{% endif %}/>
         </div>
     </header>
 
-{% for block in page.sections %}
-    {% cycle 'left' 'right' as align silent %}
-    {% include_block block %}
-{% endfor %}
+    {% for block in page.content %}
+        {% cycle 'left' 'right' as align silent %}
+        {% include_block block with align=align type=block.block_type %}
+    {% endfor %}
 
 {% endblock %}

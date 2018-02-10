@@ -1,0 +1,82 @@
+
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load scpc %}
+
+{% comment %}
+A generic content section, potentially containing an image, header, and/or subheader.
+The following options can be used:
+
+  type       An optional name for a modifier class, e.g. 'vision' would result in using 'section--vision'.
+  align      Aligns the content 'left' or 'right' (larger screens only).
+  floating   Floats the header to either the left or the right. Requires 'align'. Cannot be used with images.
+  hrule      Displays the header as a horizontal rule. Cannot be used with 'floating'.
+  animation  The animation to use for the text in this section. Defaults to a fade based on this section's alignment.
+
+The following blocks in this template can be extended:
+
+  class_name          See the type option above. The full class name can be provided here.
+  section_image       An image to be used with this section (must include container)
+  section_content     The contents of section__content
+  section_subcontent  The contents of section__subcontent
+  section_header      The section__header element
+  section_subheader   The section__subheader element
+  section_grid        An optional section__grid to be appended after this section's content
+
+{% endcomment %}
+
+{% with align=align|default:''|lower %}
+    <section class="{% shrinkwrap %}
+        section
+        {% block class_name %}{% if type %}section--{{ type|friendly_type }}{% endif %}{% endblock %}
+        {% if align == 'right'%}section--right{% if not value.image and floating %} section--floating{% endif %}
+        {% elif align == 'left'%}section--left{% if not value.image and floating %} section--floating{% endif %}
+        {% endif %}
+        {% endshrinkwrap %}">
+        <div class="section__body">
+            {% block section_image %}
+                {% if value.image %}
+                    {% image value.image max-400x350 as section_image %}
+                    <div class="section__image" style="max-width: {{ section_image.width }}px">
+                        <img src="{{ section_image.url }}" width="{{ section_image.width }}"
+                             height="{{ section_image.height }}" alt="{{ section_image.alt }}"/>
+                    </div>
+                {% endif %}
+            {% endblock %}
+            <div class="section__content">
+                {% block section_content %}
+                    {% block section_header %}
+                        {% if value.header %}
+                            {% if not floating and hrule %}
+                                <div class="hrule hrule--header">
+                                    <div class="hrule__hr">
+                                        <hr>
+                                    </div>
+                                    <h2 class="hrule__text">{{ value.header }}</h2>
+                                    <div class="hrule__hr">
+                                        <hr>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <h2 class="section__header" data-aos="{% aos animation %}">{{ value.header }}</h2>
+                            {% endif %}
+                        {% endif %}
+                    {% endblock %}
+                    {% block section_subheader %}
+                        {% if value.subheader %}
+                            <h3 class="section__subheader" data-aos="{% aos animation %}">{{ value.subheader }}</h3>
+                        {% endif %}
+                    {% endblock %}
+                    <div class="section__subcontent" data-aos="{% aos animation %}">
+                        {% block section_subcontent %}
+                            {{ value.content|richtext }}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            </div>
+            {% block section_grid %}
+                {# Optional #}
+            {% endblock %}
+        </div>
+    </section>
+{% endwith %}

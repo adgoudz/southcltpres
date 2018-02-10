@@ -1,5 +1,5 @@
 //
-// The following override and/or supplement variables defined by Bootstrap.
+// The following supplement and/or override variables defined by Bootstrap.
 // See bootstrap/scss/_variables.scss.
 //
 
@@ -20,80 +20,286 @@ $sizes: (
   100: 100%
 );
 
+
+// Options
+//
+// These affect Bootstrap-specific behavior.
+
+$enable-rounded: false;
+
+
+// Breakpoints
+//
+// Extensions and references for affecting responsive behavior globally.
+
 // Extend Bootstrap's breakpoints
 $grid-breakpoints: (
-  xxs: 0,
-  xs: 480px,
+  unused: 0,
+  xs: 375px,
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1366px
+  xl: 1200px,
+  hires: 1400px
 );
 
-// Device widths
+$bp-homepage-hero: md;
+$bp-subpage-hero: lg;
+
+$bp-navbar-expand: md;
+$bp-navbar-width: xl;
+
+$bp-content-font: md;
+$bp-content-spacing: md;
+$bp-content-row: lg;
+$bp-content-width: xl;
+
+$bp-hires: hires;
 
 $phone-widths: 320 360 375 412 480;
 $tablet-widths: 768 1024;
 $desktop-widths: 1366 1440 1920;
 $device-widths: join($phone-widths, join($tablet-widths, $desktop-widths));
 
-// Sizes
 
-$title-width: 75%;
-$content-width: 65%;
+// Z Index
+//
+// Layering for each element.
 
-$navbar-width: $title-width;
-$navbar-padding-x: 2rem;
-$navbar-padding-y: 1rem;
+$zindex-hero-image: 0;
+$zindex-hero-overlay: 10;
+$zindex-hero-title: 20;
+$zindex-navbar: 30;
+$zindex-navbar-brand: 35;
 
-$navbar-brand-width: 213px;
 
-$nav-link-padding-y: 1rem;
-
-$content-width: $content-width;
-
-// Padding and margins
-
-$section-py: 8rem;
-$section-py-lg: 14rem;
-$section-px: 1.5rem;
-$section-px-lg: 3rem;
-
-$content-px: 2rem;
-$content-px-md: 4rem;
-
-// Font families
+// Typography
+//
+// Font families, weights, sizes, and line heights.
 
 // Note: This is duplicated from Bootstrap because Bootstrap
 //       isn't loaded prior to loading the current partial
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
 $font-family-logo: BourtonHandLineBold;
-$font-family-title: Lato, $font-family-sans-serif;
-$font-family-base: Lato, $font-family-sans-serif;
+$font-family-header: Raleway, $font-family-sans-serif;
+$font-family-base: Lato, $font-family-sans-serif;  // Bootstrap
 
-// Font weights
+// These variables are to be used by the reset partial only. They are specified
+// here to influence the definition of subsequent variables in this partial.
+$mobile-font-unit: 16px;
+$desktop-font-unit: 18px;
 
-$font-weight-light: 300;
-$font-weight-regular: normal;
-$font-weight-bold: bold;
-$font-weight-title: $font-weight-bold;
-$font-weight-base: $font-weight-regular;
-
-// Font sizes (requires rems)
-
-$font-size-xs: .875rem;
-$font-size-sm: 1rem;
+$font-size-xs: .8rem;
+$font-size-sm: 1rem;  // Bootstrap
 $font-size-md: 1.2rem;
-$font-size-lg: 1.4rem;
-$font-size-xl: 2rem;
-$font-size-base: $font-size-sm;
-$line-height-base: 1.4;
+$font-size-lg: 1.5rem;  // Bootstrap
+$font-size-xl: 1.8rem;
+$font-size-2xl: 2rem;
+$font-size-base: $font-size-sm;  // Bootstrap
 
-// Z Index
+$font-weight-light: 300;  // Bootstrap
+$font-weight-regular: 400;  // Bootstrap
+$font-weight-bold: 700;  // Bootstrap
+$font-weight-base: $font-weight-light;  // Bootstrap
 
-$zindex-hero-image: 0;
-$zindex-hero-overlay: 10;
-$zindex-hero-title: 20;
+$letter-spacing-sm: 0.025em;
+$letter-spacing-md: 0.05em;
+$letter-spacing-lg: 0.125em;
 
+$line-height-xs: 1.3;
+$line-height-sm: 1.5;  // Bootstrap
+$line-height-lg: 1.6;  // Bootstrap
+$line-height-base: $line-height-sm;  // Bootstrap
+
+$headings-margin-bottom: 0;  // Bootstrap
+$headings-font-family: $font-family-header;  // Bootstrap
+$headings-font-weight: $font-weight-regular;  // Bootstrap
+$headings-letter-spacing: $letter-spacing-md;
+$headings-color: $color-hl-3;
+
+// Override Bootstrap and delegate heading sizes to classes
+$h1-font-size: 1rem;
+$h2-font-size: 1rem;
+$h3-font-size: 1rem;
+$h4-font-size: 1rem;
+$h5-font-size: 1rem;
+$h6-font-size: 1rem;
+
+$dt-font-weight: $font-weight-regular;  // Bootstrap
+
+
+// Paragraphs
+
+$paragraph-margin-bottom: 1.5rem;  // Bootstrap
+
+
+// Headers
+
+$header-py-sm: 6rem;
+$header-py-lg: 10rem;
+$header-px-sm: 2.5rem;
+$header-px-lg: 6rem;
+
+$header-title-font-size-min: 1.25rem;
+$header-title-font-size-max: 3rem;
+
+$header-subtitle-font-size-min: 1rem;
+$header-subtitle-font-size-max: 2.5rem;
+
+$header-intro-font-family: $font-family-base;
+$header-intro-font-size-min: $font-size-md;
+$header-intro-font-size-max: $font-size-lg;
+$header-intro-font-weight: $font-weight-base;
+$header-intro-line-height: $line-height-lg;
+$header-intro-letter-spacing: $letter-spacing-sm;
+$header-intro-color: $color-bg-3;
+
+
+// Heroes
+
+$hero-title-font-family: $font-family-base;
+$hero-title-font-weight: $font-weight-light;
+$hero-title-letter-spacing: $letter-spacing-lg;
+
+
+// Sections
+
+$section-py-sm: $header-py-sm;
+$section-py-lg: $header-py-lg;
+$section-px-sm: $header-px-sm;
+$section-px-lg: $header-px-lg;
+
+$content-shim: 0.25rem;
+$content-spacer-xs: 0.5rem;
+$content-spacer-sm: 0.75rem;
+$content-spacer-md: 1rem;
+$content-spacer-lg: 1.6rem;
+$content-spacer-xl: 2rem;
+
+$image-max-height-sm: 300px;
+$image-max-height-lg: 400px;
+
+$section-header-font-size-sm: $font-size-lg;
+$section-header-font-size-lg: $font-size-xl;
+$section-header-floating-font-size: $font-size-lg;
+
+$section-subheader-font-size-sm: $font-size-lg;
+$section-subheader-font-size-lg: $font-size-lg;
+$section-subheader-font-family: $font-family-base;
+$section-subheader-font-weight: $font-weight-base;
+
+
+// Horizontal Rules
+
+$hrule-text-font-family: $font-family-base;
+$hrule-text-font-size: $font-size-lg;
+$hrule-text-font-weight: $font-weight-base;
+$hrule-text-font-style: italic;
+$hrule-text-letter-spacing: $letter-spacing-lg;
+$hrule-text-color: $headings-color;
+$hrule-header-py-ratio: 1/2;
+
+$hrule-header-font-family: $headings-font-family;
+$hrule-header-font-size: $font-size-lg;
+$hrule-header-font-weight: $headings-font-weight;
+$hrule-header-font-style: normal;
+$hrule-header-letter-spacing: $headings-letter-spacing;
+$hrule-header-color: $hrule-text-color;
+$hrule-text-py-ratio: 1/2;
+
+$hrule-divider-font-family: $headings-font-family;
+$hrule-divider-font-size: $font-size-xl;
+$hrule-divider-font-weight: $headings-font-weight;
+$hrule-divider-font-style: normal;
+$hrule-divider-letter-spacing: $headings-letter-spacing;
+$hrule-divider-color: $hrule-text-color;
+$hrule-divider-py-ratio: 2/3;
+
+
+// Buttons
+
+$btn-font-size: $font-size-xs;
+$btn-font-weight: $font-weight-base;  // Bootstrap
+
+$input-btn-padding-y: .6rem;  // Bootstrap
+$input-btn-padding-x: 1.5rem;  // Bootstrap
+
+
+// Page Behavior
+
+$title-width: 80%;
+$title-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $title-width / 100%;  // Strip units
+
+$content-width: 70%;
+$content-max-width: (1920px - ($section-px-lg * $desktop-font-unit * 2 / 1rem)) * $content-width / 100%;  // Strip units
+
+$fluid-min-x: 25em;
+$fluid-max-x: 100em;
+
+$location-py-ratio: 1;
+$leadership-py-ratio: 2/3;
+$staff-py-ratio: 2/3;
+$giving-links-py-ratio: 2/3;
+
+
+// Grid Columns
+
+$grid-gutter-width: 50px;  // Bootstrap
+
+// Max-widths for section bodies which contain grids are calculated by subtracting an arbitrarily-small
+// width (in this case, 10px) from the minimum width which would allow N + 1 grid items to fit on a
+// single row. Because grid rows specify a cumulative negative margin of $grid-gutter-width, they are
+// wider than the section body by that same amount. Hence we subtract this amount to calculate a body
+// width which would result in the appropriate grid row width.
+
+$life-group-min-width: calc(#{277px + $grid-gutter-width} + 1rem);
+$life-group-max-width: 465px;
+$life-group-py-ratio: 1/4;
+
+$profile-min-width: 180px;
+$profile-max-width: 240px;
+$profile-max-cols: 4;
+$profile-body-max-width: $profile-max-width * ($profile-max-cols + 1) - $grid-gutter-width - 10px;
+$profile-py-ratio: $staff-py-ratio / 2;
+
+$vision-min-width: 200px;
+$vision-max-width: 340px;
+$vision-max-cols: 3;
+$vision-body-max-width: $vision-max-width * ($vision-max-cols + 1) - $grid-gutter-width - 10px;
+$vision-py-ratio: 1/2;
+
+
+// Navbar
+
+$navbar-padding-y: 1rem;  // Bootstrap
+$navbar-padding-x: 2rem;  // Bootstrap
+
+$navbar-brand-padding-y: 0;  // Bootstrap
+
+$navbar-width: $title-width;
+$navbar-max-width: $title-max-width;
+
+$navbar-brand-height: 48px;  // Bootstrap
+
+
+// Navs
+
+$nav-py-ratio: 1/4;
+
+$nav-link-height: ($font-size-xs * $line-height-base) * $mobile-font-unit / 1rem;  // Strip unit
+
+// Compute the nav-link padding-y so the nav-link will have the same height as navbar-brand
+$nav-link-padding-y: ($navbar-brand-height - $nav-link-height) / 2;  // Bootstrap
+
+$nav-link-padding-x-sm: 1rem;  // Bootstrap
+$nav-link-padding-x-lg: 2rem;  // Bootstrap
+
+$nav-link-desktop-font-size: $font-size-xs;
+$nav-link-mobile-font-size: $font-size-2xl;
+$nav-link-font-family: $font-family-base;
+$nav-link-font-weight: $font-weight-base;
+$nav-link-letter-spacing: $letter-spacing-md;
+$nav-link-color: $black;
+$nav-link-active-color: $color-hl-3;
 

@@ -1,20 +1,24 @@
 
-html, body {
-  @include media-breakpoint-up(lg) {
-    font-size: 16px;
+html {
+  @include media-breakpoint-up($bp-content-font) {
+    font-size: $desktop-font-unit;
   }
 
+  font-size: $mobile-font-unit;
+  line-height: $line-height-base;
+}
+
+body {
   width: 100%;
   height: 100%;
   min-width: 320px;
-  line-height: $line-height-base;
-  font-family: $font-family-base;
-  font-size: 14px;
-  font-weight: $font-weight-regular;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 0;
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  // Bootstrap variables aren't available for the following:
+  letter-spacing: $headings-letter-spacing;
+  color: $headings-color;
 }
 
 a {
