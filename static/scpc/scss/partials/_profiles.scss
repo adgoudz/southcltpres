@@ -64,7 +64,7 @@
     font-size: $font-size-base * .9;  // We intentionally want this to be relative to the base size
     font-style: italic;
     text-transform: lowercase;
-    color: $color-bg-2;
+    color: $dark-grey;
   }
 
   &__email {

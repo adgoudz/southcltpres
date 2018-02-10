@@ -15,7 +15,7 @@ const defaultBackgroundHeight = 1267;
 
 // Initialize animations
 AOS.init({
-    duration: 1200,
+    duration: 1000,
     easing: 'ease-out',
     offset: 50,
     once: true,
