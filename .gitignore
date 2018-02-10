@@ -33,6 +33,7 @@ requirements.urls
 *.tar
 *.gz
 .idea
+.python-version
 stats.json
 static/bundles
 static/webpack-stats.json
