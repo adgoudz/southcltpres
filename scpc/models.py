@@ -205,7 +205,7 @@ class StaffProfile(BaseProfile):
 class Doctrine(models.Model):
     """A single doctrine in the summary of the church's theology."""
     header = models.CharField(max_length=25)
-    content = models.TextField(max_length=200)
+    content = models.TextField(max_length=300)
 
     panels = [
         FieldPanel('header'),
