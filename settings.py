@@ -37,12 +37,29 @@ TEMPLATES[0]['OPTIONS']['context_processors'].append(
 )
 
 # Wagtail settings
+
 WAGTAIL_ENABLE_UPDATE_CHECK = False
+WAGTAIL_PASSWORD_RESET_ENABLED = False
+WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 
 # Django settings
+
 USE_TZ = True
 
+# The following email settings are set in test/production environments via the EMAIL_URL
+# environment variable (via dj-email-url). They can be uncommented here to test email from
+# local machines.
+# EMAIL_HOST = 'smtp-relay.gmail.com'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+SERVER_EMAIL = 'webmaster@southcltpres.org'
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
+
 # Webpack settings
+
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
